@@ -2139,9 +2139,6 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   /* ── 16. BACK TO TOP ── */
   .back-top { right: 16px; width: 42px; height: 42px; }
 
-  /* ── 17. LODGIFY MODAL ── */
-  .lodgify-modal { height: 92vh; }
-  .lodgify-modal__head { padding: 1rem; }
 }
 
 /* =========================================================
@@ -2171,151 +2168,6 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   .dest__city { font-size: 20px; }
 }
 
-/* ── Lodgify Modal ── */
-.lodgify-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  backdrop-filter: blur(4px);
-}
-
-.lodgify-modal {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  width: 100%;
-  max-width: 960px;
-  height: 85vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.lodgify-modal__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--line);
-  flex-shrink: 0;
-}
-
-.lodgify-modal__brand {
-  font-family: 'Fraunces', serif;
-  font-size: 1.1rem;
-  letter-spacing: .12em;
-  color: var(--accent);
-  display: block;
-}
-
-.lodgify-modal__sub {
-  font-size: .7rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--fg-dim);
-}
-
-.lodgify-modal__close {
-  background: none;
-  border: 1px solid var(--line);
-  color: var(--fg-dim);
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: .9rem;
-  transition: border-color .2s, color .2s;
-}
-.lodgify-modal__close:hover { border-color: var(--accent); color: var(--accent); }
-
-.lodgify-modal__body {
-  flex: 1;
-  overflow: hidden;
-}
-.lodgify-modal__body iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-/* ── Lodgify setup / loading states ── */
-.lodgify-setup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 3rem 2rem;
-  height: 100%;
-  gap: 1rem;
-  color: var(--fg);
-}
-.lodgify-setup__icon { font-size: 3rem; }
-.lodgify-setup h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--accent); margin: 0; }
-.lodgify-setup p { color: var(--fg-dim); max-width: 480px; line-height: 1.7; margin: 0; }
-.lodgify-setup ol { text-align: left; color: var(--fg-dim); line-height: 2; padding-left: 1.5rem; margin: 0; }
-.lodgify-setup strong { color: var(--fg); }
-.lodgify-setup code { background: var(--line); padding: .1em .4em; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: .85em; color: var(--accent); }
-
-.lodgify-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 1rem;
-  color: var(--fg-dim);
-}
-.lodgify-loading__spinner {
-  width: 2rem; height: 2rem;
-  border: 2px solid var(--line);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── Lodgify CSS variables (BNB + PSB — follow active theme/season) ── */
-:root {
-  --ldg-bnb-background:            var(--surface);
-  --ldg-bnb-border-radius:         2px;
-  --ldg-bnb-box-shadow:            none;
-  --ldg-bnb-padding:               16px;
-  --ldg-bnb-input-background:      var(--bg-alt);
-  --ldg-bnb-button-border-radius:  2px;
-  --ldg-bnb-color-primary:         var(--accent);
-  --ldg-bnb-color-primary-lighter: var(--accent-2);
-  --ldg-bnb-color-primary-darker:  var(--fg-dim);
-  --ldg-bnb-color-primary-contrast:#fff;
-  --ldg-component-calendar-cell-selection-bg-color: var(--accent);
-  --ldg-component-calendar-cell-selection-color:    #fff;
-  --ldg-component-calendar-cell-selected-bg-color:  var(--accent-2);
-  --ldg-component-calendar-cell-selected-color:     var(--fg);
-  --ldg-bnb-font-family: 'Inter', sans-serif;
-
-  --ldg-psb-background:            var(--surface);
-  --ldg-psb-border-radius:         2px;
-  --ldg-psb-box-shadow:            0 8px 32px rgba(0,0,0,0.12);
-  --ldg-psb-padding:               14px;
-  --ldg-psb-input-background:      var(--bg-alt);
-  --ldg-psb-button-border-radius:  2px;
-  --ldg-psb-color-primary:         var(--accent);
-  --ldg-psb-color-primary-lighter: var(--accent-2);
-  --ldg-psb-color-primary-darker:  var(--fg-dim);
-  --ldg-psb-color-primary-contrast:#fff;
-  --ldg-semantic-color-primary:         var(--accent);
-  --ldg-semantic-color-primary-lighter: var(--accent-2);
-  --ldg-semantic-color-primary-darker:  var(--fg-dim);
-  --ldg-semantic-color-primary-contrast:#fff;
-  --ldg-component-modal-z-index: 9999;
-}
-
 /* ── Hero bar — search widget pinned at bottom of hero ── */
 .hero { position: relative; }
 
@@ -2332,8 +2184,6 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   padding: 2rem var(--side-pad) 0;
   grid-column: 1 / -1;
 }
-
-#lodgify-search-bar { width: 100%; }
 
 /* ── Booking Panel ── */
 .bp-overlay {
@@ -2433,8 +2283,6 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   display: flex;
   flex-direction: column;
 }
-#lodgify-book-now-box { width: 100%; }
-
 .bp__foot {
   padding: 1rem 1.75rem 1.5rem;
   border-top: 1px solid var(--line);
