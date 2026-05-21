@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html><head>
+<base target="_blank">
+<style type='text/css'>@import url(//d2uyahi4tkntqv.cloudfront.net/assets/shared.booknow.css?v=1.0.0);</style>
+<style type='text/css'>@import url(//d2uyahi4tkntqv.cloudfront.net/assets/search_widget.css?v=1.0.0);</style>
+<style>html,body{margin:0;padding:0;background:transparent;overflow:visible;}</style>
+</head><body>
+<div id="hr_search_widget"></div>
+<script id="hr_widget_script" async='true' src="//le-zenith-hotel-spa.hotelrunner.com/widgets/9c82afd0f4c2a79875f0/search_widget.js?v=1.0.0"></script>
+<script>
+  /* ── Intercepter toute navigation hors de l'iframe et l'ouvrir dans un nouvel onglet ── */
+  (function() {
+    function sendUrl(url) {
+      if (!url || url === 'about:blank' || url.startsWith('javascript')) return;
+      window.parent.postMessage({ type: 'hr-navigate', url: url }, '*');
+    }
+
+    /* Intercepter location.assign et location.replace */
+    try {
+      var origAssign   = window.location.assign.bind(window.location);
+      var origReplace  = window.location.replace.bind(window.location);
+      window.location.assign  = function(url) { sendUrl(url); };
+      window.location.replace = function(url) { sendUrl(url); };
+    } catch(e) {}
+
+    /* Intercepter location.href via Proxy */
+    try {
+      var locProxy = new Proxy(window.location, {
+        set: function(obj, prop, val) {
+          if (prop === 'href') { sendUrl(val); return true; }
+          obj[prop] = val; return true;
+        },
+        get: function(obj, prop) {
+          var v = obj[prop]; return typeof v === 'function' ? v.bind(obj) : v;
+        }
+      });
+      Object.defineProperty(window, 'location', { get: function(){ return locProxy; }, configurable: true });
+    } catch(e) {}
+
+    /* Forcer les soumissions de formulaires vers un nouvel onglet */
+    document.addEventListener('submit', function(e) {
+      if (e.target) e.target.target = '_blank';
+    }, true);
+
+    /* Forcer tous les liens vers un nouvel onglet */
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('a[href]');
+      if (a && a.href && !a.href.startsWith('javascript') && !a.href.startsWith('#')) {
+        a.target = '_blank';
+      }
+    }, true);
+  })();
+
+  function sendHeight() {
+    var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+    try {
+      var els = document.body.querySelectorAll('*');
+      for (var i = 0; i < els.length; i++) {
+        var pos = window.getComputedStyle(els[i]).position;
+        if (pos === 'absolute' || pos === 'fixed') {
+          var rect = els[i].getBoundingClientRect();
+          if (rect.height > 0 && rect.bottom > h) h = Math.ceil(rect.bottom) + 20;
+        }
+      }
+    } catch(e) {}
+    window.parent.postMessage({ type: 'hr-widget-height', h: h }, '*');
+  }
+
+  if (window.ResizeObserver) {
+    new ResizeObserver(sendHeight).observe(document.documentElement);
+  }
+  if (window.MutationObserver) {
+    new MutationObserver(sendHeight).observe(document.documentElement, {
+      childList: true, subtree: true,
+      attributes: true, attributeFilter: ['style', 'class']
+    });
+  }
+  window.addEventListener('load', function() {
+    sendHeight();
+    setTimeout(sendHeight, 1000);
+    setTimeout(sendHeight, 2500);
+  });
+</script>
+</body></html>
