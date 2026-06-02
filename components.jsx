@@ -583,18 +583,10 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
       <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="nav__inner">
           <div className="nav__lead">
-            <button className="nav__menu" onClick={() => setMenuOpen(!menuOpen)}>
-              <span /><span /><span />
+            <button className={`nav__menu ${menuOpen ? 'is-open' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
+              <span className="nav__menu-lines"><span /><span /><span /></span>
               <em>{menuOpen ? (T[lang]||T.fr).close : (T[lang]||T.fr).menu}</em>
             </button>
-            <nav className="nav__links">
-              <a onClick={() => scrollTo('story')}>{(T[lang]||T.fr).dHotel}</a>
-              <a onClick={() => scrollTo('rooms')}>{(T[lang]||T.fr).dSejour}</a>
-              <a onClick={() => scrollTo('experiences')}>{(T[lang]||T.fr).navExp}</a>
-              <a onClick={() => scrollTo('seasons')}>{(T[lang]||T.fr).navSeasons}</a>
-              <a onClick={() => scrollTo('newsletter')}>{(T[lang]||T.fr).navNewsletter}</a>
-              <a onClick={() => scrollTo('contact')}>{(T[lang]||T.fr).navIfrane}</a>
-            </nav>
           </div>
 
           {/* ── Centre : logo texte + ligne décorative ── */}
