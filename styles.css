@@ -1089,19 +1089,21 @@ body[data-theme="light-brass"] .bb__submit { color: #f5f0e8; }
 }
 .rooms__filter {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
+  gap: 6px;
+  padding: 6px 14px;
   border: 1px solid var(--line);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  letter-spacing: 0.1em;
   color: var(--fg-dim);
   border-radius: 100px;
+  white-space: nowrap;
   transition: all .2s;
 }
 .chip:hover { color: var(--fg); border-color: var(--fg-dim); }
@@ -1964,20 +1966,28 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
 }
 
 /* =========================================================
-   HERO — bouton RÉSERVER VOTRE SÉJOUR lumineux
+   Boutons primaires lumineux — hero, newsletter, dernier appel
    ========================================================= */
-.hero .btn--primary {
+.hero .btn--primary,
+.nl .btn--primary,
+.call .btn--primary {
   box-shadow: 0 0 28px rgba(184, 146, 74, 0.45), 0 4px 18px rgba(184, 146, 74, 0.25);
   transition: background .25s, box-shadow .35s;
 }
-.hero .btn--primary:hover {
+.hero .btn--primary:hover,
+.nl .btn--primary:hover,
+.call .btn--primary:hover {
   box-shadow: 0 0 48px rgba(184, 146, 74, 0.7), 0 6px 30px rgba(184, 146, 74, 0.45);
 }
 /* Hiver — halo blanc/bleu */
-body[data-season="hiver"] .hero .btn--primary {
+body[data-season="hiver"] .hero .btn--primary,
+body[data-season="hiver"] .nl .btn--primary,
+body[data-season="hiver"] .call .btn--primary {
   box-shadow: 0 0 28px rgba(200, 225, 255, 0.45), 0 4px 18px rgba(30, 112, 168, 0.3);
 }
-body[data-season="hiver"] .hero .btn--primary:hover {
+body[data-season="hiver"] .hero .btn--primary:hover,
+body[data-season="hiver"] .nl .btn--primary:hover,
+body[data-season="hiver"] .call .btn--primary:hover {
   box-shadow: 0 0 48px rgba(200, 225, 255, 0.7), 0 6px 30px rgba(30, 112, 168, 0.5);
 }
 
