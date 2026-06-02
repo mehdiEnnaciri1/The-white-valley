@@ -1151,6 +1151,7 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   color: var(--fg-dim);
   margin-bottom: 18px;
   max-width: 420px;
+  flex: 1;
 }
 .room__specs {
   display: grid;
