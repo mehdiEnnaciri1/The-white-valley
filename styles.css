@@ -606,6 +606,29 @@ body[data-theme="light-brass"] .btn--dark { background: var(--ink); color: #fff;
   background: transparent;
   color: rgba(255,255,255,0.5);
   transition: background .3s ease, color .3s ease;
+  position: relative;
+}
+.season-toggle__btn::before {
+  content: attr(aria-label);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: rgba(20,14,6,0.85);
+  color: #f5f0e8;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  white-space: nowrap;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+.season-toggle__btn:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
 .season-toggle__btn--active {
   background: white;
@@ -2077,21 +2100,24 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
 }
 .nav__tap:hover { border-color: var(--accent); color: var(--accent); }
 .nav__drawer-book {
-  background: var(--accent);
-  color: var(--ink);
-  border: none;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--fg);
   height: 50px;
-  padding: 0 30px;
+  padding: 0 36px;
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 500;
-  border-radius: 2px;
+  font-weight: 600;
+  border-radius: 0;
   cursor: pointer;
-  transition: background .25s;
+  transition: background .3s, color .3s, border-color .3s;
 }
-body[data-theme="light-brass"] .nav__drawer-book { color: #f5f0e8; }
-.nav__drawer-book:hover { background: var(--accent-2); }
+.nav__drawer-book:hover {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
 
 /* =========================================================
    QUATRE SAISONS
