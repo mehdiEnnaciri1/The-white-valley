@@ -1950,16 +1950,16 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   justify-self: start;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 }
 .nav__links {
   display: none;
   align-items: center;
-  gap: 17px;
+  gap: 22px;
 }
 .nav__links a {
   font-size: 10px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--fg);
   cursor: pointer;

@@ -81,7 +81,7 @@ const T = {
     dBook:'Réserver', dDispo:'Réserver votre séjour', dContact:'Ifrane à portée', dEvents:'Devis séminaire', dRoom:"Plan d'accès",
     reperes:['74 résidences','1 650 m d\'altitude','Réception 24h/24','Spa · table · séminaires'],
     callTitle:'Votre parenthèse commence ici.',
-    navExp:'Expériences', navSem:'Séminaires', navOffers:'Offres', navIfrane:'Ifrane',
+    navExp:'Expériences', navSeasons:'Saisons', navNewsletter:'Newsletter', navIfrane:'Ifrane',
     navPhone:'Téléphone', navWhats:'WhatsApp',
     saisonsEye:'QUATRE SAISONS', saisonsH2:'Quatre saisons, une signature', saisonsBtn:'Quand venir',
     saisons:[
@@ -156,7 +156,7 @@ const T = {
     dBook:'Book', dDispo:'Book your stay', dContact:'Ifrane nearby', dEvents:'Seminar quote', dRoom:'Getting here',
     reperes:['74 residences','1,650 m altitude','24/7 reception','Spa · table · seminars'],
     callTitle:'Your pause begins here.',
-    navExp:'Experiences', navSem:'Seminars', navOffers:'Offers', navIfrane:'Ifrane',
+    navExp:'Experiences', navSeasons:'Seasons', navNewsletter:'Newsletter', navIfrane:'Ifrane',
     navPhone:'Phone', navWhats:'WhatsApp',
     saisonsEye:'FOUR SEASONS', saisonsH2:'Four seasons, one signature', saisonsBtn:'When to come',
     saisons:[
@@ -591,8 +591,8 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
               <a onClick={() => scrollTo('story')}>{(T[lang]||T.fr).dHotel}</a>
               <a onClick={() => scrollTo('rooms')}>{(T[lang]||T.fr).dSejour}</a>
               <a onClick={() => scrollTo('experiences')}>{(T[lang]||T.fr).navExp}</a>
-              <a onClick={() => scrollTo('experiences')}>{(T[lang]||T.fr).navSem}</a>
-              <a onClick={() => scrollTo('newsletter')}>{(T[lang]||T.fr).navOffers}</a>
+              <a onClick={() => scrollTo('seasons')}>{(T[lang]||T.fr).navSeasons}</a>
+              <a onClick={() => scrollTo('newsletter')}>{(T[lang]||T.fr).navNewsletter}</a>
               <a onClick={() => scrollTo('contact')}>{(T[lang]||T.fr).navIfrane}</a>
             </nav>
           </div>
