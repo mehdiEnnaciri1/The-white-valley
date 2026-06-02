@@ -1123,7 +1123,7 @@ body[data-theme="light-brass"] .chip.is-active { background: var(--ink); color: 
 .room.is-hover .room__hover { opacity: 1; transform: none; }
 body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #fff; }
 
-.room__body { padding: 0 2px; }
+.room__body { padding: 0 2px; display: flex; flex-direction: column; flex: 1; }
 .room__row {
   display: flex;
   justify-content: space-between;
@@ -1177,6 +1177,7 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  margin-top: auto;
 }
 .room__from {
   display: block;
