@@ -727,7 +727,7 @@ function Hero({ variant, season, lang, onBook }) {
           <p className="hero__lede">{tr.heroLedeSplit}</p>
           <div className="hero__cta">
             <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
-            <a href="#experiences" className="btn btn--ghost">{tr.heroCta2} <span>→</span></a>
+            <a href="#experiences" className="btn btn--ghost">{tr.heroCta2}</a>
           </div>
           <dl className="hero__meta">
             <div><dt>{tr.heroMetaCat}</dt><dd>{tr.heroMetaCatV}</dd></div>
@@ -793,7 +793,7 @@ function Hero({ variant, season, lang, onBook }) {
         <p className="hero__lede hero__lede--light">{tr.heroLedeFull}</p>
         <div className="hero__cta hero__cta--full">
           <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
-          <a href="#experiences" className="btn btn--ghost">{tr.heroCta2} <span>→</span></a>
+          <a href="#experiences" className="btn btn--ghost">{tr.heroCta2}</a>
         </div>
       </div>
     </section>
@@ -1170,7 +1170,7 @@ function DernierAppel({ lang, onBook }) {
         <h2 className="call__title h-display">{tr.callTitle}</h2>
         <div className="call__cta">
           <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
-          <a href="#experiences" className="btn btn--ghost call__ghost">{tr.heroCta2} <span>→</span></a>
+          <a href="#experiences" className="btn btn--ghost call__ghost">{tr.heroCta2}</a>
         </div>
       </div>
     </section>
