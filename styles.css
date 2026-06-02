@@ -1981,10 +1981,22 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
 .nav__links a:hover { color: var(--accent); }
 .nav__links a:hover::after { width: 100%; }
 
-/* RÉSERVER en couleur d'accent */
-.nav__action--book { color: var(--accent); }
+/* RÉSERVER en couleur d'accent + bold */
+.nav__action--book { color: var(--accent); font-weight: 700; }
 .nav__action--book:hover { color: var(--accent-2); }
 .nav:not(.is-scrolled) .nav__action--book { color: var(--accent-2); }
+
+/* FR/EN — style identique aux liens du menu, sans les lignes */
+.nav__action--lang .nav__action-lines { display: none; }
+.nav__action--lang {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  gap: 4px;
+}
+.nav:not(.is-scrolled) .nav__action--lang { color: #fff; }
+
+/* RÉSERVER — sans les lignes */
+.nav__action--book .nav__action-lines { display: none; }
 
 /* liens blancs sur le hero (nav transparente) */
 .nav:not(.is-scrolled) .nav__links a { color: #fff; }
