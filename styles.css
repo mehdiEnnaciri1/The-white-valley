@@ -1062,8 +1062,8 @@ body[data-theme="light-brass"] .chip.is-active { background: var(--ink); color: 
 
 .rooms__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px 28px;
 }
 .room {
   display: flex;
@@ -1213,7 +1213,7 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 .exp__item {
@@ -1828,6 +1828,264 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
 .ft__dests a:hover { color: var(--accent-2); }
 
 /* =========================================================
+   BANDEAU DE REPÈRES (sous le hero)
+   ========================================================= */
+.reperes {
+  background: var(--ink);
+  color: #f5f0e8;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  padding: 26px 0;
+}
+.reperes__track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  width: max-content;
+  animation: reperesSlide 36s linear infinite;
+}
+.reperes__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 34px;
+}
+.reperes__gem {
+  color: var(--accent-2);
+  font-size: 9px;
+  flex-shrink: 0;
+}
+.reperes__txt {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.3;
+  color: #f5f0e8;
+}
+@keyframes reperesSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+/* =========================================================
+   ROOMS — chapô + tarif sur demande
+   ========================================================= */
+.rooms__lede {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  max-width: 620px;
+  margin-top: 20px;
+}
+.room__price-note {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--fg-dim);
+}
+
+/* =========================================================
+   IFRANE À PORTÉE — bouton plan d'accès
+   ========================================================= */
+.dest__btn {
+  margin-top: 36px;
+  align-self: flex-start;
+}
+
+/* =========================================================
+   NEWSLETTER — note double opt-in
+   ========================================================= */
+.nl__form { flex-wrap: wrap; }
+.nl__note {
+  flex-basis: 100%;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-mute);
+  margin-top: 2px;
+}
+
+/* =========================================================
+   HERO — CTA sur variante plein écran
+   ========================================================= */
+.hero__cta--full { margin: 28px 0 0; }
+.hero--full .hero__cta--full .btn--ghost {
+  color: #fff;
+  border-color: rgba(255,255,255,0.4);
+}
+.hero--full .hero__cta--full .btn--ghost:hover {
+  border-color: #fff;
+  color: var(--accent-2);
+}
+.hero--full .hero__cta--full .btn--ghost span { color: var(--accent-2); }
+
+/* =========================================================
+   DERNIER APPEL
+   ========================================================= */
+.call {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--line);
+}
+.call__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 120px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  text-align: center;
+}
+.call__title { text-align: center; }
+.call__cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* =========================================================
+   NAV — menu horizontal (desktop) + accent RÉSERVER
+   ========================================================= */
+.nav__lead {
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: 17px;
+}
+.nav__links a {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg);
+  cursor: pointer;
+  position: relative;
+  padding: 6px 0;
+  white-space: nowrap;
+  transition: color .25s;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width .3s ease;
+}
+.nav__links a:hover { color: var(--accent); }
+.nav__links a:hover::after { width: 100%; }
+
+/* RÉSERVER en couleur d'accent */
+.nav__action--book { color: var(--accent); }
+.nav__action--book:hover { color: var(--accent-2); }
+.nav:not(.is-scrolled) .nav__action--book { color: var(--accent-2); }
+
+/* liens blancs sur le hero (nav transparente) */
+.nav:not(.is-scrolled) .nav__links a { color: #fff; }
+.nav:not(.is-scrolled) .nav__links a::after { background: var(--accent-2); }
+.nav:not(.is-scrolled) .nav__links a:hover { color: var(--accent-2); }
+
+@media (min-width: 1200px) {
+  .nav__links { display: flex !important; }
+  .nav__menu  { display: none; }
+}
+
+/* — pied du drawer : téléphone / WhatsApp + RÉSERVER — */
+.nav__drawer-cta {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 20px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.nav__drawer-taps { display: flex; gap: 12px; flex-wrap: wrap; }
+.nav__tap {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 20px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  transition: border-color .2s, color .2s;
+}
+.nav__tap:hover { border-color: var(--accent); color: var(--accent); }
+.nav__drawer-book {
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  height: 50px;
+  padding: 0 30px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .25s;
+}
+body[data-theme="light-brass"] .nav__drawer-book { color: #f5f0e8; }
+.nav__drawer-book:hover { background: var(--accent-2); }
+
+/* =========================================================
+   QUATRE SAISONS
+   ========================================================= */
+.seasons {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px 130px;
+}
+.seasons__head { margin-bottom: 56px; max-width: 760px; }
+.seasons__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.season {
+  display: flex;
+  flex-direction: column;
+}
+.season__media { overflow: hidden; margin-bottom: 18px; }
+.season__media .ph { transition: transform .8s cubic-bezier(.22,.9,.3,1); }
+.season:hover .season__media .ph { transform: scale(1.05); }
+.season__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.season__name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--fg);
+}
+.season__period {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  white-space: nowrap;
+}
+.season__txt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+.seasons__cta { margin-top: 48px; display: flex; }
+
+/* =========================================================
    TWEAKS PANEL
    ========================================================= */
 .tw {
@@ -1900,8 +2158,10 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   .dest__layout,
   .nl__grid,
   .ft__top { grid-template-columns: 1fr; }
+  .edito__grid, .ft__cols { grid-template-columns: repeat(2, 1fr); }
   .rooms__grid { grid-template-columns: repeat(2, 1fr); }
-  .exp__grid, .edito__grid, .ft__cols { grid-template-columns: repeat(2, 1fr); }
+  .exp__grid { grid-template-columns: repeat(2, 1fr); }
+  .seasons__grid { grid-template-columns: repeat(2, 1fr); }
   .dest__preview { position: static; }
 }
 
@@ -2019,6 +2279,16 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   .nav__drawer-col    { border-top: 1px solid var(--line); padding: 12px 0; }
   .nav__drawer-col em { margin-bottom: 8px; }
   .nav__drawer-col a  { font-size: 20px; padding: 9px 0; }
+  .nav__drawer-inner  { padding-bottom: 132px; }
+  .nav__drawer-cta {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    margin: 0; padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    z-index: 6; gap: 12px;
+  }
+  .nav__drawer-book { flex: 1; }
+  .nav__tap { padding: 11px 16px; }
 
   /* ── 5. HERO ── */
   .hero { padding-top: 60px; }
@@ -2060,6 +2330,14 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   .marquee       { margin-top: 0; }
   .marquee__item { font-size: 15px; padding: 0 20px; }
 
+  /* ── BANDEAU DE REPÈRES (défilant) ── */
+  .reperes { padding: 20px 0; }
+  .reperes__item { padding: 0 22px; gap: 12px; }
+  .reperes__txt  { font-size: 16px; }
+
+  /* ── DERNIER APPEL ── */
+  .call__inner { padding: 72px 20px; gap: 28px; }
+
   /* ── 8. INTRO ── */
   .intro       { padding: 72px 20px; }
   .intro__grid { gap: 36px; }
@@ -2075,6 +2353,12 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   .exp       { padding: 72px 20px; }
   .exp__head { margin-bottom: 44px; }
   .exp__grid { grid-template-columns: 1fr; gap: 34px; }
+
+  /* ── QUATRE SAISONS ── */
+  .seasons       { padding: 0 20px 80px; }
+  .seasons__head { margin-bottom: 40px; }
+  .seasons__grid { grid-template-columns: 1fr; gap: 40px; }
+  .seasons__cta .btn { width: 100%; }
 
   /* ── 11. DESTINATIONS ── */
   .dest         { padding: 72px 20px; }

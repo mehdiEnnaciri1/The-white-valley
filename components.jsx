@@ -75,136 +75,152 @@ const { useState, useEffect, useRef } = React;
 const T = {
   fr: {
     menu:'Menu', close:'Fermer', tagline:"L'élégance à l'état pure", book:'Réserver',
-    dHotel:"L'hôtel", dPresent:'Présentation', dGallery:'Galerie Instagram', dLocal:'Localisation',
-    dSejour:'Séjourner', dStd:'Chambres Standard', dSup:'Chambres Supérieures', dSuite:'Suites Exécutives', dOffres:'Offres & forfaits',
-    dSpa:'Restauration & Spa', dResto:'Restaurant principal', dBar:'Bar-Lounge', dHammam:'Spa & Hammam', dPool:'Piscine intérieure',
-    dBook:'Réserver', dDispo:'Vérifier disponibilité', dContact:'Nous contacter', dEvents:'Événements & Mariages', dRoom:'Salles de réunion',
-    heroEyeSplit:'CASABLANCA · MAROC · HAY HASSANI',
-    heroEteA:'La fraîcheur', heroEteB:'estivale,', heroEteC:"au cœur d'Ifrane.",
-    heroHivA:"L'élégance", heroHivB:'hivernale,', heroHivC:"au cœur d'Ifrane.",
-    heroLedeSplit:"Hôtel 4 étoiles, 230 chambres climatisées, spa & piscine intérieure. À deux pas d'Oued Bouskoura, 15 minutes de l'aéroport Mohammed V et du centre-ville.",
-    heroCta1:'Découvrir les chambres', heroCta2:"L'hôtel",
-    heroMetaCat:'Catégorie', heroMetaCatV:'Hôtel 4 étoiles · Spa', heroMetaTel:'Téléphone',
-    heroEyeFull:"THE WHITE VALLEY · L'ÉLÉGANCE À L'ÉTAT PURE",
-    heroLedeFull:'230 chambres · Spa & Hammam · Piscine intérieure',
-    marquee:['4 ÉTOILES','SPA & HAMMAM','PISCINE INTÉRIEURE','WIFI GRATUIT','NAVETTE AÉROPORT','SALLE DE BANQUET','PARKING PRIVÉ'],
-    introEye:"L'HÔTEL", introH2:"Un établissement 4 étoiles à l'écart de l'agitation, au plus près de la ville.",
-    introP1a:"Le Zénith Hôtel & Spa s'étend sur 5 étages et 230 chambres climatisées, à l'angle de la Route d'El Jadida et de Lissasfa. À",
-    introP1em:"5 minutes à pied", introP1b:"d'Oued Bouskoura, 15 minutes en voiture du centre-ville et de l'aéroport Mohammed V.",
-    introP2:"Chambres insonorisées avec balcon et terrasse, mini-bar et bureau. Deux restaurants, un bar-lounge, un coffee shop, un spa avec hammam, sauna et piscine intérieure. Salle de banquet et salles de réunion pour vos événements professionnels.",
-    introLink:'Découvrir les chambres',
+    dHotel:"L'Hôtel", dPresent:'Une parenthèse', dGallery:'Les résidences', dLocal:'Les Lettres de la Vallée',
+    dSejour:'Hébergements', dStd:'Appartement TWIN', dSup:'Appartement SINGLE', dSuite:'Chambre', dOffres:'Suite Signature',
+    dSpa:'Spa · Table · Séminaires', dResto:'Le spa', dBar:'La table', dHammam:'Les séminaires', dPool:'Quand venir',
+    dBook:'Réserver', dDispo:'Réserver votre séjour', dContact:'Ifrane à portée', dEvents:'Devis séminaire', dRoom:"Plan d'accès",
+    reperes:['74 résidences','1 650 m d\'altitude','Réception 24h/24','Spa · table · séminaires'],
+    callTitle:'Votre parenthèse commence ici.',
+    navExp:'Expériences', navSem:'Séminaires', navOffers:'Offres', navIfrane:'Ifrane',
+    navPhone:'Téléphone', navWhats:'WhatsApp',
+    saisonsEye:'QUATRE SAISONS', saisonsH2:'Quatre saisons, une signature', saisonsBtn:'Quand venir',
+    saisons:[
+      {name:'Hiver',period:'décembre à mars',tone:'stone',txt:"Entre −5 °C la nuit et 8 °C le jour. La neige vient trois à six fois par hiver. Feu de cheminée, forêt de cèdres silencieuse, ski à vingt minutes quand la pente est blanche."},
+      {name:'Printemps',period:'avril à mai',tone:'sage',txt:"La meilleure saison pour marcher. Les premières herbes sauvages, les amandes encore vertes, une lumière nette pour la photo. Notre saison favorite, en confidence."},
+      {name:'Été',period:'juin à septembre',tone:'warm',txt:"Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée à 29 °C."},
+      {name:'Automne',period:'octobre à novembre',tone:'brass',txt:"Les forêts virent au cuivre, l'air sèche. Très peu de monde en semaine. La saison idéale pour une retraite ou un long week-end à deux, sans concurrence d'agenda."},
+    ],
+    heroEyeSplit:'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
+    heroEteA:"L'appart'hôtel", heroEteB:"d'altitude", heroEteC:'à Ifrane.',
+    heroHivA:"L'appart'hôtel", heroHivB:"d'altitude", heroHivC:'à Ifrane.',
+    heroLedeSplit:"À 1 650 mètres, la vie reprend son souffle. 74 résidences, à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
+    heroCta1:'Réserver votre séjour', heroCta2:'Devis séminaire',
+    heroMetaCat:'Format', heroMetaCatV:"Appart'hôtel d'altitude · 74 résidences", heroMetaTel:'Réception', heroMetaTelV:'Ouverte 24h/24',
+    heroEyeFull:'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
+    heroLedeFull:'À 1 650 mètres, la vie reprend son souffle.',
+    marquee:['74 RÉSIDENCES','SPA & HAMMAM',"TABLE D'ALTITUDE",'SÉMINAIRES','PISCINE CHAUFFÉE 29°C','SKI À 20 MIN','RÉCEPTION 24H/24'],
+    introEye:"L'HÔTEL", introH2:'Une parenthèse dans la vallée.',
+    introP1a:'Ni un hôtel classique, ni une location :',
+    introP1em:'quelque chose entre les deux.', introP1b:'Vous avez votre appartement, votre cuisine si vous le souhaitez, votre salon avec sa vue sur la vallée.',
+    introP2:"Autour, ce qu'un bon hôtel sait faire : petit-déjeuner servi en chambre, spa réservé à 21h, table le soir au rez-de-chaussée, conciergerie qui gère les détails. Vous activez ce que vous voulez. Le reste se fait oublier. 74 résidences, à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
+    introLink:"Découvrir l'hôtel",
     bbArrivee:'ARRIVÉE', bbDepart:'DÉPART', bbVoyageurs:'VOYAGEURS',
     bbGuests:'2 adultes · 1 chambre', bbSubmit:'Vérifier disponibilité', bbLocale:'fr-FR',
-    roomsEye:'HÉBERGEMENTS', roomsH2:'Chambres, suites & résidences',
-    tabs:['Tous','Chambre','Suite'], tabAll:'Tous',
-    rSurface:'Surface', rVue:'Vue', rLit:'Literie', rFrom:'À partir de', rNight:'/ nuit',
+    roomsEye:'HÉBERGEMENTS', roomsH2:"74 résidences, quatre façons d'habiter la vallée",
+    roomsLede:"Le bon format n'est pas le plus grand. C'est celui qui correspond à votre séjour. Quatre formats, une seule signature : la même literie partout, la même attention, les mêmes services. Ce qui change, c'est le volume que vous habitez.",
+    tabs:['Tous','Appartement','Chambre','Suite'], tabAll:'Tous',
+    rSurface:'Surface', rCap:'Capacité', rKitchen:'Cuisine', rPriceNote:'Tarifs sur demande',
     rBook:'Réserver', rDisc:'Découvrir', rFav:'Favori',
     rooms:[
-      {name:'Chambre Standard',type:'Chambre',size:22,view:'Vue ville',bed:'Double',price:740,tone:'warm',tag:'Populaire',desc:"Climatisation, salle de bain privée, TV satellite, téléphone, coffre-fort. Confort essentiel pour voyageurs d'affaires."},
-      {name:'Chambre Twin',type:'Chambre',size:24,view:'Vue ville',bed:'2 lits simples',price:780,tone:'stone',tag:null,desc:"Deux lits simples, fenêtres insonorisées, mini-frigo, WiFi haut débit. Idéale pour les déplacements à deux."},
-      {name:'Chambre Supérieure',type:'Chambre',size:28,view:'Balcon',bed:'Queen',price:890,tone:'brass',tag:null,desc:"Balcon privatif, bureau de travail, mini-bar, espace étendu. Lumière naturelle et fenêtres insonorisées."},
-      {name:'Chambre Deluxe',type:'Chambre',size:32,view:'Terrasse',bed:'King',price:990,tone:'sage',tag:'Recommandée',desc:"Terrasse privative, peignoirs, toilettes séparées. Le bon équilibre entre confort et superficie."},
-      {name:'Suite Junior',type:'Suite',size:42,view:'Balcon & salon',bed:'King',price:1320,tone:'warm',tag:null,desc:"Coin salon séparé, balcon spacieux, deuxième TV. Pour les séjours plus longs ou en famille."},
-      {name:'Suite Exécutive',type:'Suite',size:55,view:'Terrasse panoramique',bed:'King',price:1680,tone:'brass',tag:'Signature',desc:"Salon séparé, terrasse panoramique, accès prioritaire au spa et petit-déjeuner inclus en chambre."},
+      {name:'Appartement TWIN',type:'Appartement',size:65,cap:'4 personnes',kitchen:'Kitchenette équipée',tone:'warm',tag:'4 pers.',desc:"Deux chambres, un salon commun, une kitchenette équipée. Pour deux couples amis, une famille d'adultes, une équipe de quatre."},
+      {name:'Appartement SINGLE',type:'Appartement',size:45,cap:'2 personnes',kitchen:'Kitchenette équipée',tone:'sage',tag:'Le plus choisi',desc:"Une chambre, un vrai salon, la vue depuis le canapé. Le format que choisissent la plupart des couples qui nous écrivent."},
+      {name:'Chambre',type:'Chambre',size:28,cap:'2 personnes',kitchen:'Aucune',tone:'stone',tag:null,desc:"Un grand lit, la même salle de bain et la même vue que les appartements, dans un format plus court. Pour une nuit, deux, ou un séminaire."},
+      {name:'Suite Signature',type:'Suite',size:110,cap:'2 à 4 personnes',kitchen:'Cuisine complète',tone:'brass',tag:'Signature',desc:"Cuisine complète, terrasse privée, double salon. Notre suite la plus large, et la plus discrète."},
     ],
-    expEye:'SERVICES & INSTALLATIONS', expH2:'Tout pour votre séjour.',
+    expEye:'SPA · TABLE · SÉMINAIRES', expH2:'Le spa, la table, les séminaires.',
     exps:[
-      {idx:'01',title:'Restaurants',sub:'Deux restaurants sur place et un coffee shop. Cuisine marocaine et internationale.',tone:'warm'},
-      {idx:'02',title:'Spa & Hammam',sub:'Hammam traditionnel, sauna, soins du visage, gommage, manucure et pédicure.',tone:'sage'},
-      {idx:'03',title:'Piscine & Fitness',sub:'Piscine intérieure chauffée, salle de sport équipée, vestiaires privatifs.',tone:'brass'},
-      {idx:'04',title:'Affaires',sub:'Salle de banquet, salles de réunion, service de location de voiture et navette.',tone:'stone'},
+      {idx:'01',title:'Le spa',sub:"Cinq cabines, un hammam, un sauna, une piscine chauffée à 29 °C ouverte sur la vallée. Des soins pensés pour l'altitude. Pas de musique dans les couloirs.",tone:'sage'},
+      {idx:'02',title:'La table',sub:"Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une assiette qu'on finit. Une vingtaine de vins marocains à la carte.",tone:'warm'},
+      {idx:'03',title:'Les séminaires',sub:"Salle de séminaire et de conférences, hébergement sur place, restauration, spa pour décompresser le soir. Un cadre à part pour une retraite de direction.",tone:'brass'},
     ],
-    destEye:'LOCALISATION & CONTACT', destH2:'Nous trouver.', destCard:'LE ZÉNITH · CASABLANCA',
-    destRooms:'Chambres', destFloors:'Étages', destCoord:'Coordonnées',
+    destEye:'IFRANE À PORTÉE DE MAIN', destH2:'Nous rejoindre.', destCard:'THE WHITE VALLEY · IFRANE', destBtn:"Plan d'accès",
+    destRooms:'Altitude', destFloors:'Résidences', destCoord:'Distance',
     dests:[
-      {city:'Hôtel',region:"Route d'El Jadida, Angle 1077 Lissasfa",rooms:230,since:2005,tone:'warm',coord:'33.55°N · 7.67°W',desc:"Route d'El Jadida, Angle 1077 Lissasfa, Casablanca 20000, Maroc."},
-      {city:'Téléphone',region:'+212 522-894949',rooms:230,since:2005,tone:'brass',coord:'Fax : +212 22-894950',desc:'Standard 24h/24 · Réservations, conciergerie, navette aéroport.'},
-      {city:'À proximité',region:'Hay Hassani · Sidi Maarouf',rooms:230,since:2005,tone:'stone',coord:'Oued Bouskoura · 5 min',desc:'Aéroport Mohammed V à 29 km · Palais Royal à 8 km · Musée du Judaïsme marocain à 25 min.'},
-      {city:'Transports',region:'Tramway · Bus · Navette',rooms:230,since:2005,tone:'sage',coord:'Arrêt Azbane · 10 min',desc:"Arrêt Azbane à 10 min · Gare Oasis à 3,7 km · Navette aéroport Mohammed V sur demande."},
+      {city:'Fès',region:'Aéroport Fès-Saïss · 1 h',rooms:230,since:2005,tone:'warm',coord:'≈ 60 km',desc:"On imagine Ifrane loin. Elle est à une heure de l'aéroport de Fès."},
+      {city:'Rabat',region:'3 h de route',rooms:230,since:2005,tone:'sage',coord:'≈ 250 km',desc:"À trois heures de Rabat. La conciergerie organise le transfert privé sur demande."},
+      {city:'Casablanca',region:'4 h de route',rooms:230,since:2005,tone:'brass',coord:'≈ 330 km',desc:"À quatre heures de Casablanca. Mentionnez-le à la réservation, nous nous occupons du reste."},
     ],
-    editoEye:'ON EN PARLE',
+    editoEye:'LA MAISON, PAR CEUX QUI LA TIENNENT',
     quotes:[
-      {src:"Voyageurs d'affaires",txt:"Emplacement pratique à 15 minutes de l'aéroport Mohammed V, chambres insonorisées et WiFi rapide."},
-      {src:'Couples en séjour',txt:'Le spa avec hammam et la piscine intérieure restent les atouts les plus appréciés de la maison.'},
-      {src:'Long séjour',txt:'Chambres spacieuses avec balcon et terrasse. Le personnel est attentif, la literie confortable.'},
+      {src:'Chef de cuisine',txt:"Je dirige cette cuisine depuis l'ouverture. Ma règle ne change pas : trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit."},
+      {src:'Cheffe spa',txt:"À 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Nos soins partent de là."},
+      {src:'Architecte',txt:"On voulait pouvoir vivre ici à −5 °C comme à 32 °C sans rien changer. Trois ans de dessin pour y arriver."},
     ],
-    nlEye:'RESTEZ INFORMÉ', nlH2:'Nos offres & forfaits.',
-    nlDesc:"Promotions saisonnières, forfaits spa, tarifs affaires et événements de l'hôtel. Une lettre par mois, pas plus.",
-    nlLabel:'Adresse e-mail', nlPH:'vous@exemple.com', nlBtn:"S'inscrire", nlSent:'✓ Inscrit',
-    ftTagline:"L'élégance à l'état pure · Maroc",
-    ftCopy:"© 2026 The White Valley · L'élégance à l'état pure. Tous droits réservés.",
+    nlEye:'LES LETTRES DE LA VALLÉE', nlH2:'Les Lettres de la Vallée',
+    nlDesc:"Un récit de la vallée par trimestre : la neige qui arrive, la table qui change, les chemins qui rouvrent. Et l'accès à nos tarifs Confidentiels, réservés aux abonnés. Inscription volontaire, désinscription en un clic. Nous n'envoyons rien d'autre.",
+    nlLabel:'Votre adresse e-mail', nlPH:'vous@exemple.com', nlBtn:'Recevoir les Lettres', nlSent:'✓ Confirmez votre e-mail', nlNote:"Double opt-in : un e-mail de confirmation valide l'inscription.",
+    ftTagline:"Appart'hôtel d'altitude · Ifrane, Moyen Atlas",
+    ftCopy:'© 2026 The White Valley · Ifrane. Tous droits réservés.',
     ftCols:[
-      {t:"L'hôtel",l:['Présentation','Galerie photos','Localisation','Avis clients','Contact']},
-      {t:'Séjourner',l:['Chambres Standard','Chambres Supérieures','Suites','Offres & forfaits','Groupes']},
-      {t:'Services',l:['Restaurants','Bar-Lounge','Spa & Hammam','Piscine','Salle de sport']},
-      {t:'Assistance',l:['+212 522-894949','Navette aéroport','FAQ','Mentions légales','Politique de cookies']},
+      {t:'Contact',l:['Ifrane · Moyen Atlas, Maroc','Réception 24h/24','contact@thewhitevalley.ma','WhatsApp sur demande']},
+      {t:"L'Hôtel",l:['À propos','Galerie','Carrières','Presse']},
+      {t:'Pratique',l:['FAQ',"Plan d'accès","Politique d'annulation",'Les Lettres de la Vallée']},
+      {t:'Légal',l:['Mentions légales','CGV','Confidentialité']},
     ],
   },
   en: {
     menu:'Menu', close:'Close', tagline:'Elegance in its purest form', book:'Book',
-    dHotel:'The Hotel', dPresent:'About', dGallery:'Instagram Gallery', dLocal:'Location',
-    dSejour:'Stay', dStd:'Standard Rooms', dSup:'Superior Rooms', dSuite:'Executive Suites', dOffres:'Offers & packages',
-    dSpa:'Dining & Spa', dResto:'Main Restaurant', dBar:'Bar-Lounge', dHammam:'Spa & Hammam', dPool:'Indoor Pool',
-    dBook:'Book', dDispo:'Check availability', dContact:'Contact us', dEvents:'Events & Weddings', dRoom:'Meeting rooms',
-    heroEyeSplit:'CASABLANCA · MOROCCO · HAY HASSANI',
-    heroEteA:'Summer', heroEteB:'freshness,', heroEteC:"in the heart of Ifrane.",
-    heroHivA:'Winter', heroHivB:'elegance,', heroHivC:"in the heart of Ifrane.",
-    heroLedeSplit:"4-star hotel, 230 air-conditioned rooms, spa & indoor pool. Steps from Oued Bouskoura, 15 minutes from Mohammed V Airport and the city centre.",
-    heroCta1:'Discover the rooms', heroCta2:'The hotel',
-    heroMetaCat:'Category', heroMetaCatV:'4-star hotel · Spa', heroMetaTel:'Phone',
-    heroEyeFull:'THE WHITE VALLEY · ELEGANCE IN ITS PUREST FORM',
-    heroLedeFull:'230 rooms · Spa & Hammam · Indoor pool',
-    marquee:['4 STARS','SPA & HAMMAM','INDOOR POOL','FREE WIFI','AIRPORT SHUTTLE','BANQUET HALL','PRIVATE PARKING'],
-    introEye:'THE HOTEL', introH2:'A 4-star establishment away from the bustle, yet close to the city.',
-    introP1a:"Le Zénith Hotel & Spa spans 5 floors and 230 air-conditioned rooms, at the corner of Route d'El Jadida and Lissasfa. A",
-    introP1em:'5-minute walk', introP1b:"from Oued Bouskoura, 15 minutes by car from the city centre and Mohammed V Airport.",
-    introP2:"Soundproofed rooms with balcony and terrace, minibar and desk. Two restaurants, a bar-lounge, a coffee shop, a spa with hammam, sauna and indoor pool. Banquet hall and meeting rooms for your professional events.",
-    introLink:'Discover the rooms',
+    dHotel:'The Hotel', dPresent:'A pause', dGallery:'The residences', dLocal:'Valley Letters',
+    dSejour:'Accommodation', dStd:'TWIN Apartment', dSup:'SINGLE Apartment', dSuite:'Room', dOffres:'Signature Suite',
+    dSpa:'Spa · Table · Seminars', dResto:'The spa', dBar:'The table', dHammam:'The seminars', dPool:'When to come',
+    dBook:'Book', dDispo:'Book your stay', dContact:'Ifrane nearby', dEvents:'Seminar quote', dRoom:'Getting here',
+    reperes:['74 residences','1,650 m altitude','24/7 reception','Spa · table · seminars'],
+    callTitle:'Your pause begins here.',
+    navExp:'Experiences', navSem:'Seminars', navOffers:'Offers', navIfrane:'Ifrane',
+    navPhone:'Phone', navWhats:'WhatsApp',
+    saisonsEye:'FOUR SEASONS', saisonsH2:'Four seasons, one signature', saisonsBtn:'When to come',
+    saisons:[
+      {name:'Winter',period:'December to March',tone:'stone',txt:"Between −5 °C at night and 8 °C by day. Snow comes three to six times each winter. A fireplace, the silent cedar forest, skiing twenty minutes away when the slope is white."},
+      {name:'Spring',period:'April to May',tone:'sage',txt:"The best season for walking. The first wild herbs, almonds still green, a crisp light for photographs. Our favourite season, in confidence."},
+      {name:'Summer',period:'June to September',tone:'warm',txt:"The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated to 29 °C."},
+      {name:'Autumn',period:'October to November',tone:'brass',txt:"The forests turn copper, the air dries. Very few people midweek. The ideal season for a retreat or a long weekend for two, with no competing schedules."},
+    ],
+    heroEyeSplit:'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
+    heroEteA:'The high-altitude', heroEteB:'apart-hotel', heroEteC:'in Ifrane.',
+    heroHivA:'The high-altitude', heroHivB:'apart-hotel', heroHivC:'in Ifrane.',
+    heroLedeSplit:"At 1,650 metres, life takes a breath. 74 residences, an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
+    heroCta1:'Book your stay', heroCta2:'Seminar quote',
+    heroMetaCat:'Format', heroMetaCatV:'High-altitude apart-hotel · 74 residences', heroMetaTel:'Reception', heroMetaTelV:'Open 24/7',
+    heroEyeFull:'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
+    heroLedeFull:'At 1,650 metres, life takes a breath.',
+    marquee:['74 RESIDENCES','SPA & HAMMAM','HIGH-ALTITUDE TABLE','SEMINARS','POOL HEATED TO 29°C','SKI 20 MIN AWAY','24/7 RECEPTION'],
+    introEye:'THE HOTEL', introH2:'A pause in the valley.',
+    introP1a:'Neither a classic hotel nor a rental:',
+    introP1em:'something in between.', introP1b:'You have your apartment, your kitchen if you wish, your living room with its view of the valley.',
+    introP2:"Around it, what a good hotel does well: breakfast served in the room, the spa reserved at 9 PM, dinner downstairs in the evening, a concierge who handles the details. You activate what you want. The rest fades away. 74 residences, an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
+    introLink:'Discover the hotel',
     bbArrivee:'CHECK-IN', bbDepart:'CHECK-OUT', bbVoyageurs:'GUESTS',
     bbGuests:'2 adults · 1 room', bbSubmit:'Check availability', bbLocale:'en-GB',
-    roomsEye:'ACCOMMODATIONS', roomsH2:'Rooms, suites & residences',
-    tabs:['All','Room','Suite'], tabAll:'All',
-    rSurface:'Size', rVue:'View', rLit:'Bedding', rFrom:'From', rNight:'/ night',
+    roomsEye:'ACCOMMODATION', roomsH2:'74 residences, four ways to live the valley',
+    roomsLede:"The right format isn't the biggest. It's the one that fits your stay. Four formats, one signature: the same bedding everywhere, the same care, the same services. What changes is the volume you live in.",
+    tabs:['All','Apartment','Room','Suite'], tabAll:'All',
+    rSurface:'Size', rCap:'Capacity', rKitchen:'Kitchen', rPriceNote:'Rates on request',
     rBook:'Book', rDisc:'Discover', rFav:'Favourite',
     rooms:[
-      {name:'Standard Room',type:'Room',size:22,view:'City view',bed:'Double',price:740,tone:'warm',tag:'Popular',desc:"Air conditioning, private bathroom, satellite TV, telephone, safe. Essential comfort for business travellers."},
-      {name:'Twin Room',type:'Room',size:24,view:'City view',bed:'2 single beds',price:780,tone:'stone',tag:null,desc:"Two single beds, soundproofed windows, mini-fridge, high-speed WiFi. Ideal for two-person business trips."},
-      {name:'Superior Room',type:'Room',size:28,view:'Balcony',bed:'Queen',price:890,tone:'brass',tag:null,desc:"Private balcony, work desk, minibar, extended space. Natural light and soundproofed windows."},
-      {name:'Deluxe Room',type:'Room',size:32,view:'Terrace',bed:'King',price:990,tone:'sage',tag:'Recommended',desc:"Private terrace, bathrobes, separate toilet. The perfect balance between comfort and space."},
-      {name:'Junior Suite',type:'Suite',size:42,view:'Balcony & lounge',bed:'King',price:1320,tone:'warm',tag:null,desc:"Separate lounge area, spacious balcony, second TV. Perfect for longer stays or families."},
-      {name:'Executive Suite',type:'Suite',size:55,view:'Panoramic terrace',bed:'King',price:1680,tone:'brass',tag:'Signature',desc:"Separate lounge, panoramic terrace, priority spa access and in-room breakfast included."},
+      {name:'TWIN Apartment',type:'Apartment',size:65,cap:'4 people',kitchen:'Equipped kitchenette',tone:'warm',tag:'4 guests',desc:"Two bedrooms, a shared living room, an equipped kitchenette. For two couples of friends, a family of adults, a team of four."},
+      {name:'SINGLE Apartment',type:'Apartment',size:45,cap:'2 people',kitchen:'Equipped kitchenette',tone:'sage',tag:'Most chosen',desc:"One bedroom, a real living room, the view from the sofa. The format most couples who write to us choose."},
+      {name:'Room',type:'Room',size:28,cap:'2 people',kitchen:'None',tone:'stone',tag:null,desc:"A large bed, the same bathroom and the same view as the apartments, in a shorter format. For one night, two, or a seminar."},
+      {name:'Signature Suite',type:'Suite',size:110,cap:'2 to 4 people',kitchen:'Full kitchen',tone:'brass',tag:'Signature',desc:"Full kitchen, private terrace, double living room. Our largest suite, and the most discreet."},
     ],
-    expEye:'SERVICES & FACILITIES', expH2:'Everything for your stay.',
+    expEye:'SPA · TABLE · SEMINARS', expH2:'The spa, the table, the seminars.',
     exps:[
-      {idx:'01',title:'Restaurants',sub:'Two on-site restaurants and a coffee shop. Moroccan and international cuisine.',tone:'warm'},
-      {idx:'02',title:'Spa & Hammam',sub:'Traditional hammam, sauna, facial treatments, scrub, manicure and pedicure.',tone:'sage'},
-      {idx:'03',title:'Pool & Fitness',sub:'Heated indoor pool, fully equipped gym, private changing rooms.',tone:'brass'},
-      {idx:'04',title:'Business',sub:'Banquet hall, meeting rooms, car rental service and airport shuttle.',tone:'stone'},
+      {idx:'01',title:'The spa',sub:"Five cabins, a hammam, a sauna, a pool heated to 29 °C open onto the valley. Treatments designed for altitude. No music in the corridors.",tone:'sage'},
+      {idx:'02',title:'The table',sub:"Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a plate you finish. Around twenty Moroccan wines on the list.",tone:'warm'},
+      {idx:'03',title:'The seminars',sub:"Seminar and conference room, on-site accommodation, catering, spa to unwind in the evening. A setting apart for a leadership retreat.",tone:'brass'},
     ],
-    destEye:'LOCATION & CONTACT', destH2:'Find us.', destCard:'LE ZÉNITH · CASABLANCA',
-    destRooms:'Rooms', destFloors:'Floors', destCoord:'Coordinates',
+    destEye:'IFRANE WITHIN REACH', destH2:'Getting to us.', destCard:'THE WHITE VALLEY · IFRANE', destBtn:'Getting here',
+    destRooms:'Altitude', destFloors:'Residences', destCoord:'Distance',
     dests:[
-      {city:'Hotel',region:"Route d'El Jadida, Angle 1077 Lissasfa",rooms:230,since:2005,tone:'warm',coord:'33.55°N · 7.67°W',desc:"Route d'El Jadida, Angle 1077 Lissasfa, Casablanca 20000, Morocco."},
-      {city:'Phone',region:'+212 522-894949',rooms:230,since:2005,tone:'brass',coord:'Fax: +212 22-894950',desc:'24/7 reception · Reservations, concierge, airport shuttle.'},
-      {city:'Nearby',region:'Hay Hassani · Sidi Maarouf',rooms:230,since:2005,tone:'stone',coord:'Oued Bouskoura · 5 min',desc:'Mohammed V Airport 29 km · Royal Palace 8 km · Museum of Moroccan Judaism 25 min.'},
-      {city:'Transport',region:'Tram · Bus · Shuttle',rooms:230,since:2005,tone:'sage',coord:'Azbane stop · 10 min',desc:"Azbane stop 10 min · Oasis station 3.7 km · Mohammed V Airport shuttle on request."},
+      {city:'Fès',region:'Fès-Saïss Airport · 1 h',rooms:230,since:2005,tone:'warm',coord:'≈ 60 km',desc:"We imagine Ifrane far away. It's an hour from Fès airport."},
+      {city:'Rabat',region:'3 h by road',rooms:230,since:2005,tone:'sage',coord:'≈ 250 km',desc:"Three hours from Rabat. The concierge arranges private transfers on request."},
+      {city:'Casablanca',region:'4 h by road',rooms:230,since:2005,tone:'brass',coord:'≈ 330 km',desc:"Four hours from Casablanca. Mention it when booking and we'll take care of the rest."},
     ],
-    editoEye:'WHAT GUESTS SAY',
+    editoEye:'THE HOUSE, BY THOSE WHO RUN IT',
     quotes:[
-      {src:'Business travellers',txt:'Convenient location, 15 minutes from Mohammed V Airport, soundproofed rooms and fast WiFi.'},
-      {src:'Couples',txt:'The spa with hammam and the indoor pool remain the most appreciated features of the hotel.'},
-      {src:'Extended stays',txt:'Spacious rooms with balcony and terrace. Attentive staff and comfortable bedding.'},
+      {src:'Head chef',txt:"I've run this kitchen since opening. My rule doesn't change: three flavours per plate, a cooking we respect, a plate you finish."},
+      {src:'Spa manager',txt:"At 1,650 metres, the skin doesn't ask for what it asks for by the sea. Our treatments start there."},
+      {src:'Architect',txt:"We wanted to be able to live here at −5 °C as at 32 °C without changing a thing. Three years of drawing to get there."},
     ],
-    nlEye:'STAY INFORMED', nlH2:'Our offers & packages.',
-    nlDesc:"Seasonal promotions, spa packages, business rates and hotel events. One newsletter per month, no more.",
-    nlLabel:'Email address', nlPH:'you@example.com', nlBtn:'Subscribe', nlSent:'✓ Subscribed',
-    ftTagline:'Elegance in its purest form · Morocco',
-    ftCopy:'© 2026 The White Valley · Elegance in its purest form. All rights reserved.',
+    nlEye:'THE VALLEY LETTERS', nlH2:'The Valley Letters',
+    nlDesc:"A story of the valley each quarter: the snow arriving, the table changing, the trails reopening. And access to our Confidential rates, reserved for subscribers. Voluntary sign-up, one-click unsubscribe. We send nothing else.",
+    nlLabel:'Your email address', nlPH:'you@example.com', nlBtn:'Receive the Letters', nlSent:'✓ Confirm your email', nlNote:'Double opt-in: a confirmation email validates your sign-up.',
+    ftTagline:'High-altitude apart-hotel · Ifrane, Middle Atlas',
+    ftCopy:'© 2026 The White Valley · Ifrane. All rights reserved.',
     ftCols:[
-      {t:'The Hotel',l:['About','Photo Gallery','Location','Guest Reviews','Contact']},
-      {t:'Stay',l:['Standard Rooms','Superior Rooms','Suites','Offers & packages','Groups']},
-      {t:'Services',l:['Restaurants','Bar-Lounge','Spa & Hammam','Pool','Fitness Centre']},
-      {t:'Assistance',l:['+212 522-894949','Airport shuttle','FAQ','Legal notice','Cookie policy']},
+      {t:'Contact',l:['Ifrane · Middle Atlas, Morocco','24/7 reception','contact@thewhitevalley.ma','WhatsApp on request']},
+      {t:'The Hotel',l:['About','Gallery','Careers','Press']},
+      {t:'Practical',l:['FAQ','Getting here','Cancellation policy','The Valley Letters']},
+      {t:'Legal',l:['Legal notice','Terms','Privacy']},
     ],
   },
 };
@@ -566,10 +582,20 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
     <>
       <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="nav__inner">
-          <button className="nav__menu" onClick={() => setMenuOpen(!menuOpen)}>
-            <span /><span /><span />
-            <em>{menuOpen ? (T[lang]||T.fr).close : (T[lang]||T.fr).menu}</em>
-          </button>
+          <div className="nav__lead">
+            <button className="nav__menu" onClick={() => setMenuOpen(!menuOpen)}>
+              <span /><span /><span />
+              <em>{menuOpen ? (T[lang]||T.fr).close : (T[lang]||T.fr).menu}</em>
+            </button>
+            <nav className="nav__links">
+              <a onClick={() => scrollTo('story')}>{(T[lang]||T.fr).dHotel}</a>
+              <a onClick={() => scrollTo('rooms')}>{(T[lang]||T.fr).dSejour}</a>
+              <a onClick={() => scrollTo('experiences')}>{(T[lang]||T.fr).navExp}</a>
+              <a onClick={() => scrollTo('experiences')}>{(T[lang]||T.fr).navSem}</a>
+              <a onClick={() => scrollTo('newsletter')}>{(T[lang]||T.fr).navOffers}</a>
+              <a onClick={() => scrollTo('contact')}>{(T[lang]||T.fr).navIfrane}</a>
+            </nav>
+          </div>
 
           {/* ── Centre : logo texte + ligne décorative ── */}
           <a href="#" className="nav__brand" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
@@ -594,7 +620,7 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
                 <span style={{fontWeight: lang==='en' ? 600 : 400, opacity: lang==='en' ? 1 : 0.5}}>EN</span>
               </span>
             </button>
-            <button className="nav__action" onClick={onBook}>
+            <button className="nav__action nav__action--book" onClick={onBook}>
               <span className="nav__action-lines">
                 <span /><span />
               </span>
@@ -620,15 +646,15 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
               <div className="nav__drawer-col">
                 <em>{tr.dHotel}</em>
                 <a onClick={() => scrollTo('story')}>{tr.dPresent}</a>
-                <a onClick={() => scrollTo('instagram')}>{tr.dGallery}</a>
-                <a onClick={() => scrollTo('contact')}>{tr.dLocal}</a>
+                <a onClick={() => scrollTo('rooms')}>{tr.dGallery}</a>
+                <a onClick={() => scrollTo('newsletter')}>{tr.dLocal}</a>
               </div>
               <div className="nav__drawer-col">
                 <em>{tr.dSejour}</em>
                 <a onClick={() => scrollTo('rooms')}>{tr.dStd}</a>
                 <a onClick={() => scrollTo('rooms')}>{tr.dSup}</a>
                 <a onClick={() => scrollTo('rooms')}>{tr.dSuite}</a>
-                <a onClick={onBook}>{tr.dOffres}</a>
+                <a onClick={() => scrollTo('rooms')}>{tr.dOffres}</a>
               </div>
               <div className="nav__drawer-col">
                 <em>{tr.dSpa}</em>
@@ -642,9 +668,24 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
                 <a onClick={onBook}>{tr.dDispo}</a>
                 <a onClick={() => scrollTo('contact')}>{tr.dContact}</a>
                 <a onClick={() => scrollTo('contact')}>{tr.dEvents}</a>
-                <a onClick={onBook}>{tr.dRoom}</a>
+                <a onClick={() => scrollTo('contact')}>{tr.dRoom}</a>
               </div>
               </>); })()}
+
+              <div className="nav__drawer-cta">
+                <div className="nav__drawer-taps">
+                  {/* TODO : remplacer par les vrais numéros */}
+                  <a className="nav__tap" href="tel:+212535000000">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 005 5l1.5-2 5 1.5v3a2 2 0 01-2 2A16 16 0 014.5 5a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
+                    {(T[lang]||T.fr).navPhone}
+                  </a>
+                  <a className="nav__tap" href="https://wa.me/212600000000" target="_blank" rel="noopener noreferrer">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.7 13.6L3 21l4.5-1.2A9 9 0 1012 3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
+                    {(T[lang]||T.fr).navWhats}
+                  </a>
+                </div>
+                <button className="nav__drawer-book" onClick={() => { setMenuOpen(false); onBook(); }}>{(T[lang]||T.fr).book}</button>
+              </div>
             </div>
           </div>
         )}
@@ -656,7 +697,7 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
 }
 
 /* ---------- Hero ---------- */
-function Hero({ variant, season, lang }) {
+function Hero({ variant, season, lang, onBook }) {
   const [imgIdx, setImgIdx] = useState(0);
   const scenes = [
     { label: 'facade hotel 4 etoiles casablanca', tone: 'warm' },
@@ -693,12 +734,12 @@ function Hero({ variant, season, lang }) {
           </h1>
           <p className="hero__lede">{tr.heroLedeSplit}</p>
           <div className="hero__cta">
-            <a href="#rooms" className="btn btn--primary">{tr.heroCta1}</a>
-            <a href="#story" className="btn btn--ghost">{tr.heroCta2} <span>→</span></a>
+            <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
+            <a href="#experiences" className="btn btn--ghost">{tr.heroCta2} <span>→</span></a>
           </div>
           <dl className="hero__meta">
             <div><dt>{tr.heroMetaCat}</dt><dd>{tr.heroMetaCatV}</dd></div>
-            <div><dt>{tr.heroMetaTel}</dt><dd>+212 522-894949</dd></div>
+            <div><dt>{tr.heroMetaTel}</dt><dd>{tr.heroMetaTelV}</dd></div>
           </dl>
         </div>
         <div className="hero__media">
@@ -758,6 +799,10 @@ function Hero({ variant, season, lang }) {
           )}
         </h1>
         <p className="hero__lede hero__lede--light">{tr.heroLedeFull}</p>
+        <div className="hero__cta hero__cta--full">
+          <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
+          <a href="#experiences" className="btn btn--ghost">{tr.heroCta2} <span>→</span></a>
+        </div>
       </div>
     </section>
   );
@@ -803,7 +848,7 @@ function Rooms({ onBook, lang }) {
   const [filterIdx, setFilterIdx] = useState(0);
   const [hoverIdx,  setHoverIdx]  = useState(null);
   useEffect(() => { setFilterIdx(0); }, [lang]);
-  const groups = [tr.rooms, tr.rooms.filter(r=>r.type===tr.tabs[1]), tr.rooms.filter(r=>r.type===tr.tabs[2])];
+  const groups = tr.tabs.map((t, i) => i === 0 ? tr.rooms : tr.rooms.filter(r => r.type === t));
   const visible = groups[filterIdx];
 
   return (
@@ -812,6 +857,7 @@ function Rooms({ onBook, lang }) {
         <div>
           <p className="eyebrow"><span className="eyebrow__dot" />{tr.roomsEye}</p>
           <h2 className="h-display">{tr.roomsH2}</h2>
+          <p className="rooms__lede">{tr.roomsLede}</p>
         </div>
         <div className="rooms__filter">
           {tr.tabs.map((t, i) => (
@@ -828,7 +874,7 @@ function Rooms({ onBook, lang }) {
       </div>
 
       <div className="rooms__grid">
-        {visible.map((r, i) => (
+          {visible.map((r, i) => (
           <article
             key={r.name}
             className={`room ${hoverIdx === i ? 'is-hover' : ''}`}
@@ -836,7 +882,7 @@ function Rooms({ onBook, lang }) {
             onMouseLeave={() => setHoverIdx(null)}
           >
             <div className="room__media">
-              <Placeholder label={`${r.name.toLowerCase()} · ${r.view.toLowerCase()}`} tone={r.tone} aspect="4/5" />
+              <Placeholder label={`${r.name.toLowerCase()} · ${r.size} m²`} tone={r.tone} aspect="4/5" />
               {r.tag && <span className="room__tag">{r.tag}</span>}
               <button className="room__fav" aria-label="Favori">♡</button>
               <div className="room__hover">
@@ -851,20 +897,18 @@ function Rooms({ onBook, lang }) {
               <p className="room__desc">{r.desc}</p>
               <dl className="room__specs">
                 <div><dt>{tr.rSurface}</dt><dd>{r.size} m²</dd></div>
-                <div><dt>{tr.rVue}</dt><dd>{r.view}</dd></div>
-                <div><dt>{tr.rLit}</dt><dd>{r.bed}</dd></div>
+                <div><dt>{tr.rCap}</dt><dd>{r.cap}</dd></div>
+                <div><dt>{tr.rKitchen}</dt><dd>{r.kitchen}</dd></div>
               </dl>
               <div className="room__foot">
                 <div>
-                  <span className="room__from">{tr.rFrom}</span>
-                  <span className="room__price">{r.price.toLocaleString('fr-FR')} MAD</span>
-                  <span className="room__night">{tr.rNight}</span>
+                  <span className="room__price-note">{tr.rPriceNote}</span>
                 </div>
                 <button className="btn btn--dark btn--sm" onClick={onBook}>{tr.rBook}</button>
               </div>
             </div>
           </article>
-        ))}
+          ))}
       </div>
     </section>
   );
@@ -880,7 +924,7 @@ function Experiences({ lang }) {
         <h2 className="h-display">{tr.expH2}</h2>
       </div>
       <div className="exp__grid">
-        {tr.exps.map(it => (
+          {tr.exps.map(it => (
           <a key={it.idx} className="exp__item" href="#">
             <Placeholder label={`expérience · ${it.title.toLowerCase()}`} tone={it.tone} aspect="1/1" />
             <div className="exp__meta">
@@ -892,7 +936,7 @@ function Experiences({ lang }) {
               <span className="exp__arrow">↗</span>
             </div>
           </a>
-        ))}
+          ))}
       </div>
     </section>
   );
@@ -928,17 +972,18 @@ function Destinations({ lang }) {
             </button>
           ))}
           </div>
+          <a href="#contact" className="link-arrow dest__btn">{tr.destBtn} <span>→</span></a>
         </div>
         <div className="dest__preview">
-          <Placeholder label={`casablanca · ${d.city.toLowerCase()}`} tone={d.tone} aspect="auto" />
+          <Placeholder label={`ifrane · ${d.city.toLowerCase()}`} tone={d.tone} aspect="auto" />
           <div className="dest__card">
             <div>
               <span className="dest__card-eyebrow">{tr.destCard}</span>
               <h3>{d.desc}</h3>
             </div>
             <dl className="dest__stats">
-              <div><dt>{tr.destRooms}</dt><dd>{d.rooms}</dd></div>
-              <div><dt>{tr.destFloors}</dt><dd>5</dd></div>
+              <div><dt>{tr.destRooms}</dt><dd>1 650 m</dd></div>
+              <div><dt>{tr.destFloors}</dt><dd>74</dd></div>
               <div><dt>{tr.destCoord}</dt><dd>{d.coord}</dd></div>
             </dl>
           </div>
@@ -976,7 +1021,7 @@ function Newsletter({ lang }) {
   const [sent, setSent] = useState(false);
   useEffect(() => { setSent(false); setEmail(''); }, [lang]);
   return (
-    <section className="nl">
+    <section className="nl" id="newsletter">
       <div className="nl__grid">
         <div>
           <p className="eyebrow"><span className="eyebrow__dot" />{tr.nlEye}</p>
@@ -997,6 +1042,7 @@ function Newsletter({ lang }) {
           <button className="btn btn--primary" disabled={sent}>
             {sent ? tr.nlSent : tr.nlBtn}
           </button>
+          <p className="nl__note">{tr.nlNote}</p>
         </form>
       </div>
     </section>
@@ -1098,7 +1144,7 @@ function Footer({ lang, season }) {
       <div className="ft__bottom">
         <span>{tr.ftCopy}</span>
         <span className="ft__dests">
-          <a>Route d'El Jadida</a><em>·</em><a>Lissasfa</a><em>·</em><a>Casablanca 20000</a><em>·</em><a>Maroc</a>
+          <a>Ifrane</a><em>·</em><a>Moyen Atlas</a><em>·</em><a>Maroc</a>
         </span>
         <span>FR · EN</span>
       </div>
@@ -1106,6 +1152,71 @@ function Footer({ lang, season }) {
   );
 }
 
+/* ---------- Bandeau de repères (défilant) ---------- */
+function Reperes({ lang }) {
+  const items = (T[lang]||T.fr).reperes;
+  return (
+    <div className="reperes">
+      <div className="reperes__track">
+        {[...items, ...items, ...items].map((it, i) => (
+          <span key={i} className="reperes__item">
+            <span className="reperes__gem">✦</span>
+            <span className="reperes__txt">{it}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Dernier appel ---------- */
+function DernierAppel({ lang, onBook }) {
+  const tr = T[lang]||T.fr;
+  return (
+    <section className="call">
+      <div className="call__inner">
+        <h2 className="call__title h-display">{tr.callTitle}</h2>
+        <div className="call__cta">
+          <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
+          <a href="#experiences" className="btn btn--ghost call__ghost">{tr.heroCta2} <span>→</span></a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Quatre saisons ---------- */
+function Saisons({ lang, onBook }) {
+  const tr = T[lang]||T.fr;
+  return (
+    <section className="seasons" id="seasons">
+      <div className="seasons__head">
+        <p className="eyebrow"><span className="eyebrow__dot" />{tr.saisonsEye}</p>
+        <h2 className="h-display">{tr.saisonsH2}</h2>
+      </div>
+      <div className="seasons__grid">
+          {tr.saisons.map((s, i) => (
+          <article key={i} className="season">
+            <div className="season__media">
+              <Placeholder label={`${s.name.toLowerCase()} · ifrane`} tone={s.tone} aspect="3/4" />
+            </div>
+            <div className="season__body">
+              <div className="season__row">
+                <h3 className="season__name">{s.name}</h3>
+                <span className="season__period">{s.period}</span>
+              </div>
+              <p className="season__txt">{s.txt}</p>
+            </div>
+          </article>
+          ))}
+      </div>
+      <div className="seasons__cta">
+        <button className="btn btn--primary" onClick={onBook}>{tr.saisonsBtn}</button>
+      </div>
+    </section>
+  );
+}
+
 Object.assign(window, {
-  SplashScreen, WhiteValleyLogo, Nav, Hero, BookingBar, HotelRunnerModal, Marquee, Intro, Rooms, Experiences, Destinations, Editorial, Newsletter, Instagram, Footer, Placeholder
+  SplashScreen, WhiteValleyLogo, Nav, Hero, BookingBar, HotelRunnerModal, Marquee, Intro, Rooms, Experiences, Destinations, Editorial, Newsletter, Instagram, Footer, Placeholder, Reperes, DernierAppel, Saisons
 });

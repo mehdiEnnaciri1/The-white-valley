@@ -38,21 +38,23 @@ function App() {
     <>
       {splash && <SplashScreen onDone={() => setSplash(false)} />}
       <Nav onBook={openBooking} season={season} onSeason={setSeason} lang={lang} onLang={setLang} />
-      <Hero variant={heroV} season={season} lang={lang} />
+      <Hero variant={heroV} season={season} lang={lang} onBook={openBooking} />
       <div className="bb-wrap"><BookingBar lang={lang} /></div>
+      <Reperes lang={lang} />
       <Intro lang={lang} />
       <Marquee lang={lang} />
       <Rooms onBook={openBooking} lang={lang} />
+      <Saisons lang={lang} onBook={openBooking} />
       <Experiences lang={lang} />
-      <Instagram />
       <Destinations lang={lang} />
       <Editorial lang={lang} />
       <Newsletter lang={lang} />
+      <DernierAppel lang={lang} onBook={openBooking} />
       <Footer lang={lang} season={season} />
 
       {editMode && (
         <div className="tw">
-          <div className="tw__h"><em>Tweaks</em><span>ZÉNITH</span></div>
+          <div className="tw__h"><em>Tweaks</em><span>WHITE VALLEY</span></div>
           <div className="tw__group">
             <span className="tw__lbl">Palette</span>
             <div className="tw__opts">
