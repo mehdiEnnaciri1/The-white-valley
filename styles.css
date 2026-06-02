@@ -78,6 +78,8 @@ body[data-theme="light-brass"] .back-top                  { color: #f5f0e8; }
 body[data-theme="light-brass"] .back-top:hover            { background: #9a8260; }
 
 /* ── HIVER : texte blanc sur boutons bleus ── */
+body[data-season="hiver"] .hero .eyebrow { color: rgba(255,255,255,0.92); }
+body[data-season="hiver"] .hero .eyebrow__dot { background: rgba(255,255,255,0.92); }
 body[data-season="hiver"] .btn--primary,
 body[data-season="hiver"] .bb__submit  { color: #f0f8ff; }
 body[data-season="hiver"] .btn--primary:hover,
@@ -426,6 +428,12 @@ body[data-theme="light-brass"] .btn--dark { background: var(--ink); color: #fff;
   transition: color .25s;
 }
 .nav__menu:hover { color: var(--accent); }
+.nav__menu.is-open {
+  text-shadow: 0 0 16px rgba(184, 146, 74, 0.6);
+}
+body[data-season="hiver"] .nav__menu.is-open {
+  text-shadow: 0 0 16px rgba(200, 225, 255, 0.7);
+}
 .nav__menu-lines {
   display: flex;
   flex-direction: column;
@@ -783,6 +791,10 @@ body[data-theme="light-brass"] .btn--dark { background: var(--ink); color: #fff;
   font-style: italic;
   color: var(--accent);
   font-weight: 300;
+  text-shadow: 0 0 32px rgba(184, 146, 74, 0.6), 0 0 60px rgba(184, 146, 74, 0.3);
+}
+body[data-season="hiver"] .hero__h1 em {
+  text-shadow: 0 0 32px rgba(200, 225, 255, 0.8), 0 0 60px rgba(30, 112, 168, 0.5);
 }
 .hero__h1--light { color: #fff; }
 .hero__h1--light em { color: var(--accent-2); }
@@ -1949,6 +1961,24 @@ body[data-theme="light-brass"] .room__hover { background: var(--ink); color: #ff
   letter-spacing: 0.04em;
   color: var(--fg-mute);
   margin-top: 2px;
+}
+
+/* =========================================================
+   HERO — bouton RÉSERVER VOTRE SÉJOUR lumineux
+   ========================================================= */
+.hero .btn--primary {
+  box-shadow: 0 0 28px rgba(184, 146, 74, 0.45), 0 4px 18px rgba(184, 146, 74, 0.25);
+  transition: background .25s, box-shadow .35s;
+}
+.hero .btn--primary:hover {
+  box-shadow: 0 0 48px rgba(184, 146, 74, 0.7), 0 6px 30px rgba(184, 146, 74, 0.45);
+}
+/* Hiver — halo blanc/bleu */
+body[data-season="hiver"] .hero .btn--primary {
+  box-shadow: 0 0 28px rgba(200, 225, 255, 0.45), 0 4px 18px rgba(30, 112, 168, 0.3);
+}
+body[data-season="hiver"] .hero .btn--primary:hover {
+  box-shadow: 0 0 48px rgba(200, 225, 255, 0.7), 0 6px 30px rgba(30, 112, 168, 0.5);
 }
 
 /* =========================================================
