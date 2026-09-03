@@ -9,15 +9,15 @@ function App() {
   const [season,    setSeason]  = useState('ete');
   const [lang,      setLang]    = useState('fr');
 
-  const openBooking = () => {
-    const url = lang === 'en'
-      ? 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=en-US'
-      : 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=fr-FR';
-    window.open(url, '_blank', 'noopener');
-  };
+  /* Audit 28/08 · point 23 : le moteur branché ici était celui d'un autre établissement.
+     openBooking() (components.jsx) ouvre le moteur The White Valley dès que son URL est
+     renseignée, et bascule sur l'e-mail de réservation tant qu'elle ne l'est pas. */
+  const handleBooking = () => openBooking(lang);
 
   useEffect(() => { document.body.dataset.theme  = theme;  }, [theme]);
   useEffect(() => { document.body.dataset.season = season; }, [season]);
+  /* La langue du document suit le sélecteur FR/EN (lecteurs d'écran, moteurs, césure). */
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
 
   useEffect(() => {
     const onMsg = (e) => {
@@ -37,19 +37,17 @@ function App() {
   return (
     <>
       {splash && <SplashScreen onDone={() => setSplash(false)} />}
-      <Nav onBook={openBooking} season={season} onSeason={setSeason} lang={lang} onLang={setLang} />
-      <Hero variant={heroV} season={season} lang={lang} onBook={openBooking} />
+      <Nav onBook={handleBooking} season={season} onSeason={setSeason} lang={lang} onLang={setLang} />
+      <Hero variant={heroV} season={season} lang={lang} onBook={handleBooking} />
       <div className="bb-wrap"><BookingBar lang={lang} /></div>
       <Reperes lang={lang} />
       <Intro lang={lang} />
-      <Marquee lang={lang} />
-      <Rooms onBook={openBooking} lang={lang} />
-      <Saisons lang={lang} onBook={openBooking} />
+      <Rooms onBook={handleBooking} lang={lang} />
+      <Saisons lang={lang} onBook={handleBooking} />
       <Experiences lang={lang} />
-      <Destinations lang={lang} />
-      <Editorial lang={lang} />
+      <Destinations lang={lang} season={season} />
       <Newsletter lang={lang} />
-      <DernierAppel lang={lang} onBook={openBooking} />
+      <DernierAppel lang={lang} onBook={handleBooking} />
       <Footer lang={lang} season={season} />
 
       {editMode && (

@@ -65,172 +65,585 @@ function WhiteValleyLogo({ height = 80, variant = 'dark' }) {
       {/* ── Tagline ── */}
       <text x="100" y="100"
             fontFamily="Georgia,serif" fontStyle="italic"
-            fontSize="9.5" fill={sub} textAnchor="middle">L'élégance à l'état pure</text>
+            fontSize="9.5" fill={sub} textAnchor="middle">La Parenthèse Blanche d'Ifrane</text>
     </svg>
   );
 }
 const { useState, useEffect, useRef } = React;
 
-/* ── Translations ── */
+/* ── Translations ──
+   Rédactionnel validé — TWV_Audit-et-Contenus_v2 (DO FACTORY, 28/08/2026).
+   Les textes FR sont repris mot pour mot du document : ne pas reformuler à l'intégration.
+   Tout ce qui reste entre crochets attend une réponse client et ne doit pas partir en ligne. */
 const T = {
   fr: {
-    menu:'Menu', close:'Fermer', tagline:"L'élégance à l'état pure", book:'Réserver',
-    dHotel:"L'Hôtel", dPresent:'Une parenthèse', dGallery:'Les résidences', dLocal:'Les Lettres de la Vallée',
-    dSejour:'Hébergements', dStd:'Appartement TWIN', dSup:'Appartement SINGLE', dSuite:'Chambre', dOffres:'Suite Signature',
-    dSpa:'Spa · Table · Séminaires', dResto:'Le spa', dBar:'La table', dHammam:'Les séminaires', dPool:'Quand venir',
-    dBook:'Réserver', dDispo:'Réserver votre séjour', dContact:'Ifrane à portée', dEvents:'Devis séminaire', dRoom:"Plan d'accès",
-    reperes:['74 résidences','1 650 m d\'altitude','Réception 24h/24','Spa · table · séminaires'],
+    menu:'Menu', close:'Fermer', tagline:"La Parenthèse Blanche d'Ifrane.", book:'Réserver',
+    dHotel:"L'Hôtel", dPresent:'Une parenthèse', dGallery:'Les suites', dSeasons:'Quatre saisons', dLocal:'Les Lettres de la Vallée',
+    dSejour:'Les Suites', dStd:'Suite Senior Grand lit', dSup:'Suite Senior Twin', dSuite:'Suite Junior Grand lit', dOffres:'Suite Junior Twin',
+    dSpa:'Les cinq lieux', dResto:'Le spa', dBar:'The WHITE', dHammam:'Piscine & salle de sport', dPool:'Les séminaires',
+    dBook:'Réserver', dDispo:'Réserver votre séjour', dContact:'Nous rejoindre', dEvents:'Devis séminaire', dRoom:"Plan d'accès",
+    reperes:['74 suites, de 28 à 65 m²','Spa, hammam et sauna','The WHITE, notre restaurant','Piscine chauffée','Salle de sport','Salle de conférence'],
+    reperesPause:'Mettre le bandeau en pause', reperesPlay:'Relancer le bandeau',
+    aClose:'Fermer', aCloseMenu:'Fermer le menu', aTop:'Retour en haut',
+    aEte:'Été', aHiver:'Hiver',
+    galRole:'carrousel', galPrev:'Photo précédente', galNext:'Photo suivante', galGo:'Aller à la photo', galPhotos:'photos',
+    galPause:'Mettre le carrousel en pause', galPlay:'Relancer le carrousel', railGo:'Aller au lieu',
+    photoK:{ chambre:'la chambre', salon:'le salon', cuisine:'la kitchenette', bain:'la salle de bain',
+             bureau:"l'espace de travail", cabine:'une cabine de soin', hammam:'le hammam',
+             linge:'le linge et les savons', detente:'les transats', ambiance:'le spa',
+             restaurant:'la façade de The WHITE', piscine:'la piscine chauffée',
+             sport:'la salle de sport', facade:'la façade, de nuit' },
+    seminaireFacts:['Une salle de conférence','74 suites, dont 41 en lits séparés','Restauration sur place, trois repas','Spa et piscine en fin de journée'],
+    heroAltEte:"La résidence The White Valley à Ifrane, façade éclairée à la tombée de la nuit.",
+    heroAltHiver:'La résidence The White Valley à Ifrane sous la neige.',
+    destAltEte:'La façade du restaurant The WHITE, éclairée de nuit.',
+    destAltHiver:'La façade du restaurant The WHITE sous la neige, de nuit.',
     callTitle:'Votre parenthèse commence ici.',
-    navExp:'Expériences', navSeasons:'Saisons', navNewsletter:'Newsletter', navIfrane:'Ifrane',
     navPhone:'Téléphone', navWhats:'WhatsApp',
     saisonsEye:'QUATRE SAISONS', saisonsH2:'Quatre saisons, une signature', saisonsBtn:'Quand venir',
     saisons:[
       {name:'Hiver',period:'décembre à mars',tone:'stone',txt:"Entre −5 °C la nuit et 8 °C le jour. La neige vient trois à six fois par hiver. Feu de cheminée, forêt de cèdres silencieuse, ski à vingt minutes quand la pente est blanche."},
       {name:'Printemps',period:'avril à mai',tone:'sage',txt:"La meilleure saison pour marcher. Les premières herbes sauvages, les amandes encore vertes, une lumière nette pour la photo. Notre saison favorite, en confidence."},
-      {name:'Été',period:'juin à septembre',tone:'warm',txt:"Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée à 29 °C."},
+      {name:'Été',period:'juin à septembre',tone:'warm',txt:"Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée."},
       {name:'Automne',period:'octobre à novembre',tone:'brass',txt:"Les forêts virent au cuivre, l'air sèche. Très peu de monde en semaine. La saison idéale pour une retraite ou un long week-end à deux, sans concurrence d'agenda."},
     ],
     heroEyeSplit:'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
-    heroEteA:"L'appart'hôtel", heroEteB:"d'altitude", heroEteC:'à Ifrane.',
-    heroHivA:"L'appart'hôtel", heroHivB:"d'altitude", heroHivC:'à Ifrane.',
-    heroLedeSplit:"À 1 650 mètres, la vie reprend son souffle. 74 résidences, à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
-    heroCta1:'Réserver votre séjour', heroCta2:'Devis séminaire',
-    heroMetaCat:'Format', heroMetaCatV:"Appart'hôtel d'altitude · 74 résidences", heroMetaTel:'Réception', heroMetaTelV:'Ouverte 24h/24',
+    heroEteA:"L'hôtel de suites", heroEteB:"d'altitude", heroEteC:'à Ifrane.',
+    heroHivA:"L'hôtel de suites", heroHivB:"d'altitude", heroHivC:'à Ifrane.',
+    heroLedeSplit:"À 1 650 mètres, la vie reprend son souffle. 74 suites, à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
+    heroCta1:'Réserver votre séjour', heroCta2:'Vous organisez un séminaire ? Demander un devis',
+    heroMetaCat:'Format', heroMetaCatV:"Hôtel de suites d'altitude · 74 suites", heroMetaTel:'Altitude', heroMetaTelV:'1 650 m · Moyen Atlas',
     heroEyeFull:'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
     heroLedeFull:'À 1 650 mètres, la vie reprend son souffle.',
-    marquee:['74 RÉSIDENCES','SPA & HAMMAM',"TABLE D'ALTITUDE",'SÉMINAIRES','PISCINE CHAUFFÉE 29°C','SKI À 20 MIN','RÉCEPTION 24H/24'],
     introEye:"L'HÔTEL", introH2:'Une parenthèse dans la vallée.',
-    introP1a:'Ni un hôtel classique, ni une location :',
-    introP1em:'quelque chose entre les deux.', introP1b:'Vous avez votre appartement, votre cuisine si vous le souhaitez, votre salon avec sa vue sur la vallée.',
-    introP2:"Autour, ce qu'un bon hôtel sait faire : petit-déjeuner servi en chambre, spa réservé à 21h, table le soir au rez-de-chaussée, conciergerie qui gère les détails. Vous activez ce que vous voulez. Le reste se fait oublier. 74 résidences, à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
+    introP1:"Ici, on ne réserve pas une chambre. On réserve une suite : de la place pour poser ses affaires, de quoi s'asseoir ailleurs que sur le lit, et de quoi rester plus d'une nuit sans que le séjour se mette à ressembler à un transit.",
+    introP2:"Autour, ce qu'un bon hôtel sait faire. Le hammam, le sauna, les cinq cabines de soin. The WHITE au rez-de-chaussée, midi et soir. La piscine chauffée, la salle de sport ouverte tôt. Vous activez ce que vous voulez. Le reste se fait oublier.",
+    introP3:"Ifrane est à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
     introLink:"Découvrir l'hôtel",
     bbArrivee:'ARRIVÉE', bbDepart:'DÉPART', bbVoyageurs:'VOYAGEURS',
-    bbGuests:'2 adultes · 1 chambre', bbSubmit:'Vérifier disponibilité', bbLocale:'fr-FR',
-    roomsEye:'HÉBERGEMENTS', roomsH2:"74 résidences, quatre façons d'habiter la vallée",
-    roomsLede:"Le bon format n'est pas le plus grand. C'est celui qui correspond à votre séjour. Quatre formats, une seule signature : la même literie partout, la même attention, les mêmes services. Ce qui change, c'est le volume que vous habitez.",
-    tabs:['Tous','Appartement','Chambre','Suite'], tabAll:'Tous',
+    bbAdults:'Adultes', bbChildren:'Enfants', bbLess:'Retirer', bbMore:'Ajouter',
+    bbSubmit:'Vérifier disponibilité', bbLocale:'fr-FR',
+    roomsEye:'LES SUITES', roomsH2:'74 suites, quatre formats, de 28 à 65 m².',
+    roomsLede:"Le choix tient en deux questions. De combien d'espace avez-vous besoin, et dormez-vous dans le même lit. Junior ou Senior pour le niveau, Grand lit ou Twin pour le couchage, et la surface qui va avec : 28, 45 ou 65 m². Le reste ne change pas d'une suite à l'autre : la même literie, la même salle de bain, la même vue sur la vallée, la même attention au petit matin.",
     rSurface:'Surface', rCap:'Capacité', rKitchen:'Cuisine', rPriceNote:'Tarifs sur demande',
-    rBook:'Réserver', rDisc:'Découvrir', rFav:'Favori',
+    rBook:'Réserver',
     rooms:[
-      {name:'Appartement TWIN',type:'Appartement',size:65,cap:'4 personnes',kitchen:'Kitchenette équipée',tone:'warm',tag:'4 pers.',desc:"Deux chambres, un salon commun, une kitchenette équipée. Pour deux couples amis, une famille d'adultes, une équipe de quatre."},
-      {name:'Appartement SINGLE',type:'Appartement',size:45,cap:'2 personnes',kitchen:'Kitchenette équipée',tone:'sage',tag:'Le plus choisi',desc:"Une chambre, un vrai salon, la vue depuis le canapé. Le format que choisissent la plupart des couples qui nous écrivent."},
-      {name:'Chambre',type:'Chambre',size:28,cap:'2 personnes',kitchen:'Aucune',tone:'stone',tag:null,desc:"Un grand lit, la même salle de bain et la même vue que les appartements, dans un format plus court. Pour une nuit, deux, ou un séminaire."},
-      {name:'Suite Signature',type:'Suite',size:110,cap:'2 à 4 personnes',kitchen:'Cuisine complète',tone:'brass',tag:'Signature',desc:"Cuisine complète, terrasse privée, double salon. Notre suite la plus large, et la plus discrète."},
+      {name:'Suite Senior Grand lit',photos:'suite-senior-grand-lit',size:65,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'warm',desc:"Soixante-cinq mètres carrés, un grand lit, un vrai salon. Du rangement, et de quoi rester à l'intérieur quand il neige depuis deux jours. Ce qu'on choisit pour une semaine à deux."},
+      {name:'Suite Senior Twin',photos:'suite-senior-twin',size:65,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'sage',desc:"Le même volume, deux lits séparés. Le format le plus répandu de la maison, quarante suites sur soixante-quatorze."},
+      {name:'Suite Junior Grand lit',photos:'suite-junior-grand-lit',size:28,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'stone',desc:"Vingt-huit mètres carrés, un grand lit, un coin salon. Notre format le plus compact, pour deux ou trois nuits à deux."},
+      {name:'Suite Junior Twin',photos:'suite-junior-twin',size:45,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'brass',desc:"Quarante-cinq mètres carrés, deux lits séparés. Il n'y en a qu'une dans la maison, ce qui veut dire qu'elle part vite."},
     ],
-    expEye:'SPA · TABLE · SÉMINAIRES', expH2:'Le spa, la table, les séminaires.',
+    expEye:'SPA · TABLE · PISCINE · SPORT · SÉMINAIRES', expH2:'Cinq lieux, sous le même toit.',
     exps:[
-      {idx:'01',title:'Le spa',sub:"Cinq cabines, un hammam, un sauna, une piscine chauffée à 29 °C ouverte sur la vallée. Des soins pensés pour l'altitude. Pas de musique dans les couloirs.",tone:'sage'},
-      {idx:'02',title:'La table',sub:"Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une assiette qu'on finit. Une vingtaine de vins marocains à la carte.",tone:'warm'},
-      {idx:'03',title:'Les séminaires',sub:"Salle de séminaire et de conférences, hébergement sur place, restauration, spa pour décompresser le soir. Un cadre à part pour une retraite de direction.",tone:'brass'},
+      {idx:'01',title:'Le spa',photos:'spa',sub:"Cinq cabines, un hammam, un sauna, et des parcours séparés pour les femmes et pour les hommes. Des soins pensés pour l'altitude : à 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Pas de musique dans les couloirs.",tone:'sage'},
+      {idx:'02',title:'The WHITE',photos:'the-white',sub:"Notre restaurant. Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit. Ouvert aux non-résidents sur réservation.",tone:'warm'},
+      {idx:'03',title:'La piscine',photos:'piscine',sub:"Chauffée, ce qui à 1 650 mètres n'est pas un détail : on y entre en janvier au lieu de la regarder depuis la baie vitrée.",tone:'pool'},
+      {idx:'04',title:'La salle de sport',photos:'sport',sub:"Vitrée sur la piscine : deux vélos de biking, un elliptique, deux tapis de course, une presse à cuisses et une station à poulies. On voit l'eau pendant qu'on court.",tone:'stone'},
+      {idx:'05',title:'Les séminaires',sub:"Une salle de conférence, les suites au-dessus, The WHITE pour les repas, le spa pour la fin de journée. Tout tient dans le même bâtiment, et sur un séminaire de deux jours, cela change à peu près tout.",tone:'brass'},
     ],
     destEye:'IFRANE À PORTÉE DE MAIN', destH2:'Nous rejoindre.', destCard:'THE WHITE VALLEY · IFRANE', destBtn:"Plan d'accès",
-    destRooms:'Altitude', destFloors:'Résidences', destCoord:'Distance',
+    destRooms:'Altitude', destFloors:'Suites', destCoord:'Distance',
     dests:[
-      {city:'Fès',region:'Aéroport Fès-Saïss · 1 h',rooms:230,since:2005,tone:'warm',coord:'≈ 60 km',desc:"On imagine Ifrane loin. Elle est à une heure de l'aéroport de Fès."},
-      {city:'Rabat',region:'3 h de route',rooms:230,since:2005,tone:'sage',coord:'≈ 250 km',desc:"À trois heures de Rabat. La conciergerie organise le transfert privé sur demande."},
-      {city:'Casablanca',region:'4 h de route',rooms:230,since:2005,tone:'brass',coord:'≈ 330 km',desc:"À quatre heures de Casablanca. Mentionnez-le à la réservation, nous nous occupons du reste."},
-    ],
-    editoEye:'LA MAISON, PAR CEUX QUI LA TIENNENT',
-    quotes:[
-      {src:'Chef de cuisine',txt:"Je dirige cette cuisine depuis l'ouverture. Ma règle ne change pas : trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit."},
-      {src:'Cheffe spa',txt:"À 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Nos soins partent de là."},
-      {src:'Architecte',txt:"On voulait pouvoir vivre ici à −5 °C comme à 32 °C sans rien changer. Trois ans de dessin pour y arriver."},
+      {city:'Fès',region:'Aéroport Fès-Saïss · 1 h',tone:'warm',coord:'≈ 60 km',desc:"On imagine Ifrane loin. Elle est à une heure de l'aéroport de Fès."},
+      {city:'Rabat',region:'3 h de route',tone:'sage',coord:'≈ 250 km',desc:"À trois heures de Rabat. La conciergerie organise le transfert privé sur demande."},
+      {city:'Casablanca',region:'4 h de route',tone:'brass',coord:'≈ 330 km',desc:"À quatre heures de Casablanca. Mentionnez-le à la réservation, nous nous occupons du reste."},
     ],
     nlEye:'LES LETTRES DE LA VALLÉE', nlH2:'Les Lettres de la Vallée',
     nlDesc:"Un récit de la vallée par trimestre : la neige qui arrive, la table qui change, les chemins qui rouvrent. Et l'accès à nos tarifs Confidentiels, réservés aux abonnés. Inscription volontaire, désinscription en un clic. Nous n'envoyons rien d'autre.",
     nlLabel:'Votre adresse e-mail', nlPH:'vous@exemple.com', nlBtn:'Recevoir les Lettres', nlSent:'✓ Confirmez votre e-mail', nlNote:"Double opt-in : un e-mail de confirmation valide l'inscription.",
-    ftTagline:"Appart'hôtel d'altitude · Ifrane, Moyen Atlas",
+    nlConfirm:"Un e-mail vient de partir vers votre boîte. Un clic pour confirmer, et vous recevrez la prochaine Lettre de la Vallée. Quatre par an, pas une de plus.",
+    ftTagline:"Hôtel de suites d'altitude · Ifrane, Moyen Atlas",
     ftCopy:'© 2026 The White Valley · Ifrane. Tous droits réservés.',
     ftCols:[
-      {t:'Contact',l:['Ifrane · Moyen Atlas, Maroc','Réception 24h/24','contact@thewhitevalley.ma','WhatsApp sur demande']},
-      {t:"L'Hôtel",l:['À propos','Galerie','Carrières','Presse']},
-      {t:'Pratique',l:['FAQ',"Plan d'accès","Politique d'annulation",'Les Lettres de la Vallée']},
-      {t:'Légal',l:['Mentions légales','CGV','Confidentialité']},
+      {t:'Contact',l:[
+        {x:'N8, Ifrane, Moyen Atlas, Maroc'},
+        {x:'Téléphone : [À CONFIRMER]'},
+        {x:'WhatsApp : [À CONFIRMER]'},
+        {x:'contact@thewhitevalleys.ma',href:'mailto:contact@thewhitevalleys.ma'},
+      ]},
+      {t:"L'Hôtel",l:[
+        {x:"L'Hôtel",to:'story'},
+        {x:'Les Suites',to:'rooms'},
+        {x:'The WHITE',to:'experiences'},
+        {x:'Le Spa',to:'experiences'},
+        {x:'Séminaires',to:'experiences'},
+      ]},
+      {t:'Pratique',l:[
+        {x:"Plan d'accès",to:'contact'},
+        {x:"Politique d'annulation"},
+        {x:'Les Lettres de la Vallée',to:'newsletter'},
+      ]},
+      {t:'Légal',l:[
+        {x:'Mentions légales'},
+        {x:'CGV'},
+        {x:'Confidentialité'},
+      ]},
     ],
   },
   en: {
-    menu:'Menu', close:'Close', tagline:'Elegance in its purest form', book:'Book',
-    dHotel:'The Hotel', dPresent:'A pause', dGallery:'The residences', dLocal:'Valley Letters',
-    dSejour:'Accommodation', dStd:'TWIN Apartment', dSup:'SINGLE Apartment', dSuite:'Room', dOffres:'Signature Suite',
-    dSpa:'Spa · Table · Seminars', dResto:'The spa', dBar:'The table', dHammam:'The seminars', dPool:'When to come',
-    dBook:'Book', dDispo:'Book your stay', dContact:'Ifrane nearby', dEvents:'Seminar quote', dRoom:'Getting here',
-    reperes:['74 residences','1,650 m altitude','24/7 reception','Spa · table · seminars'],
+    menu:'Menu', close:'Close', tagline:'The White Pause of Ifrane.', book:'Book',
+    dHotel:'The Hotel', dPresent:'A pause', dGallery:'The suites', dSeasons:'Four seasons', dLocal:'Valley Letters',
+    dSejour:'The Suites', dStd:'Senior Suite · King bed', dSup:'Senior Suite · Twin beds', dSuite:'Junior Suite · King bed', dOffres:'Junior Suite · Twin beds',
+    dSpa:'The five places', dResto:'The spa', dBar:'The WHITE', dHammam:'Pool & gym', dPool:'The seminars',
+    dBook:'Book', dDispo:'Book your stay', dContact:'Getting to us', dEvents:'Seminar quote', dRoom:'Getting here',
+    reperes:['74 suites, from 28 to 65 m²','Spa, hammam and sauna','The WHITE, our restaurant','Heated pool','Gym','Conference room'],
+    reperesPause:'Pause the banner', reperesPlay:'Resume the banner',
+    aClose:'Close', aCloseMenu:'Close the menu', aTop:'Back to top',
+    aEte:'Summer', aHiver:'Winter',
+    galRole:'carousel', galPrev:'Previous photo', galNext:'Next photo', galGo:'Go to photo', galPhotos:'photos',
+    galPause:'Pause the carousel', galPlay:'Resume the carousel', railGo:'Go to place',
+    photoK:{ chambre:'the bedroom', salon:'the living room', cuisine:'the kitchenette', bain:'the bathroom',
+             bureau:'the work space', cabine:'a treatment cabin', hammam:'the hammam',
+             linge:'towels and soaps', detente:'the loungers', ambiance:'the spa',
+             restaurant:'The WHITE façade', piscine:'the heated pool',
+             sport:'the gym', facade:'the façade at night' },
+    seminaireFacts:['One conference room','74 suites, 41 of them with twin beds','On-site catering, three meals','Spa and pool at the end of the day'],
+    heroAltEte:'The White Valley residence in Ifrane, its façade lit at nightfall.',
+    heroAltHiver:'The White Valley residence in Ifrane under snow.',
+    destAltEte:'The façade of The WHITE restaurant, lit at night.',
+    destAltHiver:'The façade of The WHITE restaurant under snow, at night.',
     callTitle:'Your pause begins here.',
-    navExp:'Experiences', navSeasons:'Seasons', navNewsletter:'Newsletter', navIfrane:'Ifrane',
     navPhone:'Phone', navWhats:'WhatsApp',
     saisonsEye:'FOUR SEASONS', saisonsH2:'Four seasons, one signature', saisonsBtn:'When to come',
     saisons:[
       {name:'Winter',period:'December to March',tone:'stone',txt:"Between −5 °C at night and 8 °C by day. Snow comes three to six times each winter. A fireplace, the silent cedar forest, skiing twenty minutes away when the slope is white."},
       {name:'Spring',period:'April to May',tone:'sage',txt:"The best season for walking. The first wild herbs, almonds still green, a crisp light for photographs. Our favourite season, in confidence."},
-      {name:'Summer',period:'June to September',tone:'warm',txt:"The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated to 29 °C."},
+      {name:'Summer',period:'June to September',tone:'warm',txt:"The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated."},
       {name:'Autumn',period:'October to November',tone:'brass',txt:"The forests turn copper, the air dries. Very few people midweek. The ideal season for a retreat or a long weekend for two, with no competing schedules."},
     ],
     heroEyeSplit:'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
-    heroEteA:'The high-altitude', heroEteB:'apart-hotel', heroEteC:'in Ifrane.',
-    heroHivA:'The high-altitude', heroHivB:'apart-hotel', heroHivC:'in Ifrane.',
-    heroLedeSplit:"At 1,650 metres, life takes a breath. 74 residences, an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
-    heroCta1:'Book your stay', heroCta2:'Seminar quote',
-    heroMetaCat:'Format', heroMetaCatV:'High-altitude apart-hotel · 74 residences', heroMetaTel:'Reception', heroMetaTelV:'Open 24/7',
+    heroEteA:'The high-altitude', heroEteB:'suite hotel', heroEteC:'in Ifrane.',
+    heroHivA:'The high-altitude', heroHivB:'suite hotel', heroHivC:'in Ifrane.',
+    heroLedeSplit:"At 1,650 metres, life takes a breath. 74 suites, an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
+    heroCta1:'Book your stay', heroCta2:'Planning a seminar? Request a quote',
+    heroMetaCat:'Format', heroMetaCatV:'High-altitude suite hotel · 74 suites', heroMetaTel:'Altitude', heroMetaTelV:'1,650 m · Middle Atlas',
     heroEyeFull:'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
     heroLedeFull:'At 1,650 metres, life takes a breath.',
-    marquee:['74 RESIDENCES','SPA & HAMMAM','HIGH-ALTITUDE TABLE','SEMINARS','POOL HEATED TO 29°C','SKI 20 MIN AWAY','24/7 RECEPTION'],
     introEye:'THE HOTEL', introH2:'A pause in the valley.',
-    introP1a:'Neither a classic hotel nor a rental:',
-    introP1em:'something in between.', introP1b:'You have your apartment, your kitchen if you wish, your living room with its view of the valley.',
-    introP2:"Around it, what a good hotel does well: breakfast served in the room, the spa reserved at 9 PM, dinner downstairs in the evening, a concierge who handles the details. You activate what you want. The rest fades away. 74 residences, an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
+    introP1:"Here you don't book a room. You book a suite: room to set your things down, somewhere to sit other than the bed, and enough space to stay more than one night without the stay starting to feel like a transit.",
+    introP2:"Around it, what a good hotel does well. The hammam, the sauna, the five treatment cabins. The WHITE downstairs, midday and evening. The heated pool, the gym open early. You activate what you want. The rest fades away.",
+    introP3:"Ifrane is an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
     introLink:'Discover the hotel',
     bbArrivee:'CHECK-IN', bbDepart:'CHECK-OUT', bbVoyageurs:'GUESTS',
-    bbGuests:'2 adults · 1 room', bbSubmit:'Check availability', bbLocale:'en-GB',
-    roomsEye:'ACCOMMODATION', roomsH2:'74 residences, four ways to live the valley',
-    roomsLede:"The right format isn't the biggest. It's the one that fits your stay. Four formats, one signature: the same bedding everywhere, the same care, the same services. What changes is the volume you live in.",
-    tabs:['All','Apartment','Room','Suite'], tabAll:'All',
+    bbAdults:'Adults', bbChildren:'Children', bbLess:'Remove', bbMore:'Add',
+    bbSubmit:'Check availability', bbLocale:'en-GB',
+    roomsEye:'THE SUITES', roomsH2:'74 suites, four formats, from 28 to 65 m².',
+    roomsLede:"The choice comes down to two questions. How much space do you need, and do you sleep in the same bed. Junior or Senior for the size, king bed or twin beds for the bedding, and the surface that goes with it: 28, 45 or 65 m². The rest doesn't change from one suite to the next: the same bedding, the same bathroom, the same view of the valley, the same care first thing in the morning.",
     rSurface:'Size', rCap:'Capacity', rKitchen:'Kitchen', rPriceNote:'Rates on request',
-    rBook:'Book', rDisc:'Discover', rFav:'Favourite',
+    rBook:'Book',
     rooms:[
-      {name:'TWIN Apartment',type:'Apartment',size:65,cap:'4 people',kitchen:'Equipped kitchenette',tone:'warm',tag:'4 guests',desc:"Two bedrooms, a shared living room, an equipped kitchenette. For two couples of friends, a family of adults, a team of four."},
-      {name:'SINGLE Apartment',type:'Apartment',size:45,cap:'2 people',kitchen:'Equipped kitchenette',tone:'sage',tag:'Most chosen',desc:"One bedroom, a real living room, the view from the sofa. The format most couples who write to us choose."},
-      {name:'Room',type:'Room',size:28,cap:'2 people',kitchen:'None',tone:'stone',tag:null,desc:"A large bed, the same bathroom and the same view as the apartments, in a shorter format. For one night, two, or a seminar."},
-      {name:'Signature Suite',type:'Suite',size:110,cap:'2 to 4 people',kitchen:'Full kitchen',tone:'brass',tag:'Signature',desc:"Full kitchen, private terrace, double living room. Our largest suite, and the most discreet."},
+      {name:'Senior Suite · King bed',photos:'suite-senior-grand-lit',size:65,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'warm',desc:"Sixty-five square metres, a king bed, a real living room. Storage, and enough space to stay indoors when it has been snowing for two days. What you choose for a week for two."},
+      {name:'Senior Suite · Twin beds',photos:'suite-senior-twin',size:65,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'sage',desc:"The same volume, two separate beds. The most common format in the house, forty suites out of seventy-four."},
+      {name:'Junior Suite · King bed',photos:'suite-junior-grand-lit',size:28,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'stone',desc:"Twenty-eight square metres, a king bed, a sitting corner. Our most compact format, for two or three nights for two."},
+      {name:'Junior Suite · Twin beds',photos:'suite-junior-twin',size:45,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'brass',desc:"Forty-five square metres, two separate beds. There is only one in the house, which means it goes fast."},
     ],
-    expEye:'SPA · TABLE · SEMINARS', expH2:'The spa, the table, the seminars.',
+    expEye:'SPA · TABLE · POOL · GYM · SEMINARS', expH2:'Five places, under one roof.',
     exps:[
-      {idx:'01',title:'The spa',sub:"Five cabins, a hammam, a sauna, a pool heated to 29 °C open onto the valley. Treatments designed for altitude. No music in the corridors.",tone:'sage'},
-      {idx:'02',title:'The table',sub:"Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a plate you finish. Around twenty Moroccan wines on the list.",tone:'warm'},
-      {idx:'03',title:'The seminars',sub:"Seminar and conference room, on-site accommodation, catering, spa to unwind in the evening. A setting apart for a leadership retreat.",tone:'brass'},
+      {idx:'01',title:'The spa',photos:'spa',sub:"Five cabins, a hammam, a sauna, and separate circuits for women and for men. Treatments designed for altitude: at 1,650 metres, the skin doesn't ask for what it asks for by the sea. No music in the corridors.",tone:'sage'},
+      {idx:'02',title:'The WHITE',photos:'the-white',sub:"Our restaurant. Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a cooking we respect, a plate you finish. Open to non-residents by reservation.",tone:'warm'},
+      {idx:'03',title:'The pool',photos:'piscine',sub:"Heated, which at 1,650 metres is not a detail: you get in during January instead of looking at it through the window.",tone:'pool'},
+      {idx:'04',title:'The gym',photos:'sport',sub:"Glazed onto the pool: two spin bikes, one elliptical, two treadmills, a leg press and a cable station. You watch the water while you run.",tone:'stone'},
+      {idx:'05',title:'The seminars',sub:"A conference room, the suites above, The WHITE for meals, the spa at the end of the day. Everything is in the same building, and over a two-day seminar that changes just about everything.",tone:'brass'},
     ],
     destEye:'IFRANE WITHIN REACH', destH2:'Getting to us.', destCard:'THE WHITE VALLEY · IFRANE', destBtn:'Getting here',
-    destRooms:'Altitude', destFloors:'Residences', destCoord:'Distance',
+    destRooms:'Altitude', destFloors:'Suites', destCoord:'Distance',
     dests:[
-      {city:'Fès',region:'Fès-Saïss Airport · 1 h',rooms:230,since:2005,tone:'warm',coord:'≈ 60 km',desc:"We imagine Ifrane far away. It's an hour from Fès airport."},
-      {city:'Rabat',region:'3 h by road',rooms:230,since:2005,tone:'sage',coord:'≈ 250 km',desc:"Three hours from Rabat. The concierge arranges private transfers on request."},
-      {city:'Casablanca',region:'4 h by road',rooms:230,since:2005,tone:'brass',coord:'≈ 330 km',desc:"Four hours from Casablanca. Mention it when booking and we'll take care of the rest."},
-    ],
-    editoEye:'THE HOUSE, BY THOSE WHO RUN IT',
-    quotes:[
-      {src:'Head chef',txt:"I've run this kitchen since opening. My rule doesn't change: three flavours per plate, a cooking we respect, a plate you finish."},
-      {src:'Spa manager',txt:"At 1,650 metres, the skin doesn't ask for what it asks for by the sea. Our treatments start there."},
-      {src:'Architect',txt:"We wanted to be able to live here at −5 °C as at 32 °C without changing a thing. Three years of drawing to get there."},
+      {city:'Fès',region:'Fès-Saïss Airport · 1 h',tone:'warm',coord:'≈ 60 km',desc:"We imagine Ifrane far away. It's an hour from Fès airport."},
+      {city:'Rabat',region:'3 h by road',tone:'sage',coord:'≈ 250 km',desc:"Three hours from Rabat. The concierge arranges private transfers on request."},
+      {city:'Casablanca',region:'4 h by road',tone:'brass',coord:'≈ 330 km',desc:"Four hours from Casablanca. Mention it when booking and we'll take care of the rest."},
     ],
     nlEye:'THE VALLEY LETTERS', nlH2:'The Valley Letters',
     nlDesc:"A story of the valley each quarter: the snow arriving, the table changing, the trails reopening. And access to our Confidential rates, reserved for subscribers. Voluntary sign-up, one-click unsubscribe. We send nothing else.",
     nlLabel:'Your email address', nlPH:'you@example.com', nlBtn:'Receive the Letters', nlSent:'✓ Confirm your email', nlNote:'Double opt-in: a confirmation email validates your sign-up.',
-    ftTagline:'High-altitude apart-hotel · Ifrane, Middle Atlas',
+    nlConfirm:"An email has just gone out to your inbox. One click to confirm, and you will receive the next Letter from the Valley. Four a year, not one more.",
+    ftTagline:'High-altitude suite hotel · Ifrane, Middle Atlas',
     ftCopy:'© 2026 The White Valley · Ifrane. All rights reserved.',
     ftCols:[
-      {t:'Contact',l:['Ifrane · Middle Atlas, Morocco','24/7 reception','contact@thewhitevalley.ma','WhatsApp on request']},
-      {t:'The Hotel',l:['About','Gallery','Careers','Press']},
-      {t:'Practical',l:['FAQ','Getting here','Cancellation policy','The Valley Letters']},
-      {t:'Legal',l:['Legal notice','Terms','Privacy']},
+      {t:'Contact',l:[
+        {x:'N8, Ifrane, Middle Atlas, Morocco'},
+        {x:'Phone: [TO BE CONFIRMED]'},
+        {x:'WhatsApp: [TO BE CONFIRMED]'},
+        {x:'contact@thewhitevalleys.ma',href:'mailto:contact@thewhitevalleys.ma'},
+      ]},
+      {t:'The Hotel',l:[
+        {x:'The Hotel',to:'story'},
+        {x:'The Suites',to:'rooms'},
+        {x:'The WHITE',to:'experiences'},
+        {x:'The Spa',to:'experiences'},
+        {x:'Seminars',to:'experiences'},
+      ]},
+      {t:'Practical',l:[
+        {x:'Getting here',to:'contact'},
+        {x:'Cancellation policy'},
+        {x:'The Valley Letters',to:'newsletter'},
+      ]},
+      {t:'Legal',l:[
+        {x:'Legal notice'},
+        {x:'Terms'},
+        {x:'Privacy'},
+      ]},
     ],
   },
 };
 
-/* ── HotelRunner ── URL du moteur de réservation */
-const HR_BOOKING_URL = {
-  fr: 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=fr-FR',
-  en: 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=en-US',
+/* ── Moteur de réservation ──
+   Audit 28/08 · point 23 : le site pointait vers le-zenith-hotel-spa.hotelrunner.com,
+   c'est-à-dire le moteur d'un AUTRE établissement — chaque tentative de réservation
+   partait ailleurs. Le branchement a été retiré.
+   Renseigner ci-dessous l'URL du moteur The White Valley pour le rebrancher ; tant
+   qu'elle est vide, les parcours de réservation basculent sur l'e-mail de réservation. */
+const BOOKING_ENGINE_URL = '';                             /* TODO client : URL du moteur The White Valley */
+const BOOKING_EMAIL      = 'reservation@thewhitevalleys.ma';
+
+/* Coordonnées — domaine corrigé en thewhitevalleys.ma (audit 28/08, point 25).
+   Téléphone et WhatsApp non confirmés : laissés vides, donc non affichés. */
+const CONTACT_PHONE    = '';   /* TODO client : ex. '+212 5 35 00 00 00' */
+const CONTACT_WHATSAPP = '';   /* TODO client : format international sans +, ex. '212600000000' */
+const CONTACT_EMAIL    = 'contact@thewhitevalleys.ma';
+const MAPS_URL         = 'https://www.google.com/maps/search/?api=1&query=33.5237066,-5.110433';
+
+/* trip (facultatif) : { checkIn, checkOut, adults, children } */
+function openBooking(lang = 'fr', trip = null) {
+  const en = lang === 'en';
+
+  if (BOOKING_ENGINE_URL) {
+    let url = BOOKING_ENGINE_URL;
+    if (trip) {
+      const qs = new URLSearchParams({
+        checkin_date:  trip.checkIn,
+        checkout_date: trip.checkOut,
+        total_adult:   String(trip.adults),
+        total_child:   String(trip.children),
+      });
+      url += (url.includes('?') ? '&' : '?') + qs.toString();
+    }
+    window.open(url, '_blank', 'noopener');
+    return;
+  }
+
+  /* Relais temporaire : demande de séjour par e-mail, en attendant le moteur. */
+  const subject = en ? 'Booking request — The White Valley'
+                     : 'Demande de réservation — The White Valley';
+  const body = trip
+    ? (en ? `Check-in: ${trip.checkIn}\nCheck-out: ${trip.checkOut}\nAdults: ${trip.adults}\nChildren: ${trip.children}\n\n`
+          : `Arrivée : ${trip.checkIn}\nDépart : ${trip.checkOut}\nAdultes : ${trip.adults}\nEnfants : ${trip.children}\n\n`)
+    : '';
+  window.location.href =
+    `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+
+/* ── Photos ── Générées depuis assets/photos/ (deux tailles : -800 et -1600).
+   n = numéro du fichier, k = sujet (sert à composer le texte alternatif et la légende). */
+const PHOTOS = {
+  /* Tri client du 3 septembre : les vues écartées ne sont plus listées ici. Les fichiers
+     restent dans assets/photos/, il suffit de remettre l'entrée pour les réafficher.
+     Senior Grand lit : 2, 4 et 6 écartées · Senior Twin : 1 et 3 · Junior Grand lit :
+     2, 3 et 4 · Junior Twin : 1, 4 et 6.                                              */
+  "suite-senior-grand-lit": [["01","chambre"], ["03","salon"], ["05","salon"], ["07","bureau"], ["08","bain"]],
+  "suite-senior-twin": [["02","chambre"], ["04","salon"], ["05","salon"], ["06","cuisine"], ["07","bureau"], ["08","bain"]],
+  "suite-junior-grand-lit": [["01","chambre"], ["05","cuisine"], ["06","bureau"], ["07","bain"], ["08","bain"]],
+  "suite-junior-twin": [["02","chambre"], ["03","chambre"], ["05","salon"], ["07","cuisine"], ["08","bain"]],
+  /* Spa — ordre client du 03/09 : le hammam ouvre la galerie ; les fichiers 02 et 01
+     sont écartés (3e puis 2e vue, dans cet ordre de demande) ; les hammams 05 et 06
+     suivent la couverture. */
+  "spa": [["04","hammam"], ["05","hammam"], ["06","hammam"], ["03","cabine"], ["07","linge"], ["08","cabine"], ["09","detente"], ["10","ambiance"]],
+  /* The WHITE — ordre client du 03/09 : la 4e vue passe en couverture ; les 2e et 6e
+     sont écartées. */
+  "the-white": [["04","restaurant"], ["01","restaurant"], ["03","restaurant"], ["05","restaurant"]],
+  "piscine": [["01","piscine"], ["02","piscine"], ["03","piscine"], ["04","piscine"]],
+  "sport": [["01","sport"], ["02","sport"], ["03","sport"]],
+  /* Le groupe « facade » n'est plus une galerie : « Nous rejoindre » affiche une
+     photo par saison (dest-ete / dest-hiver), et facade-01 sert de fond à la
+     section Les Lettres de la Vallée. */
 };
 
+/* ---------- Galerie ----------
+   Carrousel maison : une piste en scroll-snap horizontal, donc le glissement tactile
+   est natif et le clavier fonctionne sans code de capture.
+
+   Défilement automatique (demande du 03/09), avec les garde-fous que l'audit impose
+   déjà au bandeau (point 7) : bouton pause, arrêt au survol et au focus clavier,
+   respect de prefers-reduced-motion. Il ne tourne que si le carrousel est visible à
+   l'écran et que l'onglet est au premier plan — sinon nos neuf carrousels
+   défileraient tous en même temps, hors de vue, en chargeant des images pour rien.
+
+   variant='arch' : la photo prend une arche haute et sort de son cadre, le texte
+   passe sur une carte de --surface. La forme fait le travail que faisait le cadre —
+   tenir la photo, chaude et nocturne, à distance d'une palette qui devient blanche
+   et bleue en hiver — sans importer de couleur qui casserait la saison.             */
+function Gallery({ slug, name, lang, eager = false, variant = '', autoplay = false, interval = 5200 }) {
+  const photos = PHOTOS[slug] || [];
+  const tr = T[lang] || T.fr;
+  const [idx, setIdx] = useState(0);
+  const [userPaused, setUserPaused] = useState(false);
+  const [survol, setSurvol] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const trackRef = useRef(null);
+  const wrapRef  = useRef(null);
+
+  /* La position de défilement est la source de vérité, pas l'état React : si le
+     navigateur interrompt un défilement doux et raccroche à la vue la plus proche
+     (ce que fait le scroll-snap), le compteur suit la photo réellement affichée.
+     targetRef mémorise la vue visée pour que deux clics rapides avancent bien de deux. */
+  const targetRef = useRef(0);
+
+  const mouvementReduit = () =>
+    !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  const goTo = (j, instantane) => {
+    const t = trackRef.current;
+    if (!t) return;
+    const n = Math.max(0, Math.min(photos.length - 1, j));
+    targetRef.current = n;
+    const doux = !instantane && !mouvementReduit();
+    t.scrollTo({ left: n * t.clientWidth, behavior: doux ? 'smooth' : 'auto' });
+    setIdx(n);   /* retour immédiat ; onScroll corrigera si le défilement s'arrête ailleurs */
+  };
+
+  const step = (d) => goTo(targetRef.current + d);
+
+  /* ── Défilement automatique ── */
+  const enPause = userPaused || survol;
+
+  /* Ne tourner que si le carrousel est réellement à l'écran. */
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') { setVisible(true); return; }
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => setVisible(e.isIntersecting)),
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!autoplay || enPause || !visible || photos.length < 2 || mouvementReduit()) return;
+    const t = setInterval(() => {
+      /* Onglet en arrière-plan : on laisse passer le tour. */
+      if (document.hidden) return;
+      const suivant = (targetRef.current + 1) % photos.length;
+      /* Retour à la première vue sans balayer toutes les autres. */
+      goTo(suivant, suivant === 0);
+    }, interval);
+    return () => clearInterval(t);
+  }, [autoplay, enPause, visible, photos.length, interval]);
+
+  const isSuite = (slug || '').indexOf('suite') === 0;
+  const legende = (k) => (tr.photoK && tr.photoK[k]) || '';
+  const alt = (k) => isSuite ? `${name} — ${legende(k)}`
+                             : legende(k).charAt(0).toUpperCase() + legende(k).slice(1);
+
+  const onScroll = () => {
+    const t = trackRef.current;
+    if (!t || !t.clientWidth) return;
+    const n = Math.round(t.scrollLeft / t.clientWidth);
+    if (n !== idx) setIdx(n);
+    /* Au repos — glissement tactile compris — la cible rejoint la position réelle. */
+    if (Math.abs(t.scrollLeft - n * t.clientWidth) < 2) targetRef.current = n;
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); step(-1); }
+  };
+
+  const num = (n) => String(n).padStart(2, '0');
+
+  if (!photos.length) return null;
+
+  return (
+    <div className={`gal${variant === 'arch' ? ' gal--arch' : ''}`}
+      ref={wrapRef}
+      role="group" aria-roledescription={tr.galRole} aria-label={name}
+      onMouseEnter={() => setSurvol(true)}
+      onMouseLeave={() => setSurvol(false)}
+      onFocus={() => setSurvol(true)}
+      onBlur={() => setSurvol(false)}>
+      <div className="gal__frame">
+        <ul className="gal__track" ref={trackRef} onScroll={onScroll} onKeyDown={onKeyDown}
+            tabIndex={0} aria-label={`${name} — ${photos.length} ${tr.galPhotos}`}>
+          {photos.map(([n, k], i) => (
+            <li className="gal__slide" key={n} aria-label={`${i + 1} / ${photos.length}`}>
+              <img
+                src={`assets/photos/${slug}-${n}-800.jpg`}
+                srcSet={`assets/photos/${slug}-${n}-800.jpg 800w, assets/photos/${slug}-${n}-1600.jpg 1600w`}
+                sizes="(max-width: 900px) 100vw, 640px"
+                width="1600" height="1200"
+                loading={eager && i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                alt={alt(k)}
+              />
+            </li>
+          ))}
+        </ul>
+
+        {photos.length > 1 && (
+          <>
+            <button type="button" className="gal__nav gal__nav--prev"
+              onClick={() => step(-1)} disabled={idx === 0} aria-label={tr.galPrev}>‹</button>
+            <button type="button" className="gal__nav gal__nav--next"
+              onClick={() => step(1)} disabled={idx === photos.length - 1} aria-label={tr.galNext}>›</button>
+          </>
+        )}
+      </div>
+
+      <div className="gal__bar">
+        <span className="gal__count">{num(idx + 1)} / {num(photos.length)}</span>
+        <span className="gal__legend">{legende(photos[idx] && photos[idx][1])}</span>
+        {photos.length > 1 && (
+          <span className="gal__dots">
+            {photos.map(([n], i) => (
+              <button type="button" key={n} className={i === idx ? 'is-active' : ''}
+                onClick={() => goTo(i)} aria-label={`${tr.galGo} ${i + 1}`} aria-current={i === idx} />
+            ))}
+          </span>
+        )}
+        {autoplay && photos.length > 1 && (
+          <button type="button" className="gal__pause"
+            onClick={() => setUserPaused(p => !p)}
+            aria-pressed={userPaused}
+            aria-label={userPaused ? tr.galPlay : tr.galPause}>
+            {userPaused ? '▶' : '❚❚'}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Rail ----------
+   Carrousel de cartes qui en montre plusieurs à la fois : trois sur desktop, deux en
+   tablette, une sur mobile. Il avance d'une carte à la fois.
+
+   Les points comptent les positions atteignables, pas les cartes : avec cinq cartes
+   dont trois visibles, le défilement s'arrête à la troisième position (cartes 3, 4, 5
+   à l'écran). Mettre cinq points donnerait deux points qui ne s'allumeraient jamais.
+   Le nombre de points est donc mesuré, et il suit les paliers responsives.
+
+   Mêmes garde-fous que la galerie : pause, arrêt au survol et au focus, respect de
+   prefers-reduced-motion, et rien ne tourne hors de l'écran.                        */
+function Rail({ lang, label, autoplay = true, interval = 7000, children }) {
+  const tr = T[lang] || T.fr;
+  const slides = React.Children.toArray(children);
+  const [idx, setIdx] = useState(0);
+  const [survol, setSurvol] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [pas, setPas] = useState(0);            /* largeur d'un pas : carte + écart */
+  const [positions, setPositions] = useState(1);
+  const trackRef = useRef(null);
+  const wrapRef  = useRef(null);
+  const targetRef = useRef(0);
+
+  const mouvementReduit = () =>
+    !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* Mesure du pas et du nombre de positions — recalculés au redimensionnement,
+     puisque le nombre de cartes visibles change selon la largeur. */
+  useEffect(() => {
+    const t = trackRef.current;
+    if (!t) return;
+    const mesurer = () => {
+      const premiere = t.firstElementChild;
+      if (!premiere) return;
+      const cs = window.getComputedStyle(t);
+      const ecart = parseFloat(cs.columnGap || cs.gap || '0') || 0;
+      const p = premiere.getBoundingClientRect().width + ecart;
+      if (!p) return;
+      setPas(p);
+      const visibles = Math.max(1, Math.round((t.clientWidth + ecart) / p));
+      setPositions(Math.max(1, slides.length - visibles + 1));
+    };
+    mesurer();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(mesurer) : null;
+    if (ro) ro.observe(t);
+    window.addEventListener('resize', mesurer);
+    return () => { if (ro) ro.disconnect(); window.removeEventListener('resize', mesurer); };
+  }, [slides.length]);
+
+  const goTo = (j, instantane) => {
+    const t = trackRef.current;
+    if (!t) return;
+    const p = pas || t.clientWidth;
+    const n = Math.max(0, Math.min(positions - 1, j));
+    targetRef.current = n;
+    const doux = !instantane && !mouvementReduit();
+    t.scrollTo({ left: n * p, behavior: doux ? 'smooth' : 'auto' });
+    setIdx(n);
+  };
+
+  const step = (d) => goTo(targetRef.current + d);
+
+  const onScroll = () => {
+    const t = trackRef.current;
+    const p = pas || (t && t.clientWidth);
+    if (!t || !p) return;
+    const n = Math.min(positions - 1, Math.round(t.scrollLeft / p));
+    if (n !== idx) setIdx(n);
+    if (Math.abs(t.scrollLeft - n * p) < 2) targetRef.current = n;
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); step(-1); }
+  };
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') { setVisible(true); return; }
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => setVisible(e.isIntersecting)),
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const enPause = survol;   /* survol souris ou focus clavier */
+
+  useEffect(() => {
+    if (!autoplay || enPause || !visible || positions < 2 || mouvementReduit()) return;
+    const t = setInterval(() => {
+      if (document.hidden) return;
+      const suivant = (targetRef.current + 1) % positions;
+      goTo(suivant);   /* retour au début : deux pas seulement, un rembobinage court */
+    }, interval);
+    return () => clearInterval(t);
+  }, [autoplay, enPause, visible, positions, interval, pas]);
+
+  const num = (n) => String(n).padStart(2, '0');
+
+  return (
+    <div className="rail" ref={wrapRef}
+      role="group" aria-roledescription={tr.galRole} aria-label={label}
+      onMouseEnter={() => setSurvol(true)}
+      onMouseLeave={() => setSurvol(false)}
+      onFocus={() => setSurvol(true)}
+      onBlur={() => setSurvol(false)}>
+
+      <ul className="rail__track" ref={trackRef} onScroll={onScroll} onKeyDown={onKeyDown}
+          tabIndex={0} aria-label={`${label} — ${slides.length}`}>
+        {slides.map((s, i) => (
+          <li className="rail__slide" key={i} aria-label={`${i + 1} / ${slides.length}`}>{s}</li>
+        ))}
+      </ul>
+
+      {/* Barre réduite aux points, centrés (03/09). Retirés à la demande : les flèches,
+          le compteur et le bouton pause. Le défilement reste interruptible — il s'arrête
+          au survol et au focus clavier, et ne démarre pas si le visiteur a demandé de
+          réduire les animations. Pour remettre un bouton pause, voir Gallery. */}
+      <div className="rail__bar">
+        <span className="rail__dots">
+          {Array.from({ length: positions }).map((_, i) => (
+            <button type="button" key={i} className={i === idx ? 'is-active' : ''}
+              onClick={() => goTo(i)} aria-label={`${tr.railGo} ${i + 1}`} aria-current={i === idx} />
+          ))}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 /* ---------- Placeholder imagery ----------
    Using CSS gradients + subtle noise pattern to evoke real photography
@@ -263,7 +676,7 @@ function Placeholder({ label, tone = 'warm', aspect = '3/2', className = '', chi
   );
 }
 
-/* ---------- HotelRunner Modal ---------- */
+/* ---------- Panneau de réservation ---------- */
 function HotelRunnerModal({ open, onClose, lang }) {
   const lc = lang === 'en' ? 'en' : 'fr';
 
@@ -272,16 +685,18 @@ function HotelRunnerModal({ open, onClose, lang }) {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
+  /* Chiffres confirmés par le client le 28/08 — ne pas réintroduire les données
+     de l'ancien établissement (230 chambres, Casablanca, 4 étoiles). */
   const L = lc === 'en' ? {
-    title: 'Book your stay', sub: 'The White Valley · Casablanca',
-    note: 'Flexible cancellation · Check-in from 3 PM',
-    feats: ['230 air-conditioned rooms', 'Spa & Hammam · Indoor pool', '4-star · Casablanca'],
-    cta: 'Book on HotelRunner', ctaSub: 'Secure booking · Official rates',
+    title: 'Book your stay', sub: 'The White Valley · Ifrane, Middle Atlas',
+    note: 'Cancellation policy: [TO BE CONFIRMED]',
+    feats: ['74 suites, from 28 to 65 m²', 'Spa, hammam and sauna · Heated pool', 'The WHITE, our restaurant'],
+    cta: 'Book your stay', ctaSub: 'Direct booking · Official rates',
   } : {
-    title: 'Réservez votre séjour', sub: 'The White Valley · Casablanca',
-    note: 'Annulation flexible · Arrivée dès 15h00',
-    feats: ['230 chambres climatisées', 'Spa & Hammam · Piscine intérieure', '4 étoiles · Casablanca'],
-    cta: 'Réserver sur HotelRunner', ctaSub: 'Réservation sécurisée · Tarifs officiels',
+    title: 'Réservez votre séjour', sub: 'The White Valley · Ifrane, Moyen Atlas',
+    note: "Politique d'annulation : [À CONFIRMER]",
+    feats: ['74 suites, de 28 à 65 m²', 'Spa, hammam et sauna · Piscine chauffée', 'The WHITE, notre restaurant'],
+    cta: 'Réserver votre séjour', ctaSub: 'Réservation en direct · Tarifs officiels',
   };
 
   return (
@@ -291,7 +706,7 @@ function HotelRunnerModal({ open, onClose, lang }) {
       <div className={`bp${open ? ' is-open' : ''}`}>
 
         <div className="bp__head">
-          <button className="bp__close" onClick={onClose} aria-label="Fermer">✕</button>
+          <button className="bp__close" onClick={onClose} aria-label={(T[lc]||T.fr).aClose}>✕</button>
         </div>
 
         <div className="bp__hero">
@@ -308,16 +723,14 @@ function HotelRunnerModal({ open, onClose, lang }) {
             ))}
           </ul>
 
-          <a
-            href={HR_BOOKING_URL[lc] || HR_BOOKING_URL.fr}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             className="bp__book-btn"
-            onClick={onClose}
+            onClick={() => { onClose(); openBooking(lc); }}
           >
             {L.cta}
             <span>↗</span>
-          </a>
+          </button>
           <p className="bp__book-sub">{L.ctaSub}</p>
         </div>
 
@@ -329,7 +742,10 @@ function HotelRunnerModal({ open, onClose, lang }) {
     </>
   );
 }
-/* ---------- Booking bar — formulaire natif → HotelRunner nouvel onglet ---------- */
+/* ---------- Booking bar ----------
+   Audit 28/08 · point 4 : le select fusionnait treize combinaisons chambres × adultes.
+   Avec quatre suites et un couchage fixe par suite, cette combinatoire ne veut plus rien
+   dire — remplacé par un compteur adultes / enfants, navigable au clavier.            */
 function BookingBar({ lang }) {
   const lc = lang === 'en' ? 'en' : 'fr';
   const tr  = T[lang] || T.fr;
@@ -341,11 +757,12 @@ function BookingBar({ lang }) {
   const [checkIn,  setCheckIn]  = useState(todayStr);
   const [checkOut, setCheckOut] = useState(() => nextDay(todayStr()));
   const [adults,   setAdults]   = useState(2);
-  const [rooms,    setRooms]    = useState(1);
+  const [children, setChildren] = useState(0);
+  const [guestsOpen, setGuestsOpen] = useState(false);
 
-  const inRef  = useRef(null);
-  const outRef = useRef(null);
-  const selRef = useRef(null);
+  const inRef     = useRef(null);
+  const outRef    = useRef(null);
+  const guestsRef = useRef(null);
 
   const openPicker = (ref) => (e) => {
     e.preventDefault();
@@ -354,49 +771,41 @@ function BookingBar({ lang }) {
     catch { ref.current.focus(); ref.current.click(); }
   };
 
+  /* Fermeture du compteur au clic extérieur et à la touche Échap */
+  useEffect(() => {
+    if (!guestsOpen) return;
+    const onDown = (e) => { if (guestsRef.current && !guestsRef.current.contains(e.target)) setGuestsOpen(false); };
+    const onKey  = (e) => { if (e.key === 'Escape') setGuestsOpen(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
+  }, [guestsOpen]);
+
   const fmt = (s) => {
     try { return new Date(s+'T12:00:00').toLocaleDateString(lc==='en'?'en-GB':'fr-FR', {day:'2-digit', month:'short', year:'numeric'}); }
     catch { return s; }
   };
 
-  const gL = (n) => `${n} ${n===1 ? (lc==='en'?'adult':'adulte') : (lc==='en'?'adults':'adultes')}`;
-  const rL = (n) => `${n} ${n===1 ? (lc==='en'?'room':'chambre') : (lc==='en'?'rooms':'chambres')}`;
+  const aL = (n) => `${n} ${n===1 ? (lc==='en'?'adult':'adulte') : (lc==='en'?'adults':'adultes')}`;
+  const cL = (n) => `${n} ${n===1 ? (lc==='en'?'child':'enfant') : (lc==='en'?'children':'enfants')}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    /* Nombre de nuits */
-    const msPerDay = 86400000;
-    const dayCount = Math.max(1, Math.round(
-      (new Date(checkOut + 'T12:00:00') - new Date(checkIn + 'T12:00:00')) / msPerDay
-    ));
-
-    /* Répartir les adultes équitablement entre les chambres */
-    const base  = Math.floor(adults / rooms);
-    const extra = adults % rooms;
-    const roomsArr = Array.from({ length: rooms }, (_, i) => {
-      const a = base + (i < extra ? 1 : 0);
-      return { adult_count: a, child_count: 0, guest_count: a, child_ages: [] };
-    });
-    const guestRooms = {};
-    roomsArr.forEach((r, i) => { guestRooms[String(i)] = { ...r }; });
-
-    const search = JSON.stringify({
-      checkin_date:  checkIn,
-      checkout_date: checkOut,
-      day_count:     dayCount,
-      room_count:    rooms,
-      total_adult:   adults,
-      total_child:   0,
-      rooms:         roomsArr,
-      guest_rooms:   guestRooms,
-    });
-
-    window.open(
-      `https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?search=${encodeURIComponent(search)}`,
-      '_blank', 'noopener'
-    );
+    openBooking(lc, { checkIn, checkOut, adults, children });
   };
+
+  const Counter = ({ label, value, min, max, onChange }) => (
+    <div className="bb__counter">
+      <span className="bb__counter-label">{label}</span>
+      <div className="bb__counter-ctrl">
+        <button type="button" onClick={() => onChange(Math.max(min, value - 1))}
+          disabled={value <= min} aria-label={`${tr.bbLess} — ${label}`}>−</button>
+        <span className="bb__counter-val" aria-live="polite">{value}</span>
+        <button type="button" onClick={() => onChange(Math.min(max, value + 1))}
+          disabled={value >= max} aria-label={`${tr.bbMore} — ${label}`}>+</button>
+      </div>
+    </div>
+  );
 
   return (
     <form className="bb" onSubmit={handleSubmit}>
@@ -423,17 +832,20 @@ function BookingBar({ lang }) {
 
       <div className="bb__sep" />
 
-      {/* ── Voyageurs ── */}
-      <div className="bb__field" style={{cursor:'pointer', position:'relative'}}>
-        <span className="bb__label">{tr.bbVoyageurs}</span>
-        <span className="bb__value">{rL(rooms)} · {gL(adults)}</span>
-        <select ref={selRef} className="bb__select-overlay"
-          value={`${rooms}|${adults}`}
-          onChange={e => { const [r,a] = e.target.value.split('|'); setRooms(+r); setAdults(+a); }}>
-          {[1,2,3].flatMap(r => [1,2,3,4].map(a =>
-            <option key={`${r}|${a}`} value={`${r}|${a}`}>{rL(r)} · {gL(a)}</option>
-          ))}
-        </select>
+      {/* ── Voyageurs : compteur adultes / enfants ── */}
+      <div className={`bb__field bb__field--guests${guestsOpen ? ' is-open' : ''}`} ref={guestsRef}>
+        <button type="button" className="bb__guests-trigger"
+          onClick={() => setGuestsOpen(o => !o)}
+          aria-expanded={guestsOpen} aria-haspopup="true">
+          <span className="bb__label">{tr.bbVoyageurs}</span>
+          <span className="bb__value">{aL(adults)}{children > 0 ? ` · ${cL(children)}` : ''}</span>
+        </button>
+        {guestsOpen && (
+          <div className="bb__guests-pop">
+            <Counter label={tr.bbAdults}   value={adults}   min={1} max={6} onChange={setAdults} />
+            <Counter label={tr.bbChildren} value={children} min={0} max={4} onChange={setChildren} />
+          </div>
+        )}
       </div>
 
       <button type="submit" className="bb__submit">
@@ -495,28 +907,29 @@ function SplashScreen({ onDone }) {
           <path d="M120 3 L122 9 L128 9 L123 12.5 L125 18 L120 14.5 L115 18 L117 12.5 L112 9 L118 9 Z"/>
         </svg>
 
-        {/* tagline */}
-        <div className="splash__tag">L'élégance à l'état pure</div>
+        {/* tagline — signature validée (audit 28/08, point 1) */}
+        <div className="splash__tag">La Parenthèse Blanche d'Ifrane.</div>
       </div>
     </div>
   );
 }
 
 /* ---------- Season Toggle ---------- */
-function SeasonToggle({ season, onSeason }) {
+function SeasonToggle({ season, onSeason, lang }) {
+  const tr = T[lang]||T.fr;
   return (
     <div className="season-toggle">
       <button
         className={`season-toggle__btn${season === 'ete' ? ' season-toggle__btn--active' : ''}`}
         onClick={() => onSeason('ete')}
-        aria-label="Été"
+        aria-label={tr.aEte}
       >
         ☀
       </button>
       <button
         className={`season-toggle__btn${season === 'hiver' ? ' season-toggle__btn--active' : ''}`}
         onClick={() => onSeason('hiver')}
-        aria-label="Hiver"
+        aria-label={tr.aHiver}
       >
         ❄
       </button>
@@ -525,7 +938,8 @@ function SeasonToggle({ season, onSeason }) {
 }
 
 /* ---------- Back to Top ---------- */
-function BackToTop() {
+function BackToTop({ lang }) {
+  const tr = T[lang]||T.fr;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -538,7 +952,7 @@ function BackToTop() {
 
   if (!visible) return null;
   return (
-    <button className="back-top" onClick={scrollTop} aria-label="Retour en haut">
+    <button className="back-top" onClick={scrollTop} aria-label={tr.aTop}>
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <path d="M9 14V4M9 4L4 9M9 4L14 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
@@ -570,13 +984,6 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const navLinks = [
-    { label: 'Chambres',    id: 'rooms' },
-    { label: 'Expériences', id: 'experiences' },
-    { label: 'Instagram',   id: 'instagram' },
-    { label: 'Contact',     id: 'contact' },
-  ];
 
   return (
     <>
@@ -627,7 +1034,7 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
 
               {/* — bouton fermer — */}
               <div className="nav__drawer-back">
-                <button className="nav__close-btn" onClick={() => setMenuOpen(false)} aria-label="Fermer le menu">
+                <button className="nav__close-btn" onClick={() => setMenuOpen(false)} aria-label={(T[lang]||T.fr).aCloseMenu}>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
@@ -639,6 +1046,7 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
                 <em>{tr.dHotel}</em>
                 <a onClick={() => scrollTo('story')}>{tr.dPresent}</a>
                 <a onClick={() => scrollTo('rooms')}>{tr.dGallery}</a>
+                <a onClick={() => scrollTo('seasons')}>{tr.dSeasons}</a>
                 <a onClick={() => scrollTo('newsletter')}>{tr.dLocal}</a>
               </div>
               <div className="nav__drawer-col">
@@ -666,14 +1074,23 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
 
               <div className="nav__drawer-cta">
                 <div className="nav__drawer-taps">
-                  {/* TODO : remplacer par les vrais numéros */}
-                  <a className="nav__tap" href="tel:+212535000000">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 005 5l1.5-2 5 1.5v3a2 2 0 01-2 2A16 16 0 014.5 5a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
-                    {(T[lang]||T.fr).navPhone}
-                  </a>
-                  <a className="nav__tap" href="https://wa.me/212600000000" target="_blank" rel="noopener noreferrer">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.7 13.6L3 21l4.5-1.2A9 9 0 1012 3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
-                    {(T[lang]||T.fr).navWhats}
+                  {/* Les numéros ne sont pas confirmés (audit 28/08, point 22) : tant que les
+                      constantes sont vides, on n'affiche pas de lien qui ne mène nulle part. */}
+                  {CONTACT_PHONE && (
+                    <a className="nav__tap" href={`tel:${CONTACT_PHONE.replace(/\s/g, '')}`}>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 005 5l1.5-2 5 1.5v3a2 2 0 01-2 2A16 16 0 014.5 5a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
+                      {(T[lang]||T.fr).navPhone}
+                    </a>
+                  )}
+                  {CONTACT_WHATSAPP && (
+                    <a className="nav__tap" href={`https://wa.me/${CONTACT_WHATSAPP}`} target="_blank" rel="noopener noreferrer">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.7 13.6L3 21l4.5-1.2A9 9 0 1012 3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
+                      {(T[lang]||T.fr).navWhats}
+                    </a>
+                  )}
+                  <a className="nav__tap" href={`mailto:${CONTACT_EMAIL}`}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v12H3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/><path d="M3 7l9 6 9-6" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>
+                    {CONTACT_EMAIL}
                   </a>
                 </div>
                 <button className="nav__drawer-book" onClick={() => { setMenuOpen(false); onBook(); }}>{(T[lang]||T.fr).book}</button>
@@ -682,8 +1099,8 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
           </div>
         )}
       </header>
-      <SeasonToggle season={season} onSeason={onSeason} />
-      <BackToTop />
+      <SeasonToggle season={season} onSeason={onSeason} lang={lang} />
+      <BackToTop lang={lang} />
     </>
   );
 }
@@ -692,9 +1109,9 @@ function Nav({ onBook, season, onSeason, lang, onLang }) {
 function Hero({ variant, season, lang, onBook }) {
   const [imgIdx, setImgIdx] = useState(0);
   const scenes = [
-    { label: 'facade hotel 4 etoiles casablanca', tone: 'warm' },
-    { label: 'chambre climatisee balcon',          tone: 'brass' },
-    { label: 'spa piscine interieure',             tone: 'stone' },
+    { label: 'facade the white valley ifrane', tone: 'warm' },
+    { label: 'suite senior salon vue vallee',  tone: 'brass' },
+    { label: 'spa piscine chauffee',           tone: 'stone' },
   ];
 
   useEffect(() => {
@@ -725,10 +1142,11 @@ function Hero({ variant, season, lang, onBook }) {
             )}
           </h1>
           <p className="hero__lede">{tr.heroLedeSplit}</p>
-          <div className="hero__cta">
+          {/* Audit 28/08 · bloc 1 : un seul bouton, le séminaire passe en lien discret. */}
+          <div className="hero__cta hero__cta--single">
             <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
-            <a href="#experiences" className="btn btn--ghost">{tr.heroCta2}</a>
           </div>
+          <a href="#experiences" className="quote-link">{tr.heroCta2} <span>→</span></a>
           <dl className="hero__meta">
             <div><dt>{tr.heroMetaCat}</dt><dd>{tr.heroMetaCatV}</dd></div>
             <div><dt>{tr.heroMetaTel}</dt><dd>{tr.heroMetaTelV}</dd></div>
@@ -768,7 +1186,7 @@ function Hero({ variant, season, lang, onBook }) {
             src={img.s}
             srcSet={`${img.s} 1920w, ${img.l} 2560w`}
             sizes="100vw"
-            alt=""
+            alt={season === 'hiver' ? tr.heroAltHiver : tr.heroAltEte}
           />
         </div>
         <div className="hero__scrim" />
@@ -791,29 +1209,18 @@ function Hero({ variant, season, lang, onBook }) {
           )}
         </h1>
         <p className="hero__lede hero__lede--light">{tr.heroLedeFull}</p>
-        <div className="hero__cta hero__cta--full">
+        {/* Audit 28/08 · bloc 1 : un seul bouton, le séminaire passe en lien discret. */}
+        <div className="hero__cta hero__cta--full hero__cta--single">
           <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
-          <a href="#experiences" className="btn btn--ghost">{tr.heroCta2}</a>
         </div>
+        <a href="#experiences" className="quote-link quote-link--light">{tr.heroCta2} <span>→</span></a>
       </div>
     </section>
   );
 }
-/* ---------- Marquee ---------- */
-function Marquee({ lang }) {
-  const items = (T[lang]||T.fr).marquee;
-  return (
-    <div className="marquee">
-      <div className="marquee__track">
-        {[...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="marquee__item">
-            {t}<span className="marquee__sep">◆</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
+
+/* Le second bandeau défilant (Marquee) a été retiré — audit 28/08, point 7 :
+   deux bandeaux à trente secondes d'écart, dont un doublon partiel. On n'en garde qu'un. */
 
 /* ---------- Intro block ---------- */
 function Intro({ lang }) {
@@ -826,8 +1233,9 @@ function Intro({ lang }) {
           <h2 className="h-display">{tr.introH2}</h2>
         </div>
         <div className="intro__right">
-          <p>{tr.introP1a} <em>{tr.introP1em}</em> {tr.introP1b}</p>
+          <p>{tr.introP1}</p>
           <p>{tr.introP2}</p>
+          <p>{tr.introP3}</p>
           <a href="#rooms" className="link-arrow">{tr.introLink} <span>→</span></a>
         </div>
       </div>
@@ -837,11 +1245,11 @@ function Intro({ lang }) {
 
 function Rooms({ onBook, lang }) {
   const tr = T[lang]||T.fr;
-  const [filterIdx, setFilterIdx] = useState(0);
-  const [hoverIdx,  setHoverIdx]  = useState(null);
-  useEffect(() => { setFilterIdx(0); }, [lang]);
-  const groups = tr.tabs.map((t, i) => i === 0 ? tr.rooms : tr.rooms.filter(r => r.type === t));
-  const visible = groups[filterIdx];
+  /* Audit 28/08 · points 8 à 11 : les quatre typologies affichées n'existaient pas dans
+     l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés
+     — quatre suites d'une seule famille ne se filtrent pas — badge « le plus choisi » et
+     preuve sociale retirés : l'hôtel n'a pas ouvert.                                   */
+  const [hoverIdx, setHoverIdx] = useState(null);
 
   return (
     <section className="rooms" id="rooms">
@@ -851,22 +1259,10 @@ function Rooms({ onBook, lang }) {
           <h2 className="h-display">{tr.roomsH2}</h2>
           <p className="rooms__lede">{tr.roomsLede}</p>
         </div>
-        <div className="rooms__filter">
-          {tr.tabs.map((t, i) => (
-            <button
-              key={t}
-              className={`chip ${filterIdx === i ? 'is-active' : ''}`}
-              onClick={() => setFilterIdx(i)}
-            >
-              {t}
-              <span className="chip__count">{groups[i].length}</span>
-            </button>
-          ))}
-        </div>
       </div>
 
       <div className="rooms__grid">
-          {visible.map((r, i) => (
+          {tr.rooms.map((r, i) => (
           <article
             key={r.name}
             className={`room ${hoverIdx === i ? 'is-hover' : ''}`}
@@ -874,17 +1270,12 @@ function Rooms({ onBook, lang }) {
             onMouseLeave={() => setHoverIdx(null)}
           >
             <div className="room__media">
-              <Placeholder label={`${r.name.toLowerCase()} · ${r.size} m²`} tone={r.tone} aspect="4/5" />
-              {r.tag && <span className="room__tag">{r.tag}</span>}
-              <button className="room__fav" aria-label="Favori">♡</button>
-              <div className="room__hover">
-                <span>{tr.rDisc} <span>→</span></span>
-              </div>
+              <Gallery slug={r.photos} name={r.name} lang={lang} eager={i === 0}
+                       variant="arch" autoplay interval={5200 + i * 700} />
             </div>
             <div className="room__body">
               <div className="room__row">
                 <h3 className="room__name">{r.name}</h3>
-                <span className="room__type">{r.type}</span>
               </div>
               <p className="room__desc">{r.desc}</p>
               <dl className="room__specs">
@@ -915,27 +1306,40 @@ function Experiences({ lang }) {
         <p className="eyebrow"><span className="eyebrow__dot" />{tr.expEye}</p>
         <h2 className="h-display">{tr.expH2}</h2>
       </div>
-      <div className="exp__grid">
-          {tr.exps.map(it => (
-          <a key={it.idx} className="exp__item" href="#">
-            <Placeholder label={`expérience · ${it.title.toLowerCase()}`} tone={it.tone} aspect="1/1" />
+      {/* Audit 28/08 · points 13 à 16 : cinq lieux au lieu de trois — la piscine et la
+          salle de sport cessent d'être des mentions en marge. Les cartes ne sont plus des
+          liens : les pages correspondantes n'existent pas encore.
+          03/09 : la grille 3 + 2 laissait une case vide. Les cinq lieux passent en
+          carrousel, une carte par vue, cinq points — photo à gauche, texte à droite. */}
+      <Rail lang={lang} label={tr.expH2} autoplay interval={5000}>
+        {tr.exps.map(it => (
+          <article key={it.idx} className="exp__item">
+              {it.photos
+                ? <Gallery slug={it.photos} name={it.title} lang={lang}
+                    variant="arch" autoplay interval={5600 + Number(it.idx) * 700} />
+                : (
+                  /* Les séminaires n'ont aucune photo : la carte porte les faits plutôt
+                     qu'un visuel de remplissage. */
+                  <ul className="exp__facts">
+                    {tr.seminaireFacts.map(f => <li key={f}>{f}</li>)}
+                  </ul>
+                )}
             <div className="exp__meta">
               <span className="exp__idx">{it.idx}</span>
               <div>
                 <h3>{it.title}</h3>
                 <p>{it.sub}</p>
               </div>
-              <span className="exp__arrow">↗</span>
             </div>
-          </a>
-          ))}
-      </div>
+          </article>
+        ))}
+      </Rail>
     </section>
   );
 }
 
 /* ---------- Localisation & coordonnées ---------- */
-function Destinations({ lang }) {
+function Destinations({ lang, season }) {
   const tr = T[lang]||T.fr;
   const [sel, setSel] = useState(0);
   const dests = tr.dests;
@@ -964,10 +1368,21 @@ function Destinations({ lang }) {
             </button>
           ))}
           </div>
-          <a href="#contact" className="link-arrow dest__btn">{tr.destBtn} <span>→</span></a>
+          <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="link-arrow dest__btn">{tr.destBtn} <span>→</span></a>
         </div>
         <div className="dest__preview">
-          <Placeholder label={`ifrane · ${d.city.toLowerCase()}`} tone={d.tone} aspect="auto" />
+          {/* Une photo par saison (demande du 03/09) : même cadrage de la façade de
+              The WHITE, sans neige en été, sous la neige en hiver. Même mécanisme que
+              le hero, en srcset deux tailles. */}
+          <img
+            className="dest__photo"
+            src={`assets/photos/dest-${season === 'hiver' ? 'hiver' : 'ete'}-800.jpg`}
+            srcSet={`assets/photos/dest-${season === 'hiver' ? 'hiver' : 'ete'}-800.jpg 800w, assets/photos/dest-${season === 'hiver' ? 'hiver' : 'ete'}-1600.jpg 1600w`}
+            sizes="(max-width: 1100px) 90vw, 600px"
+            width="1600" height="1200"
+            loading="lazy" decoding="async"
+            alt={season === 'hiver' ? tr.destAltHiver : tr.destAltEte}
+          />
           <div className="dest__card">
             <div>
               <span className="dest__card-eyebrow">{tr.destCard}</span>
@@ -975,8 +1390,9 @@ function Destinations({ lang }) {
             </div>
             <dl className="dest__stats">
               <div><dt>{tr.destRooms}</dt><dd>1 650 m</dd></div>
-              <div><dt>{tr.destFloors}</dt><dd>74</dd></div>
+              {/* Ordre du rédactionnel (bloc 7) : altitude, distance, suites. */}
               <div><dt>{tr.destCoord}</dt><dd>{d.coord}</dd></div>
+              <div><dt>{tr.destFloors}</dt><dd>74</dd></div>
             </dl>
           </div>
         </div>
@@ -985,26 +1401,10 @@ function Destinations({ lang }) {
   );
 }
 
-/* ---------- Editorial / press ---------- */
-function Editorial({ lang }) {
-  const tr = T[lang]||T.fr;
-  return (
-    <section className="edito">
-      <div className="edito__wrap">
-        <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" />{tr.editoEye}</p>
-        <div className="edito__grid">
-          {tr.quotes.map((q, i) => (
-            <figure key={i} className="edito__q">
-              <span className="edito__mark">"</span>
-              <blockquote>{q.txt}</blockquote>
-              <figcaption>— {q.src}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+/* Le bloc « La maison, par ceux qui la tiennent » a été retiré — audit 28/08, point 18 :
+   citations anonymes, et un chef qui dit diriger la cuisine « depuis l'ouverture » alors que
+   l'hôtel n'a pas ouvert. Arbitrage client du 28/08 : suppression. Le bloc pourra revenir
+   avec de vraies signatures, ou avec de vrais avis clients. */
 
 /* ---------- Newsletter ---------- */
 function Newsletter({ lang }) {
@@ -1022,7 +1422,10 @@ function Newsletter({ lang }) {
         </div>
         <form className="nl__form" onSubmit={e => { e.preventDefault(); setSent(true); }}>
           <label>
-            <span>{tr.nlLabel}</span>
+            {/* Libellé retiré de l'affichage (demande du 03/09) mais conservé pour les
+                lecteurs d'écran : sans lui, le champ n'a plus de nom accessible.
+                Le placeholder ne remplit pas ce rôle, il disparaît à la saisie. */}
+            <span className="visually-hidden">{tr.nlLabel}</span>
             <input
               type="email"
               value={email}
@@ -1034,14 +1437,20 @@ function Newsletter({ lang }) {
           <button className="btn btn--primary" disabled={sent}>
             {sent ? tr.nlSent : tr.nlBtn}
           </button>
-          <p className="nl__note">{tr.nlNote}</p>
+          {/* Micro-copy validé (docx, « Confirmation newsletter ») */}
+          <p className={`nl__note${sent ? ' nl__note--sent' : ''}`} role={sent ? 'status' : undefined}>
+            {sent ? tr.nlConfirm : tr.nlNote}
+          </p>
         </form>
       </div>
     </section>
   );
 }
 
-/* ---------- Instagram ---------- */
+/* ---------- Instagram ----------
+   Composant non monté par <App /> : il n'apparaît pas sur le site, et l'audit du 28/08
+   ne le couvre donc pas. Ses identifiants sont encore ceux de l'ancienne marque
+   (@LeZenithCasablanca) : à mettre à jour — ou à supprimer — avant toute réactivation. */
 function Instagram() {
   /* 5 slots — remplacer chaque <div className="ig__img"> par une vraie <img src="..." /> */
   return (
@@ -1124,11 +1533,23 @@ function Footer({ lang, season }) {
           </div>
           <p>{tr.ftTagline}</p>
         </div>
+        {/* Audit 28/08 · points 21 et 22 : Galerie, Carrières, Presse et FAQ retirées
+            (aucune page ni contenu derrière). Les entrées sans destination réelle sont
+            rendues en texte, pas en lien mort. */}
         <div className="ft__cols">
           {tr.ftCols.map(c => (
             <div key={c.t}>
               <h4>{c.t}</h4>
-              {c.l.map(x => <a key={x} href="#">{x}</a>)}
+              {c.l.map(it => {
+                if (it.to) return (
+                  <a key={it.x} href={`#${it.to}`}
+                     onClick={e => { e.preventDefault();
+                       const el = document.getElementById(it.to);
+                       if (el) el.scrollIntoView({ behavior: 'smooth' }); }}>{it.x}</a>
+                );
+                if (it.href) return <a key={it.x} href={it.href}>{it.x}</a>;
+                return <span key={it.x} className="ft__static">{it.x}</span>;
+              })}
             </div>
           ))}
         </div>
@@ -1136,7 +1557,7 @@ function Footer({ lang, season }) {
       <div className="ft__bottom">
         <span>{tr.ftCopy}</span>
         <span className="ft__dests">
-          <a>Ifrane</a><em>·</em><a>Moyen Atlas</a><em>·</em><a>Maroc</a>
+          <span>Ifrane</span><em>·</em><span>Moyen Atlas</span><em>·</em><span>Maroc</span>
         </span>
         <span>FR · EN</span>
       </div>
@@ -1144,11 +1565,16 @@ function Footer({ lang, season }) {
   );
 }
 
-/* ---------- Bandeau de repères (défilant) ---------- */
+/* ---------- Bandeau de réassurance (unique) ----------
+   Audit 28/08 · points 5 et 7 : un seul bandeau, six mentions toutes confirmées, et un
+   contrôle de pause — un défilement automatique doit pouvoir être arrêté (accessibilité).
+   Il se met aussi en pause au survol et au focus clavier (voir styles.css).            */
 function Reperes({ lang }) {
-  const items = (T[lang]||T.fr).reperes;
+  const tr = T[lang]||T.fr;
+  const items = tr.reperes;
+  const [paused, setPaused] = useState(false);
   return (
-    <div className="reperes">
+    <div className={`reperes${paused ? ' is-paused' : ''}`}>
       <div className="reperes__track">
         {[...items, ...items, ...items].map((it, i) => (
           <span key={i} className="reperes__item">
@@ -1157,6 +1583,12 @@ function Reperes({ lang }) {
           </span>
         ))}
       </div>
+      <button type="button" className="reperes__pause"
+        onClick={() => setPaused(p => !p)}
+        aria-pressed={paused}
+        aria-label={paused ? tr.reperesPlay : tr.reperesPause}>
+        {paused ? '▶' : '❚❚'}
+      </button>
     </div>
   );
 }
@@ -1168,10 +1600,13 @@ function DernierAppel({ lang, onBook }) {
     <section className="call">
       <div className="call__inner">
         <h2 className="call__title h-display">{tr.callTitle}</h2>
-        <div className="call__cta">
+        {/* Audit 28/08 · bloc 9 : un seul bouton, le séminaire passe en lien discret. */}
+        <div className="call__cta call__cta--single">
           <button className="btn btn--primary" onClick={onBook}>{tr.heroCta1}</button>
-          <a href="#experiences" className="btn btn--ghost call__ghost">{tr.heroCta2}</a>
         </div>
+        {/* Pas de variante --light ici : le fond de la section suit le thème, le lien
+            doit donc prendre la couleur de texte du thème (noir en thème clair). */}
+        <a href="#experiences" className="quote-link">{tr.heroCta2} <span>→</span></a>
       </div>
     </section>
   );
@@ -1210,5 +1645,5 @@ function Saisons({ lang, onBook }) {
 }
 
 Object.assign(window, {
-  SplashScreen, WhiteValleyLogo, Nav, Hero, BookingBar, HotelRunnerModal, Marquee, Intro, Rooms, Experiences, Destinations, Editorial, Newsletter, Instagram, Footer, Placeholder, Reperes, DernierAppel, Saisons
+  SplashScreen, Rail, WhiteValleyLogo, Nav, Hero, BookingBar, HotelRunnerModal, Intro, Rooms, Experiences, Destinations, Newsletter, Instagram, Footer, Placeholder, Reperes, DernierAppel, Saisons, openBooking
 });

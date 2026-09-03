@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hotel-zenith",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-p", "3000", "."],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

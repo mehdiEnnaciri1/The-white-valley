@@ -1,4 +1,8 @@
 /* App — compilé depuis Maison Zenith.html */
+const {
+  useState,
+  useEffect
+} = React;
 function App() {
   const [splash, setSplash] = useState(true);
   const [theme, setTheme] = useState(window.TWEAK_DEFAULTS.theme);
@@ -6,16 +10,21 @@ function App() {
   const [editMode, setEdit] = useState(false);
   const [season, setSeason] = useState('ete');
   const [lang, setLang] = useState('fr');
-  const openBooking = () => {
-    const url = lang === 'en' ? 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=en-US' : 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=fr-FR';
-    window.open(url, '_blank', 'noopener');
-  };
+
+  /* Audit 28/08 · point 23 : le moteur branché ici était celui d'un autre établissement.
+     openBooking() (components.jsx) ouvre le moteur The White Valley dès que son URL est
+     renseignée, et bascule sur l'e-mail de réservation tant qu'elle ne l'est pas. */
+  const handleBooking = () => openBooking(lang);
   useEffect(() => {
     document.body.dataset.theme = theme;
   }, [theme]);
   useEffect(() => {
     document.body.dataset.season = season;
   }, [season]);
+  /* La langue du document suit le sélecteur FR/EN (lecteurs d'écran, moteurs, césure). */
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
   useEffect(() => {
     const onMsg = e => {
       const d = e.data || {};
@@ -47,7 +56,7 @@ function App() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, splash && /*#__PURE__*/React.createElement(SplashScreen, {
     onDone: () => setSplash(false)
   }), /*#__PURE__*/React.createElement(Nav, {
-    onBook: openBooking,
+    onBook: handleBooking,
     season: season,
     onSeason: setSeason,
     lang: lang,
@@ -55,26 +64,32 @@ function App() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: heroV,
     season: season,
-    lang: lang
+    lang: lang,
+    onBook: handleBooking
   }), /*#__PURE__*/React.createElement("div", {
     className: "bb-wrap"
   }, /*#__PURE__*/React.createElement(BookingBar, {
     lang: lang
-  })), /*#__PURE__*/React.createElement(Intro, {
+  })), /*#__PURE__*/React.createElement(Reperes, {
     lang: lang
-  }), /*#__PURE__*/React.createElement(Marquee, {
+  }), /*#__PURE__*/React.createElement(Intro, {
     lang: lang
   }), /*#__PURE__*/React.createElement(Rooms, {
-    onBook: openBooking,
+    onBook: handleBooking,
     lang: lang
+  }), /*#__PURE__*/React.createElement(Saisons, {
+    lang: lang,
+    onBook: handleBooking
   }), /*#__PURE__*/React.createElement(Experiences, {
     lang: lang
-  }), /*#__PURE__*/React.createElement(Instagram, null), /*#__PURE__*/React.createElement(Destinations, {
-    lang: lang
-  }), /*#__PURE__*/React.createElement(Editorial, {
-    lang: lang
+  }), /*#__PURE__*/React.createElement(Destinations, {
+    lang: lang,
+    season: season
   }), /*#__PURE__*/React.createElement(Newsletter, {
     lang: lang
+  }), /*#__PURE__*/React.createElement(DernierAppel, {
+    lang: lang,
+    onBook: handleBooking
   }), /*#__PURE__*/React.createElement(Footer, {
     lang: lang,
     season: season
@@ -82,7 +97,7 @@ function App() {
     className: "tw"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tw__h"
-  }, /*#__PURE__*/React.createElement("em", null, "Tweaks"), /*#__PURE__*/React.createElement("span", null, "Z\xC9NITH")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("em", null, "Tweaks"), /*#__PURE__*/React.createElement("span", null, "WHITE VALLEY")), /*#__PURE__*/React.createElement("div", {
     className: "tw__group"
   }, /*#__PURE__*/React.createElement("span", {
     className: "tw__lbl"

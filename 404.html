@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page introuvable — The White Valley</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <!-- Les tokens de thème et la typographie viennent de la feuille du site. -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Page autonome : la mise en page du site ne s'applique pas ici. */
+    .e404 {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      background: var(--bg);
+    }
+    .e404__code {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--fg-mute);
+      margin-bottom: 28px;
+    }
+    .e404__title {
+      font-family: 'Fraunces', 'Times New Roman', serif;
+      font-weight: 400;
+      font-size: clamp(34px, 4.4vw, 60px);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin: 0 0 22px;
+      max-width: 20ch;
+    }
+    .e404__lede {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--fg-dim);
+      max-width: 46ch;
+      margin: 0 0 44px;
+    }
+    .e404__lede em { font-style: normal; color: var(--fg); }
+    .e404__rule {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 44px;
+      color: var(--accent);
+    }
+    .e404__rule span { height: 1px; background: var(--line); flex: 1; max-width: 160px; }
+    .e404__rule em { font-style: normal; font-size: 9px; }
+    @media (max-width: 640px) {
+      .e404 { padding: 64px 20px; }
+    }
+  </style>
+</head>
+
+<body data-theme="light-brass">
+
+  <main class="e404">
+    <p class="e404__code">THE WHITE VALLEY · IFRANE · ERREUR 404</p>
+
+    <h1 class="e404__title">Cette page n'existe pas.</h1>
+
+    <div class="e404__rule"><span></span><em>✦</em><span></span></div>
+
+    <p class="e404__lede">
+      Ce qui existe : <em>quatre suites, un spa, une table, une piscine chauffée,
+      et une vallée à 1 650 mètres.</em>
+    </p>
+
+    <p>
+      <a class="btn btn--primary" href="/">Retour à l'accueil</a>
+    </p>
+  </main>
+
+</body>
+</html>

@@ -133,7 +133,7 @@ function WhiteValleyLogo({
     fontSize: "9.5",
     fill: sub,
     textAnchor: "middle"
-  }, "L'\xE9l\xE9gance \xE0 l'\xE9tat pure"));
+  }, "La Parenth\xE8se Blanche d'Ifrane"));
 }
 const {
   useState,
@@ -141,459 +141,959 @@ const {
   useRef
 } = React;
 
-/* ── Translations ── */
+/* ── Translations ──
+   Rédactionnel validé — TWV_Audit-et-Contenus_v2 (DO FACTORY, 28/08/2026).
+   Les textes FR sont repris mot pour mot du document : ne pas reformuler à l'intégration.
+   Tout ce qui reste entre crochets attend une réponse client et ne doit pas partir en ligne. */
 const T = {
   fr: {
     menu: 'Menu',
     close: 'Fermer',
-    tagline: "L'élégance à l'état pure",
+    tagline: "La Parenthèse Blanche d'Ifrane.",
     book: 'Réserver',
-    dHotel: "L'hôtel",
-    dPresent: 'Présentation',
-    dGallery: 'Galerie Instagram',
-    dLocal: 'Localisation',
-    dSejour: 'Séjourner',
-    dStd: 'Chambres Standard',
-    dSup: 'Chambres Supérieures',
-    dSuite: 'Suites Exécutives',
-    dOffres: 'Offres & forfaits',
-    dSpa: 'Restauration & Spa',
-    dResto: 'Restaurant principal',
-    dBar: 'Bar-Lounge',
-    dHammam: 'Spa & Hammam',
-    dPool: 'Piscine intérieure',
+    dHotel: "L'Hôtel",
+    dPresent: 'Une parenthèse',
+    dGallery: 'Les suites',
+    dSeasons: 'Quatre saisons',
+    dLocal: 'Les Lettres de la Vallée',
+    dSejour: 'Les Suites',
+    dStd: 'Suite Senior Grand lit',
+    dSup: 'Suite Senior Twin',
+    dSuite: 'Suite Junior Grand lit',
+    dOffres: 'Suite Junior Twin',
+    dSpa: 'Les cinq lieux',
+    dResto: 'Le spa',
+    dBar: 'The WHITE',
+    dHammam: 'Piscine & salle de sport',
+    dPool: 'Les séminaires',
     dBook: 'Réserver',
-    dDispo: 'Vérifier disponibilité',
-    dContact: 'Nous contacter',
-    dEvents: 'Événements & Mariages',
-    dRoom: 'Salles de réunion',
-    heroEyeSplit: 'CASABLANCA · MAROC · HAY HASSANI',
-    heroEteA: 'La fraîcheur',
-    heroEteB: 'estivale,',
-    heroEteC: "au cœur d'Ifrane.",
-    heroHivA: "L'élégance",
-    heroHivB: 'hivernale,',
-    heroHivC: "au cœur d'Ifrane.",
-    heroLedeSplit: "Hôtel 4 étoiles, 230 chambres climatisées, spa & piscine intérieure. À deux pas d'Oued Bouskoura, 15 minutes de l'aéroport Mohammed V et du centre-ville.",
-    heroCta1: 'Découvrir les chambres',
-    heroCta2: "L'hôtel",
-    heroMetaCat: 'Catégorie',
-    heroMetaCatV: 'Hôtel 4 étoiles · Spa',
-    heroMetaTel: 'Téléphone',
-    heroEyeFull: "THE WHITE VALLEY · L'ÉLÉGANCE À L'ÉTAT PURE",
-    heroLedeFull: '230 chambres · Spa & Hammam · Piscine intérieure',
-    marquee: ['4 ÉTOILES', 'SPA & HAMMAM', 'PISCINE INTÉRIEURE', 'WIFI GRATUIT', 'NAVETTE AÉROPORT', 'SALLE DE BANQUET', 'PARKING PRIVÉ'],
+    dDispo: 'Réserver votre séjour',
+    dContact: 'Nous rejoindre',
+    dEvents: 'Devis séminaire',
+    dRoom: "Plan d'accès",
+    reperes: ['74 suites, de 28 à 65 m²', 'Spa, hammam et sauna', 'The WHITE, notre restaurant', 'Piscine chauffée', 'Salle de sport', 'Salle de conférence'],
+    reperesPause: 'Mettre le bandeau en pause',
+    reperesPlay: 'Relancer le bandeau',
+    aClose: 'Fermer',
+    aCloseMenu: 'Fermer le menu',
+    aTop: 'Retour en haut',
+    aEte: 'Été',
+    aHiver: 'Hiver',
+    galRole: 'carrousel',
+    galPrev: 'Photo précédente',
+    galNext: 'Photo suivante',
+    galGo: 'Aller à la photo',
+    galPhotos: 'photos',
+    galPause: 'Mettre le carrousel en pause',
+    galPlay: 'Relancer le carrousel',
+    railGo: 'Aller au lieu',
+    photoK: {
+      chambre: 'la chambre',
+      salon: 'le salon',
+      cuisine: 'la kitchenette',
+      bain: 'la salle de bain',
+      bureau: "l'espace de travail",
+      cabine: 'une cabine de soin',
+      hammam: 'le hammam',
+      linge: 'le linge et les savons',
+      detente: 'les transats',
+      ambiance: 'le spa',
+      restaurant: 'la façade de The WHITE',
+      piscine: 'la piscine chauffée',
+      sport: 'la salle de sport',
+      facade: 'la façade, de nuit'
+    },
+    seminaireFacts: ['Une salle de conférence', '74 suites, dont 41 en lits séparés', 'Restauration sur place, trois repas', 'Spa et piscine en fin de journée'],
+    heroAltEte: "La résidence The White Valley à Ifrane, façade éclairée à la tombée de la nuit.",
+    heroAltHiver: 'La résidence The White Valley à Ifrane sous la neige.',
+    destAltEte: 'La façade du restaurant The WHITE, éclairée de nuit.',
+    destAltHiver: 'La façade du restaurant The WHITE sous la neige, de nuit.',
+    callTitle: 'Votre parenthèse commence ici.',
+    navPhone: 'Téléphone',
+    navWhats: 'WhatsApp',
+    saisonsEye: 'QUATRE SAISONS',
+    saisonsH2: 'Quatre saisons, une signature',
+    saisonsBtn: 'Quand venir',
+    saisons: [{
+      name: 'Hiver',
+      period: 'décembre à mars',
+      tone: 'stone',
+      txt: "Entre −5 °C la nuit et 8 °C le jour. La neige vient trois à six fois par hiver. Feu de cheminée, forêt de cèdres silencieuse, ski à vingt minutes quand la pente est blanche."
+    }, {
+      name: 'Printemps',
+      period: 'avril à mai',
+      tone: 'sage',
+      txt: "La meilleure saison pour marcher. Les premières herbes sauvages, les amandes encore vertes, une lumière nette pour la photo. Notre saison favorite, en confidence."
+    }, {
+      name: 'Été',
+      period: 'juin à septembre',
+      tone: 'warm',
+      txt: "Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée."
+    }, {
+      name: 'Automne',
+      period: 'octobre à novembre',
+      tone: 'brass',
+      txt: "Les forêts virent au cuivre, l'air sèche. Très peu de monde en semaine. La saison idéale pour une retraite ou un long week-end à deux, sans concurrence d'agenda."
+    }],
+    heroEyeSplit: 'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
+    heroEteA: "L'hôtel de suites",
+    heroEteB: "d'altitude",
+    heroEteC: 'à Ifrane.',
+    heroHivA: "L'hôtel de suites",
+    heroHivB: "d'altitude",
+    heroHivC: 'à Ifrane.',
+    heroLedeSplit: "À 1 650 mètres, la vie reprend son souffle. 74 suites, à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
+    heroCta1: 'Réserver votre séjour',
+    heroCta2: 'Vous organisez un séminaire ? Demander un devis',
+    heroMetaCat: 'Format',
+    heroMetaCatV: "Hôtel de suites d'altitude · 74 suites",
+    heroMetaTel: 'Altitude',
+    heroMetaTelV: '1 650 m · Moyen Atlas',
+    heroEyeFull: 'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
+    heroLedeFull: 'À 1 650 mètres, la vie reprend son souffle.',
     introEye: "L'HÔTEL",
-    introH2: "Un établissement 4 étoiles à l'écart de l'agitation, au plus près de la ville.",
-    introP1a: "Le Zénith Hôtel & Spa s'étend sur 5 étages et 230 chambres climatisées, à l'angle de la Route d'El Jadida et de Lissasfa. À",
-    introP1em: "5 minutes à pied",
-    introP1b: "d'Oued Bouskoura, 15 minutes en voiture du centre-ville et de l'aéroport Mohammed V.",
-    introP2: "Chambres insonorisées avec balcon et terrasse, mini-bar et bureau. Deux restaurants, un bar-lounge, un coffee shop, un spa avec hammam, sauna et piscine intérieure. Salle de banquet et salles de réunion pour vos événements professionnels.",
-    introLink: 'Découvrir les chambres',
+    introH2: 'Une parenthèse dans la vallée.',
+    introP1: "Ici, on ne réserve pas une chambre. On réserve une suite : de la place pour poser ses affaires, de quoi s'asseoir ailleurs que sur le lit, et de quoi rester plus d'une nuit sans que le séjour se mette à ressembler à un transit.",
+    introP2: "Autour, ce qu'un bon hôtel sait faire. Le hammam, le sauna, les cinq cabines de soin. The WHITE au rez-de-chaussée, midi et soir. La piscine chauffée, la salle de sport ouverte tôt. Vous activez ce que vous voulez. Le reste se fait oublier.",
+    introP3: "Ifrane est à une heure de Fès, dans l'un des rares endroits du Maroc où la neige tient vraiment l'hiver.",
+    introLink: "Découvrir l'hôtel",
     bbArrivee: 'ARRIVÉE',
     bbDepart: 'DÉPART',
     bbVoyageurs: 'VOYAGEURS',
-    bbGuests: '2 adultes · 1 chambre',
+    bbAdults: 'Adultes',
+    bbChildren: 'Enfants',
+    bbLess: 'Retirer',
+    bbMore: 'Ajouter',
     bbSubmit: 'Vérifier disponibilité',
     bbLocale: 'fr-FR',
-    roomsEye: 'HÉBERGEMENTS',
-    roomsH2: 'Chambres, suites & résidences',
-    tabs: ['Tous', 'Chambre', 'Suite'],
-    tabAll: 'Tous',
+    roomsEye: 'LES SUITES',
+    roomsH2: '74 suites, quatre formats, de 28 à 65 m².',
+    roomsLede: "Le choix tient en deux questions. De combien d'espace avez-vous besoin, et dormez-vous dans le même lit. Junior ou Senior pour le niveau, Grand lit ou Twin pour le couchage, et la surface qui va avec : 28, 45 ou 65 m². Le reste ne change pas d'une suite à l'autre : la même literie, la même salle de bain, la même vue sur la vallée, la même attention au petit matin.",
     rSurface: 'Surface',
-    rVue: 'Vue',
-    rLit: 'Literie',
-    rFrom: 'À partir de',
-    rNight: '/ nuit',
+    rCap: 'Capacité',
+    rKitchen: 'Cuisine',
+    rPriceNote: 'Tarifs sur demande',
     rBook: 'Réserver',
-    rDisc: 'Découvrir',
-    rFav: 'Favori',
     rooms: [{
-      name: 'Chambre Standard',
-      type: 'Chambre',
-      size: 22,
-      view: 'Vue ville',
-      bed: 'Double',
-      price: 740,
+      name: 'Suite Senior Grand lit',
+      photos: 'suite-senior-grand-lit',
+      size: 65,
+      cap: '[À CONFIRMER]',
+      kitchen: 'Kitchenette équipée',
       tone: 'warm',
-      tag: 'Populaire',
-      desc: "Climatisation, salle de bain privée, TV satellite, téléphone, coffre-fort. Confort essentiel pour voyageurs d'affaires."
+      desc: "Soixante-cinq mètres carrés, un grand lit, un vrai salon. Du rangement, et de quoi rester à l'intérieur quand il neige depuis deux jours. Ce qu'on choisit pour une semaine à deux."
     }, {
-      name: 'Chambre Twin',
-      type: 'Chambre',
-      size: 24,
-      view: 'Vue ville',
-      bed: '2 lits simples',
-      price: 780,
-      tone: 'stone',
-      tag: null,
-      desc: "Deux lits simples, fenêtres insonorisées, mini-frigo, WiFi haut débit. Idéale pour les déplacements à deux."
-    }, {
-      name: 'Chambre Supérieure',
-      type: 'Chambre',
-      size: 28,
-      view: 'Balcon',
-      bed: 'Queen',
-      price: 890,
-      tone: 'brass',
-      tag: null,
-      desc: "Balcon privatif, bureau de travail, mini-bar, espace étendu. Lumière naturelle et fenêtres insonorisées."
-    }, {
-      name: 'Chambre Deluxe',
-      type: 'Chambre',
-      size: 32,
-      view: 'Terrasse',
-      bed: 'King',
-      price: 990,
+      name: 'Suite Senior Twin',
+      photos: 'suite-senior-twin',
+      size: 65,
+      cap: '[À CONFIRMER]',
+      kitchen: 'Kitchenette équipée',
       tone: 'sage',
-      tag: 'Recommandée',
-      desc: "Terrasse privative, peignoirs, toilettes séparées. Le bon équilibre entre confort et superficie."
+      desc: "Le même volume, deux lits séparés. Le format le plus répandu de la maison, quarante suites sur soixante-quatorze."
     }, {
-      name: 'Suite Junior',
-      type: 'Suite',
-      size: 42,
-      view: 'Balcon & salon',
-      bed: 'King',
-      price: 1320,
-      tone: 'warm',
-      tag: null,
-      desc: "Coin salon séparé, balcon spacieux, deuxième TV. Pour les séjours plus longs ou en famille."
+      name: 'Suite Junior Grand lit',
+      photos: 'suite-junior-grand-lit',
+      size: 28,
+      cap: '[À CONFIRMER]',
+      kitchen: 'Kitchenette équipée',
+      tone: 'stone',
+      desc: "Vingt-huit mètres carrés, un grand lit, un coin salon. Notre format le plus compact, pour deux ou trois nuits à deux."
     }, {
-      name: 'Suite Exécutive',
-      type: 'Suite',
-      size: 55,
-      view: 'Terrasse panoramique',
-      bed: 'King',
-      price: 1680,
+      name: 'Suite Junior Twin',
+      photos: 'suite-junior-twin',
+      size: 45,
+      cap: '[À CONFIRMER]',
+      kitchen: 'Kitchenette équipée',
       tone: 'brass',
-      tag: 'Signature',
-      desc: "Salon séparé, terrasse panoramique, accès prioritaire au spa et petit-déjeuner inclus en chambre."
+      desc: "Quarante-cinq mètres carrés, deux lits séparés. Il n'y en a qu'une dans la maison, ce qui veut dire qu'elle part vite."
     }],
-    expEye: 'SERVICES & INSTALLATIONS',
-    expH2: 'Tout pour votre séjour.',
+    expEye: 'SPA · TABLE · PISCINE · SPORT · SÉMINAIRES',
+    expH2: 'Cinq lieux, sous le même toit.',
     exps: [{
       idx: '01',
-      title: 'Restaurants',
-      sub: 'Deux restaurants sur place et un coffee shop. Cuisine marocaine et internationale.',
-      tone: 'warm'
-    }, {
-      idx: '02',
-      title: 'Spa & Hammam',
-      sub: 'Hammam traditionnel, sauna, soins du visage, gommage, manucure et pédicure.',
+      title: 'Le spa',
+      photos: 'spa',
+      sub: "Cinq cabines, un hammam, un sauna, et des parcours séparés pour les femmes et pour les hommes. Des soins pensés pour l'altitude : à 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Pas de musique dans les couloirs.",
       tone: 'sage'
     }, {
+      idx: '02',
+      title: 'The WHITE',
+      photos: 'the-white',
+      sub: "Notre restaurant. Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit. Ouvert aux non-résidents sur réservation.",
+      tone: 'warm'
+    }, {
       idx: '03',
-      title: 'Piscine & Fitness',
-      sub: 'Piscine intérieure chauffée, salle de sport équipée, vestiaires privatifs.',
-      tone: 'brass'
+      title: 'La piscine',
+      photos: 'piscine',
+      sub: "Chauffée, ce qui à 1 650 mètres n'est pas un détail : on y entre en janvier au lieu de la regarder depuis la baie vitrée.",
+      tone: 'pool'
     }, {
       idx: '04',
-      title: 'Affaires',
-      sub: 'Salle de banquet, salles de réunion, service de location de voiture et navette.',
+      title: 'La salle de sport',
+      photos: 'sport',
+      sub: "Vitrée sur la piscine : deux vélos de biking, un elliptique, deux tapis de course, une presse à cuisses et une station à poulies. On voit l'eau pendant qu'on court.",
       tone: 'stone'
+    }, {
+      idx: '05',
+      title: 'Les séminaires',
+      sub: "Une salle de conférence, les suites au-dessus, The WHITE pour les repas, le spa pour la fin de journée. Tout tient dans le même bâtiment, et sur un séminaire de deux jours, cela change à peu près tout.",
+      tone: 'brass'
     }],
-    destEye: 'LOCALISATION & CONTACT',
-    destH2: 'Nous trouver.',
-    destCard: 'LE ZÉNITH · CASABLANCA',
-    destRooms: 'Chambres',
-    destFloors: 'Étages',
-    destCoord: 'Coordonnées',
+    destEye: 'IFRANE À PORTÉE DE MAIN',
+    destH2: 'Nous rejoindre.',
+    destCard: 'THE WHITE VALLEY · IFRANE',
+    destBtn: "Plan d'accès",
+    destRooms: 'Altitude',
+    destFloors: 'Suites',
+    destCoord: 'Distance',
     dests: [{
-      city: 'Hôtel',
-      region: "Route d'El Jadida, Angle 1077 Lissasfa",
-      rooms: 230,
-      since: 2005,
+      city: 'Fès',
+      region: 'Aéroport Fès-Saïss · 1 h',
       tone: 'warm',
-      coord: '33.55°N · 7.67°W',
-      desc: "Route d'El Jadida, Angle 1077 Lissasfa, Casablanca 20000, Maroc."
+      coord: '≈ 60 km',
+      desc: "On imagine Ifrane loin. Elle est à une heure de l'aéroport de Fès."
     }, {
-      city: 'Téléphone',
-      region: '+212 522-894949',
-      rooms: 230,
-      since: 2005,
-      tone: 'brass',
-      coord: 'Fax : +212 22-894950',
-      desc: 'Standard 24h/24 · Réservations, conciergerie, navette aéroport.'
-    }, {
-      city: 'À proximité',
-      region: 'Hay Hassani · Sidi Maarouf',
-      rooms: 230,
-      since: 2005,
-      tone: 'stone',
-      coord: 'Oued Bouskoura · 5 min',
-      desc: 'Aéroport Mohammed V à 29 km · Palais Royal à 8 km · Musée du Judaïsme marocain à 25 min.'
-    }, {
-      city: 'Transports',
-      region: 'Tramway · Bus · Navette',
-      rooms: 230,
-      since: 2005,
+      city: 'Rabat',
+      region: '3 h de route',
       tone: 'sage',
-      coord: 'Arrêt Azbane · 10 min',
-      desc: "Arrêt Azbane à 10 min · Gare Oasis à 3,7 km · Navette aéroport Mohammed V sur demande."
-    }],
-    editoEye: 'ON EN PARLE',
-    quotes: [{
-      src: "Voyageurs d'affaires",
-      txt: "Emplacement pratique à 15 minutes de l'aéroport Mohammed V, chambres insonorisées et WiFi rapide."
+      coord: '≈ 250 km',
+      desc: "À trois heures de Rabat. La conciergerie organise le transfert privé sur demande."
     }, {
-      src: 'Couples en séjour',
-      txt: 'Le spa avec hammam et la piscine intérieure restent les atouts les plus appréciés de la maison.'
-    }, {
-      src: 'Long séjour',
-      txt: 'Chambres spacieuses avec balcon et terrasse. Le personnel est attentif, la literie confortable.'
+      city: 'Casablanca',
+      region: '4 h de route',
+      tone: 'brass',
+      coord: '≈ 330 km',
+      desc: "À quatre heures de Casablanca. Mentionnez-le à la réservation, nous nous occupons du reste."
     }],
-    nlEye: 'RESTEZ INFORMÉ',
-    nlH2: 'Nos offres & forfaits.',
-    nlDesc: "Promotions saisonnières, forfaits spa, tarifs affaires et événements de l'hôtel. Une lettre par mois, pas plus.",
-    nlLabel: 'Adresse e-mail',
+    nlEye: 'LES LETTRES DE LA VALLÉE',
+    nlH2: 'Les Lettres de la Vallée',
+    nlDesc: "Un récit de la vallée par trimestre : la neige qui arrive, la table qui change, les chemins qui rouvrent. Et l'accès à nos tarifs Confidentiels, réservés aux abonnés. Inscription volontaire, désinscription en un clic. Nous n'envoyons rien d'autre.",
+    nlLabel: 'Votre adresse e-mail',
     nlPH: 'vous@exemple.com',
-    nlBtn: "S'inscrire",
-    nlSent: '✓ Inscrit',
-    ftTagline: "L'élégance à l'état pure · Maroc",
-    ftCopy: "© 2026 The White Valley · L'élégance à l'état pure. Tous droits réservés.",
+    nlBtn: 'Recevoir les Lettres',
+    nlSent: '✓ Confirmez votre e-mail',
+    nlNote: "Double opt-in : un e-mail de confirmation valide l'inscription.",
+    nlConfirm: "Un e-mail vient de partir vers votre boîte. Un clic pour confirmer, et vous recevrez la prochaine Lettre de la Vallée. Quatre par an, pas une de plus.",
+    ftTagline: "Hôtel de suites d'altitude · Ifrane, Moyen Atlas",
+    ftCopy: '© 2026 The White Valley · Ifrane. Tous droits réservés.',
     ftCols: [{
-      t: "L'hôtel",
-      l: ['Présentation', 'Galerie photos', 'Localisation', 'Avis clients', 'Contact']
+      t: 'Contact',
+      l: [{
+        x: 'N8, Ifrane, Moyen Atlas, Maroc'
+      }, {
+        x: 'Téléphone : [À CONFIRMER]'
+      }, {
+        x: 'WhatsApp : [À CONFIRMER]'
+      }, {
+        x: 'contact@thewhitevalleys.ma',
+        href: 'mailto:contact@thewhitevalleys.ma'
+      }]
     }, {
-      t: 'Séjourner',
-      l: ['Chambres Standard', 'Chambres Supérieures', 'Suites', 'Offres & forfaits', 'Groupes']
+      t: "L'Hôtel",
+      l: [{
+        x: "L'Hôtel",
+        to: 'story'
+      }, {
+        x: 'Les Suites',
+        to: 'rooms'
+      }, {
+        x: 'The WHITE',
+        to: 'experiences'
+      }, {
+        x: 'Le Spa',
+        to: 'experiences'
+      }, {
+        x: 'Séminaires',
+        to: 'experiences'
+      }]
     }, {
-      t: 'Services',
-      l: ['Restaurants', 'Bar-Lounge', 'Spa & Hammam', 'Piscine', 'Salle de sport']
+      t: 'Pratique',
+      l: [{
+        x: "Plan d'accès",
+        to: 'contact'
+      }, {
+        x: "Politique d'annulation"
+      }, {
+        x: 'Les Lettres de la Vallée',
+        to: 'newsletter'
+      }]
     }, {
-      t: 'Assistance',
-      l: ['+212 522-894949', 'Navette aéroport', 'FAQ', 'Mentions légales', 'Politique de cookies']
+      t: 'Légal',
+      l: [{
+        x: 'Mentions légales'
+      }, {
+        x: 'CGV'
+      }, {
+        x: 'Confidentialité'
+      }]
     }]
   },
   en: {
     menu: 'Menu',
     close: 'Close',
-    tagline: 'Elegance in its purest form',
+    tagline: 'The White Pause of Ifrane.',
     book: 'Book',
     dHotel: 'The Hotel',
-    dPresent: 'About',
-    dGallery: 'Instagram Gallery',
-    dLocal: 'Location',
-    dSejour: 'Stay',
-    dStd: 'Standard Rooms',
-    dSup: 'Superior Rooms',
-    dSuite: 'Executive Suites',
-    dOffres: 'Offers & packages',
-    dSpa: 'Dining & Spa',
-    dResto: 'Main Restaurant',
-    dBar: 'Bar-Lounge',
-    dHammam: 'Spa & Hammam',
-    dPool: 'Indoor Pool',
+    dPresent: 'A pause',
+    dGallery: 'The suites',
+    dSeasons: 'Four seasons',
+    dLocal: 'Valley Letters',
+    dSejour: 'The Suites',
+    dStd: 'Senior Suite · King bed',
+    dSup: 'Senior Suite · Twin beds',
+    dSuite: 'Junior Suite · King bed',
+    dOffres: 'Junior Suite · Twin beds',
+    dSpa: 'The five places',
+    dResto: 'The spa',
+    dBar: 'The WHITE',
+    dHammam: 'Pool & gym',
+    dPool: 'The seminars',
     dBook: 'Book',
-    dDispo: 'Check availability',
-    dContact: 'Contact us',
-    dEvents: 'Events & Weddings',
-    dRoom: 'Meeting rooms',
-    heroEyeSplit: 'CASABLANCA · MOROCCO · HAY HASSANI',
-    heroEteA: 'Summer',
-    heroEteB: 'freshness,',
-    heroEteC: "in the heart of Ifrane.",
-    heroHivA: 'Winter',
-    heroHivB: 'elegance,',
-    heroHivC: "in the heart of Ifrane.",
-    heroLedeSplit: "4-star hotel, 230 air-conditioned rooms, spa & indoor pool. Steps from Oued Bouskoura, 15 minutes from Mohammed V Airport and the city centre.",
-    heroCta1: 'Discover the rooms',
-    heroCta2: 'The hotel',
-    heroMetaCat: 'Category',
-    heroMetaCatV: '4-star hotel · Spa',
-    heroMetaTel: 'Phone',
-    heroEyeFull: 'THE WHITE VALLEY · ELEGANCE IN ITS PUREST FORM',
-    heroLedeFull: '230 rooms · Spa & Hammam · Indoor pool',
-    marquee: ['4 STARS', 'SPA & HAMMAM', 'INDOOR POOL', 'FREE WIFI', 'AIRPORT SHUTTLE', 'BANQUET HALL', 'PRIVATE PARKING'],
+    dDispo: 'Book your stay',
+    dContact: 'Getting to us',
+    dEvents: 'Seminar quote',
+    dRoom: 'Getting here',
+    reperes: ['74 suites, from 28 to 65 m²', 'Spa, hammam and sauna', 'The WHITE, our restaurant', 'Heated pool', 'Gym', 'Conference room'],
+    reperesPause: 'Pause the banner',
+    reperesPlay: 'Resume the banner',
+    aClose: 'Close',
+    aCloseMenu: 'Close the menu',
+    aTop: 'Back to top',
+    aEte: 'Summer',
+    aHiver: 'Winter',
+    galRole: 'carousel',
+    galPrev: 'Previous photo',
+    galNext: 'Next photo',
+    galGo: 'Go to photo',
+    galPhotos: 'photos',
+    galPause: 'Pause the carousel',
+    galPlay: 'Resume the carousel',
+    railGo: 'Go to place',
+    photoK: {
+      chambre: 'the bedroom',
+      salon: 'the living room',
+      cuisine: 'the kitchenette',
+      bain: 'the bathroom',
+      bureau: 'the work space',
+      cabine: 'a treatment cabin',
+      hammam: 'the hammam',
+      linge: 'towels and soaps',
+      detente: 'the loungers',
+      ambiance: 'the spa',
+      restaurant: 'The WHITE façade',
+      piscine: 'the heated pool',
+      sport: 'the gym',
+      facade: 'the façade at night'
+    },
+    seminaireFacts: ['One conference room', '74 suites, 41 of them with twin beds', 'On-site catering, three meals', 'Spa and pool at the end of the day'],
+    heroAltEte: 'The White Valley residence in Ifrane, its façade lit at nightfall.',
+    heroAltHiver: 'The White Valley residence in Ifrane under snow.',
+    destAltEte: 'The façade of The WHITE restaurant, lit at night.',
+    destAltHiver: 'The façade of The WHITE restaurant under snow, at night.',
+    callTitle: 'Your pause begins here.',
+    navPhone: 'Phone',
+    navWhats: 'WhatsApp',
+    saisonsEye: 'FOUR SEASONS',
+    saisonsH2: 'Four seasons, one signature',
+    saisonsBtn: 'When to come',
+    saisons: [{
+      name: 'Winter',
+      period: 'December to March',
+      tone: 'stone',
+      txt: "Between −5 °C at night and 8 °C by day. Snow comes three to six times each winter. A fireplace, the silent cedar forest, skiing twenty minutes away when the slope is white."
+    }, {
+      name: 'Spring',
+      period: 'April to May',
+      tone: 'sage',
+      txt: "The best season for walking. The first wild herbs, almonds still green, a crisp light for photographs. Our favourite season, in confidence."
+    }, {
+      name: 'Summer',
+      period: 'June to September',
+      tone: 'warm',
+      txt: "The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated."
+    }, {
+      name: 'Autumn',
+      period: 'October to November',
+      tone: 'brass',
+      txt: "The forests turn copper, the air dries. Very few people midweek. The ideal season for a retreat or a long weekend for two, with no competing schedules."
+    }],
+    heroEyeSplit: 'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
+    heroEteA: 'The high-altitude',
+    heroEteB: 'suite hotel',
+    heroEteC: 'in Ifrane.',
+    heroHivA: 'The high-altitude',
+    heroHivB: 'suite hotel',
+    heroHivC: 'in Ifrane.',
+    heroLedeSplit: "At 1,650 metres, life takes a breath. 74 suites, an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
+    heroCta1: 'Book your stay',
+    heroCta2: 'Planning a seminar? Request a quote',
+    heroMetaCat: 'Format',
+    heroMetaCatV: 'High-altitude suite hotel · 74 suites',
+    heroMetaTel: 'Altitude',
+    heroMetaTelV: '1,650 m · Middle Atlas',
+    heroEyeFull: 'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
+    heroLedeFull: 'At 1,650 metres, life takes a breath.',
     introEye: 'THE HOTEL',
-    introH2: 'A 4-star establishment away from the bustle, yet close to the city.',
-    introP1a: "Le Zénith Hotel & Spa spans 5 floors and 230 air-conditioned rooms, at the corner of Route d'El Jadida and Lissasfa. A",
-    introP1em: '5-minute walk',
-    introP1b: "from Oued Bouskoura, 15 minutes by car from the city centre and Mohammed V Airport.",
-    introP2: "Soundproofed rooms with balcony and terrace, minibar and desk. Two restaurants, a bar-lounge, a coffee shop, a spa with hammam, sauna and indoor pool. Banquet hall and meeting rooms for your professional events.",
-    introLink: 'Discover the rooms',
+    introH2: 'A pause in the valley.',
+    introP1: "Here you don't book a room. You book a suite: room to set your things down, somewhere to sit other than the bed, and enough space to stay more than one night without the stay starting to feel like a transit.",
+    introP2: "Around it, what a good hotel does well. The hammam, the sauna, the five treatment cabins. The WHITE downstairs, midday and evening. The heated pool, the gym open early. You activate what you want. The rest fades away.",
+    introP3: "Ifrane is an hour from Fès, in one of the few places in Morocco where snow truly holds through winter.",
+    introLink: 'Discover the hotel',
     bbArrivee: 'CHECK-IN',
     bbDepart: 'CHECK-OUT',
     bbVoyageurs: 'GUESTS',
-    bbGuests: '2 adults · 1 room',
+    bbAdults: 'Adults',
+    bbChildren: 'Children',
+    bbLess: 'Remove',
+    bbMore: 'Add',
     bbSubmit: 'Check availability',
     bbLocale: 'en-GB',
-    roomsEye: 'ACCOMMODATIONS',
-    roomsH2: 'Rooms, suites & residences',
-    tabs: ['All', 'Room', 'Suite'],
-    tabAll: 'All',
+    roomsEye: 'THE SUITES',
+    roomsH2: '74 suites, four formats, from 28 to 65 m².',
+    roomsLede: "The choice comes down to two questions. How much space do you need, and do you sleep in the same bed. Junior or Senior for the size, king bed or twin beds for the bedding, and the surface that goes with it: 28, 45 or 65 m². The rest doesn't change from one suite to the next: the same bedding, the same bathroom, the same view of the valley, the same care first thing in the morning.",
     rSurface: 'Size',
-    rVue: 'View',
-    rLit: 'Bedding',
-    rFrom: 'From',
-    rNight: '/ night',
+    rCap: 'Capacity',
+    rKitchen: 'Kitchen',
+    rPriceNote: 'Rates on request',
     rBook: 'Book',
-    rDisc: 'Discover',
-    rFav: 'Favourite',
     rooms: [{
-      name: 'Standard Room',
-      type: 'Room',
-      size: 22,
-      view: 'City view',
-      bed: 'Double',
-      price: 740,
+      name: 'Senior Suite · King bed',
+      photos: 'suite-senior-grand-lit',
+      size: 65,
+      cap: '[TO BE CONFIRMED]',
+      kitchen: 'Equipped kitchenette',
       tone: 'warm',
-      tag: 'Popular',
-      desc: "Air conditioning, private bathroom, satellite TV, telephone, safe. Essential comfort for business travellers."
+      desc: "Sixty-five square metres, a king bed, a real living room. Storage, and enough space to stay indoors when it has been snowing for two days. What you choose for a week for two."
     }, {
-      name: 'Twin Room',
-      type: 'Room',
-      size: 24,
-      view: 'City view',
-      bed: '2 single beds',
-      price: 780,
-      tone: 'stone',
-      tag: null,
-      desc: "Two single beds, soundproofed windows, mini-fridge, high-speed WiFi. Ideal for two-person business trips."
-    }, {
-      name: 'Superior Room',
-      type: 'Room',
-      size: 28,
-      view: 'Balcony',
-      bed: 'Queen',
-      price: 890,
-      tone: 'brass',
-      tag: null,
-      desc: "Private balcony, work desk, minibar, extended space. Natural light and soundproofed windows."
-    }, {
-      name: 'Deluxe Room',
-      type: 'Room',
-      size: 32,
-      view: 'Terrace',
-      bed: 'King',
-      price: 990,
+      name: 'Senior Suite · Twin beds',
+      photos: 'suite-senior-twin',
+      size: 65,
+      cap: '[TO BE CONFIRMED]',
+      kitchen: 'Equipped kitchenette',
       tone: 'sage',
-      tag: 'Recommended',
-      desc: "Private terrace, bathrobes, separate toilet. The perfect balance between comfort and space."
+      desc: "The same volume, two separate beds. The most common format in the house, forty suites out of seventy-four."
     }, {
-      name: 'Junior Suite',
-      type: 'Suite',
-      size: 42,
-      view: 'Balcony & lounge',
-      bed: 'King',
-      price: 1320,
-      tone: 'warm',
-      tag: null,
-      desc: "Separate lounge area, spacious balcony, second TV. Perfect for longer stays or families."
+      name: 'Junior Suite · King bed',
+      photos: 'suite-junior-grand-lit',
+      size: 28,
+      cap: '[TO BE CONFIRMED]',
+      kitchen: 'Equipped kitchenette',
+      tone: 'stone',
+      desc: "Twenty-eight square metres, a king bed, a sitting corner. Our most compact format, for two or three nights for two."
     }, {
-      name: 'Executive Suite',
-      type: 'Suite',
-      size: 55,
-      view: 'Panoramic terrace',
-      bed: 'King',
-      price: 1680,
+      name: 'Junior Suite · Twin beds',
+      photos: 'suite-junior-twin',
+      size: 45,
+      cap: '[TO BE CONFIRMED]',
+      kitchen: 'Equipped kitchenette',
       tone: 'brass',
-      tag: 'Signature',
-      desc: "Separate lounge, panoramic terrace, priority spa access and in-room breakfast included."
+      desc: "Forty-five square metres, two separate beds. There is only one in the house, which means it goes fast."
     }],
-    expEye: 'SERVICES & FACILITIES',
-    expH2: 'Everything for your stay.',
+    expEye: 'SPA · TABLE · POOL · GYM · SEMINARS',
+    expH2: 'Five places, under one roof.',
     exps: [{
       idx: '01',
-      title: 'Restaurants',
-      sub: 'Two on-site restaurants and a coffee shop. Moroccan and international cuisine.',
-      tone: 'warm'
-    }, {
-      idx: '02',
-      title: 'Spa & Hammam',
-      sub: 'Traditional hammam, sauna, facial treatments, scrub, manicure and pedicure.',
+      title: 'The spa',
+      photos: 'spa',
+      sub: "Five cabins, a hammam, a sauna, and separate circuits for women and for men. Treatments designed for altitude: at 1,650 metres, the skin doesn't ask for what it asks for by the sea. No music in the corridors.",
       tone: 'sage'
     }, {
+      idx: '02',
+      title: 'The WHITE',
+      photos: 'the-white',
+      sub: "Our restaurant. Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a cooking we respect, a plate you finish. Open to non-residents by reservation.",
+      tone: 'warm'
+    }, {
       idx: '03',
-      title: 'Pool & Fitness',
-      sub: 'Heated indoor pool, fully equipped gym, private changing rooms.',
-      tone: 'brass'
+      title: 'The pool',
+      photos: 'piscine',
+      sub: "Heated, which at 1,650 metres is not a detail: you get in during January instead of looking at it through the window.",
+      tone: 'pool'
     }, {
       idx: '04',
-      title: 'Business',
-      sub: 'Banquet hall, meeting rooms, car rental service and airport shuttle.',
+      title: 'The gym',
+      photos: 'sport',
+      sub: "Glazed onto the pool: two spin bikes, one elliptical, two treadmills, a leg press and a cable station. You watch the water while you run.",
       tone: 'stone'
+    }, {
+      idx: '05',
+      title: 'The seminars',
+      sub: "A conference room, the suites above, The WHITE for meals, the spa at the end of the day. Everything is in the same building, and over a two-day seminar that changes just about everything.",
+      tone: 'brass'
     }],
-    destEye: 'LOCATION & CONTACT',
-    destH2: 'Find us.',
-    destCard: 'LE ZÉNITH · CASABLANCA',
-    destRooms: 'Rooms',
-    destFloors: 'Floors',
-    destCoord: 'Coordinates',
+    destEye: 'IFRANE WITHIN REACH',
+    destH2: 'Getting to us.',
+    destCard: 'THE WHITE VALLEY · IFRANE',
+    destBtn: 'Getting here',
+    destRooms: 'Altitude',
+    destFloors: 'Suites',
+    destCoord: 'Distance',
     dests: [{
-      city: 'Hotel',
-      region: "Route d'El Jadida, Angle 1077 Lissasfa",
-      rooms: 230,
-      since: 2005,
+      city: 'Fès',
+      region: 'Fès-Saïss Airport · 1 h',
       tone: 'warm',
-      coord: '33.55°N · 7.67°W',
-      desc: "Route d'El Jadida, Angle 1077 Lissasfa, Casablanca 20000, Morocco."
+      coord: '≈ 60 km',
+      desc: "We imagine Ifrane far away. It's an hour from Fès airport."
     }, {
-      city: 'Phone',
-      region: '+212 522-894949',
-      rooms: 230,
-      since: 2005,
-      tone: 'brass',
-      coord: 'Fax: +212 22-894950',
-      desc: '24/7 reception · Reservations, concierge, airport shuttle.'
-    }, {
-      city: 'Nearby',
-      region: 'Hay Hassani · Sidi Maarouf',
-      rooms: 230,
-      since: 2005,
-      tone: 'stone',
-      coord: 'Oued Bouskoura · 5 min',
-      desc: 'Mohammed V Airport 29 km · Royal Palace 8 km · Museum of Moroccan Judaism 25 min.'
-    }, {
-      city: 'Transport',
-      region: 'Tram · Bus · Shuttle',
-      rooms: 230,
-      since: 2005,
+      city: 'Rabat',
+      region: '3 h by road',
       tone: 'sage',
-      coord: 'Azbane stop · 10 min',
-      desc: "Azbane stop 10 min · Oasis station 3.7 km · Mohammed V Airport shuttle on request."
-    }],
-    editoEye: 'WHAT GUESTS SAY',
-    quotes: [{
-      src: 'Business travellers',
-      txt: 'Convenient location, 15 minutes from Mohammed V Airport, soundproofed rooms and fast WiFi.'
+      coord: '≈ 250 km',
+      desc: "Three hours from Rabat. The concierge arranges private transfers on request."
     }, {
-      src: 'Couples',
-      txt: 'The spa with hammam and the indoor pool remain the most appreciated features of the hotel.'
-    }, {
-      src: 'Extended stays',
-      txt: 'Spacious rooms with balcony and terrace. Attentive staff and comfortable bedding.'
+      city: 'Casablanca',
+      region: '4 h by road',
+      tone: 'brass',
+      coord: '≈ 330 km',
+      desc: "Four hours from Casablanca. Mention it when booking and we'll take care of the rest."
     }],
-    nlEye: 'STAY INFORMED',
-    nlH2: 'Our offers & packages.',
-    nlDesc: "Seasonal promotions, spa packages, business rates and hotel events. One newsletter per month, no more.",
-    nlLabel: 'Email address',
+    nlEye: 'THE VALLEY LETTERS',
+    nlH2: 'The Valley Letters',
+    nlDesc: "A story of the valley each quarter: the snow arriving, the table changing, the trails reopening. And access to our Confidential rates, reserved for subscribers. Voluntary sign-up, one-click unsubscribe. We send nothing else.",
+    nlLabel: 'Your email address',
     nlPH: 'you@example.com',
-    nlBtn: 'Subscribe',
-    nlSent: '✓ Subscribed',
-    ftTagline: 'Elegance in its purest form · Morocco',
-    ftCopy: '© 2026 The White Valley · Elegance in its purest form. All rights reserved.',
+    nlBtn: 'Receive the Letters',
+    nlSent: '✓ Confirm your email',
+    nlNote: 'Double opt-in: a confirmation email validates your sign-up.',
+    nlConfirm: "An email has just gone out to your inbox. One click to confirm, and you will receive the next Letter from the Valley. Four a year, not one more.",
+    ftTagline: 'High-altitude suite hotel · Ifrane, Middle Atlas',
+    ftCopy: '© 2026 The White Valley · Ifrane. All rights reserved.',
     ftCols: [{
+      t: 'Contact',
+      l: [{
+        x: 'N8, Ifrane, Middle Atlas, Morocco'
+      }, {
+        x: 'Phone: [TO BE CONFIRMED]'
+      }, {
+        x: 'WhatsApp: [TO BE CONFIRMED]'
+      }, {
+        x: 'contact@thewhitevalleys.ma',
+        href: 'mailto:contact@thewhitevalleys.ma'
+      }]
+    }, {
       t: 'The Hotel',
-      l: ['About', 'Photo Gallery', 'Location', 'Guest Reviews', 'Contact']
+      l: [{
+        x: 'The Hotel',
+        to: 'story'
+      }, {
+        x: 'The Suites',
+        to: 'rooms'
+      }, {
+        x: 'The WHITE',
+        to: 'experiences'
+      }, {
+        x: 'The Spa',
+        to: 'experiences'
+      }, {
+        x: 'Seminars',
+        to: 'experiences'
+      }]
     }, {
-      t: 'Stay',
-      l: ['Standard Rooms', 'Superior Rooms', 'Suites', 'Offers & packages', 'Groups']
+      t: 'Practical',
+      l: [{
+        x: 'Getting here',
+        to: 'contact'
+      }, {
+        x: 'Cancellation policy'
+      }, {
+        x: 'The Valley Letters',
+        to: 'newsletter'
+      }]
     }, {
-      t: 'Services',
-      l: ['Restaurants', 'Bar-Lounge', 'Spa & Hammam', 'Pool', 'Fitness Centre']
-    }, {
-      t: 'Assistance',
-      l: ['+212 522-894949', 'Airport shuttle', 'FAQ', 'Legal notice', 'Cookie policy']
+      t: 'Legal',
+      l: [{
+        x: 'Legal notice'
+      }, {
+        x: 'Terms'
+      }, {
+        x: 'Privacy'
+      }]
     }]
   }
 };
 
-/* ── HotelRunner ── URL du moteur de réservation */
-const HR_BOOKING_URL = {
-  fr: 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=fr-FR',
-  en: 'https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?currency=MAD&locale=en-US'
+/* ── Moteur de réservation ──
+   Audit 28/08 · point 23 : le site pointait vers le-zenith-hotel-spa.hotelrunner.com,
+   c'est-à-dire le moteur d'un AUTRE établissement — chaque tentative de réservation
+   partait ailleurs. Le branchement a été retiré.
+   Renseigner ci-dessous l'URL du moteur The White Valley pour le rebrancher ; tant
+   qu'elle est vide, les parcours de réservation basculent sur l'e-mail de réservation. */
+const BOOKING_ENGINE_URL = ''; /* TODO client : URL du moteur The White Valley */
+const BOOKING_EMAIL = 'reservation@thewhitevalleys.ma';
+
+/* Coordonnées — domaine corrigé en thewhitevalleys.ma (audit 28/08, point 25).
+   Téléphone et WhatsApp non confirmés : laissés vides, donc non affichés. */
+const CONTACT_PHONE = ''; /* TODO client : ex. '+212 5 35 00 00 00' */
+const CONTACT_WHATSAPP = ''; /* TODO client : format international sans +, ex. '212600000000' */
+const CONTACT_EMAIL = 'contact@thewhitevalleys.ma';
+const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=33.5237066,-5.110433';
+
+/* trip (facultatif) : { checkIn, checkOut, adults, children } */
+function openBooking(lang = 'fr', trip = null) {
+  const en = lang === 'en';
+  if (BOOKING_ENGINE_URL) {
+    let url = BOOKING_ENGINE_URL;
+    if (trip) {
+      const qs = new URLSearchParams({
+        checkin_date: trip.checkIn,
+        checkout_date: trip.checkOut,
+        total_adult: String(trip.adults),
+        total_child: String(trip.children)
+      });
+      url += (url.includes('?') ? '&' : '?') + qs.toString();
+    }
+    window.open(url, '_blank', 'noopener');
+    return;
+  }
+
+  /* Relais temporaire : demande de séjour par e-mail, en attendant le moteur. */
+  const subject = en ? 'Booking request — The White Valley' : 'Demande de réservation — The White Valley';
+  const body = trip ? en ? `Check-in: ${trip.checkIn}\nCheck-out: ${trip.checkOut}\nAdults: ${trip.adults}\nChildren: ${trip.children}\n\n` : `Arrivée : ${trip.checkIn}\nDépart : ${trip.checkOut}\nAdultes : ${trip.adults}\nEnfants : ${trip.children}\n\n` : '';
+  window.location.href = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+/* ── Photos ── Générées depuis assets/photos/ (deux tailles : -800 et -1600).
+   n = numéro du fichier, k = sujet (sert à composer le texte alternatif et la légende). */
+const PHOTOS = {
+  /* Tri client du 3 septembre : les vues écartées ne sont plus listées ici. Les fichiers
+     restent dans assets/photos/, il suffit de remettre l'entrée pour les réafficher.
+     Senior Grand lit : 2, 4 et 6 écartées · Senior Twin : 1 et 3 · Junior Grand lit :
+     2, 3 et 4 · Junior Twin : 1, 4 et 6.                                              */
+  "suite-senior-grand-lit": [["01", "chambre"], ["03", "salon"], ["05", "salon"], ["07", "bureau"], ["08", "bain"]],
+  "suite-senior-twin": [["02", "chambre"], ["04", "salon"], ["05", "salon"], ["06", "cuisine"], ["07", "bureau"], ["08", "bain"]],
+  "suite-junior-grand-lit": [["01", "chambre"], ["05", "cuisine"], ["06", "bureau"], ["07", "bain"], ["08", "bain"]],
+  "suite-junior-twin": [["02", "chambre"], ["03", "chambre"], ["05", "salon"], ["07", "cuisine"], ["08", "bain"]],
+  /* Spa — ordre client du 03/09 : le hammam ouvre la galerie ; les fichiers 02 et 01
+     sont écartés (3e puis 2e vue, dans cet ordre de demande) ; les hammams 05 et 06
+     suivent la couverture. */
+  "spa": [["04", "hammam"], ["05", "hammam"], ["06", "hammam"], ["03", "cabine"], ["07", "linge"], ["08", "cabine"], ["09", "detente"], ["10", "ambiance"]],
+  /* The WHITE — ordre client du 03/09 : la 4e vue passe en couverture ; les 2e et 6e
+     sont écartées. */
+  "the-white": [["04", "restaurant"], ["01", "restaurant"], ["03", "restaurant"], ["05", "restaurant"]],
+  "piscine": [["01", "piscine"], ["02", "piscine"], ["03", "piscine"], ["04", "piscine"]],
+  "sport": [["01", "sport"], ["02", "sport"], ["03", "sport"]]
+  /* Le groupe « facade » n'est plus une galerie : « Nous rejoindre » affiche une
+     photo par saison (dest-ete / dest-hiver), et facade-01 sert de fond à la
+     section Les Lettres de la Vallée. */
 };
+
+/* ---------- Galerie ----------
+   Carrousel maison : une piste en scroll-snap horizontal, donc le glissement tactile
+   est natif et le clavier fonctionne sans code de capture.
+
+   Défilement automatique (demande du 03/09), avec les garde-fous que l'audit impose
+   déjà au bandeau (point 7) : bouton pause, arrêt au survol et au focus clavier,
+   respect de prefers-reduced-motion. Il ne tourne que si le carrousel est visible à
+   l'écran et que l'onglet est au premier plan — sinon nos neuf carrousels
+   défileraient tous en même temps, hors de vue, en chargeant des images pour rien.
+
+   variant='arch' : la photo prend une arche haute et sort de son cadre, le texte
+   passe sur une carte de --surface. La forme fait le travail que faisait le cadre —
+   tenir la photo, chaude et nocturne, à distance d'une palette qui devient blanche
+   et bleue en hiver — sans importer de couleur qui casserait la saison.             */
+function Gallery({
+  slug,
+  name,
+  lang,
+  eager = false,
+  variant = '',
+  autoplay = false,
+  interval = 5200
+}) {
+  const photos = PHOTOS[slug] || [];
+  const tr = T[lang] || T.fr;
+  const [idx, setIdx] = useState(0);
+  const [userPaused, setUserPaused] = useState(false);
+  const [survol, setSurvol] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const trackRef = useRef(null);
+  const wrapRef = useRef(null);
+
+  /* La position de défilement est la source de vérité, pas l'état React : si le
+     navigateur interrompt un défilement doux et raccroche à la vue la plus proche
+     (ce que fait le scroll-snap), le compteur suit la photo réellement affichée.
+     targetRef mémorise la vue visée pour que deux clics rapides avancent bien de deux. */
+  const targetRef = useRef(0);
+  const mouvementReduit = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const goTo = (j, instantane) => {
+    const t = trackRef.current;
+    if (!t) return;
+    const n = Math.max(0, Math.min(photos.length - 1, j));
+    targetRef.current = n;
+    const doux = !instantane && !mouvementReduit();
+    t.scrollTo({
+      left: n * t.clientWidth,
+      behavior: doux ? 'smooth' : 'auto'
+    });
+    setIdx(n); /* retour immédiat ; onScroll corrigera si le défilement s'arrête ailleurs */
+  };
+  const step = d => goTo(targetRef.current + d);
+
+  /* ── Défilement automatique ── */
+  const enPause = userPaused || survol;
+
+  /* Ne tourner que si le carrousel est réellement à l'écran. */
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setVisible(true);
+      return;
+    }
+    const io = new IntersectionObserver(entries => entries.forEach(e => setVisible(e.isIntersecting)), {
+      threshold: 0.35
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!autoplay || enPause || !visible || photos.length < 2 || mouvementReduit()) return;
+    const t = setInterval(() => {
+      /* Onglet en arrière-plan : on laisse passer le tour. */
+      if (document.hidden) return;
+      const suivant = (targetRef.current + 1) % photos.length;
+      /* Retour à la première vue sans balayer toutes les autres. */
+      goTo(suivant, suivant === 0);
+    }, interval);
+    return () => clearInterval(t);
+  }, [autoplay, enPause, visible, photos.length, interval]);
+  const isSuite = (slug || '').indexOf('suite') === 0;
+  const legende = k => tr.photoK && tr.photoK[k] || '';
+  const alt = k => isSuite ? `${name} — ${legende(k)}` : legende(k).charAt(0).toUpperCase() + legende(k).slice(1);
+  const onScroll = () => {
+    const t = trackRef.current;
+    if (!t || !t.clientWidth) return;
+    const n = Math.round(t.scrollLeft / t.clientWidth);
+    if (n !== idx) setIdx(n);
+    /* Au repos — glissement tactile compris — la cible rejoint la position réelle. */
+    if (Math.abs(t.scrollLeft - n * t.clientWidth) < 2) targetRef.current = n;
+  };
+  const onKeyDown = e => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      step(1);
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      step(-1);
+    }
+  };
+  const num = n => String(n).padStart(2, '0');
+  if (!photos.length) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: `gal${variant === 'arch' ? ' gal--arch' : ''}`,
+    ref: wrapRef,
+    role: "group",
+    "aria-roledescription": tr.galRole,
+    "aria-label": name,
+    onMouseEnter: () => setSurvol(true),
+    onMouseLeave: () => setSurvol(false),
+    onFocus: () => setSurvol(true),
+    onBlur: () => setSurvol(false)
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "gal__frame"
+  }, /*#__PURE__*/React.createElement("ul", {
+    className: "gal__track",
+    ref: trackRef,
+    onScroll: onScroll,
+    onKeyDown: onKeyDown,
+    tabIndex: 0,
+    "aria-label": `${name} — ${photos.length} ${tr.galPhotos}`
+  }, photos.map(([n, k], i) => /*#__PURE__*/React.createElement("li", {
+    className: "gal__slide",
+    key: n,
+    "aria-label": `${i + 1} / ${photos.length}`
+  }, /*#__PURE__*/React.createElement("img", {
+    src: `assets/photos/${slug}-${n}-800.jpg`,
+    srcSet: `assets/photos/${slug}-${n}-800.jpg 800w, assets/photos/${slug}-${n}-1600.jpg 1600w`,
+    sizes: "(max-width: 900px) 100vw, 640px",
+    width: "1600",
+    height: "1200",
+    loading: eager && i === 0 ? 'eager' : 'lazy',
+    decoding: "async",
+    alt: alt(k)
+  })))), photos.length > 1 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "gal__nav gal__nav--prev",
+    onClick: () => step(-1),
+    disabled: idx === 0,
+    "aria-label": tr.galPrev
+  }, "\u2039"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "gal__nav gal__nav--next",
+    onClick: () => step(1),
+    disabled: idx === photos.length - 1,
+    "aria-label": tr.galNext
+  }, "\u203A"))), /*#__PURE__*/React.createElement("div", {
+    className: "gal__bar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "gal__count"
+  }, num(idx + 1), " / ", num(photos.length)), /*#__PURE__*/React.createElement("span", {
+    className: "gal__legend"
+  }, legende(photos[idx] && photos[idx][1])), photos.length > 1 && /*#__PURE__*/React.createElement("span", {
+    className: "gal__dots"
+  }, photos.map(([n], i) => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    key: n,
+    className: i === idx ? 'is-active' : '',
+    onClick: () => goTo(i),
+    "aria-label": `${tr.galGo} ${i + 1}`,
+    "aria-current": i === idx
+  }))), autoplay && photos.length > 1 && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "gal__pause",
+    onClick: () => setUserPaused(p => !p),
+    "aria-pressed": userPaused,
+    "aria-label": userPaused ? tr.galPlay : tr.galPause
+  }, userPaused ? '▶' : '❚❚')));
+}
+
+/* ---------- Rail ----------
+   Carrousel de cartes qui en montre plusieurs à la fois : trois sur desktop, deux en
+   tablette, une sur mobile. Il avance d'une carte à la fois.
+
+   Les points comptent les positions atteignables, pas les cartes : avec cinq cartes
+   dont trois visibles, le défilement s'arrête à la troisième position (cartes 3, 4, 5
+   à l'écran). Mettre cinq points donnerait deux points qui ne s'allumeraient jamais.
+   Le nombre de points est donc mesuré, et il suit les paliers responsives.
+
+   Mêmes garde-fous que la galerie : pause, arrêt au survol et au focus, respect de
+   prefers-reduced-motion, et rien ne tourne hors de l'écran.                        */
+function Rail({
+  lang,
+  label,
+  autoplay = true,
+  interval = 7000,
+  children
+}) {
+  const tr = T[lang] || T.fr;
+  const slides = React.Children.toArray(children);
+  const [idx, setIdx] = useState(0);
+  const [survol, setSurvol] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [pas, setPas] = useState(0); /* largeur d'un pas : carte + écart */
+  const [positions, setPositions] = useState(1);
+  const trackRef = useRef(null);
+  const wrapRef = useRef(null);
+  const targetRef = useRef(0);
+  const mouvementReduit = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* Mesure du pas et du nombre de positions — recalculés au redimensionnement,
+     puisque le nombre de cartes visibles change selon la largeur. */
+  useEffect(() => {
+    const t = trackRef.current;
+    if (!t) return;
+    const mesurer = () => {
+      const premiere = t.firstElementChild;
+      if (!premiere) return;
+      const cs = window.getComputedStyle(t);
+      const ecart = parseFloat(cs.columnGap || cs.gap || '0') || 0;
+      const p = premiere.getBoundingClientRect().width + ecart;
+      if (!p) return;
+      setPas(p);
+      const visibles = Math.max(1, Math.round((t.clientWidth + ecart) / p));
+      setPositions(Math.max(1, slides.length - visibles + 1));
+    };
+    mesurer();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(mesurer) : null;
+    if (ro) ro.observe(t);
+    window.addEventListener('resize', mesurer);
+    return () => {
+      if (ro) ro.disconnect();
+      window.removeEventListener('resize', mesurer);
+    };
+  }, [slides.length]);
+  const goTo = (j, instantane) => {
+    const t = trackRef.current;
+    if (!t) return;
+    const p = pas || t.clientWidth;
+    const n = Math.max(0, Math.min(positions - 1, j));
+    targetRef.current = n;
+    const doux = !instantane && !mouvementReduit();
+    t.scrollTo({
+      left: n * p,
+      behavior: doux ? 'smooth' : 'auto'
+    });
+    setIdx(n);
+  };
+  const step = d => goTo(targetRef.current + d);
+  const onScroll = () => {
+    const t = trackRef.current;
+    const p = pas || t && t.clientWidth;
+    if (!t || !p) return;
+    const n = Math.min(positions - 1, Math.round(t.scrollLeft / p));
+    if (n !== idx) setIdx(n);
+    if (Math.abs(t.scrollLeft - n * p) < 2) targetRef.current = n;
+  };
+  const onKeyDown = e => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      step(1);
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      step(-1);
+    }
+  };
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setVisible(true);
+      return;
+    }
+    const io = new IntersectionObserver(entries => entries.forEach(e => setVisible(e.isIntersecting)), {
+      threshold: 0.3
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const enPause = survol; /* survol souris ou focus clavier */
+
+  useEffect(() => {
+    if (!autoplay || enPause || !visible || positions < 2 || mouvementReduit()) return;
+    const t = setInterval(() => {
+      if (document.hidden) return;
+      const suivant = (targetRef.current + 1) % positions;
+      goTo(suivant); /* retour au début : deux pas seulement, un rembobinage court */
+    }, interval);
+    return () => clearInterval(t);
+  }, [autoplay, enPause, visible, positions, interval, pas]);
+  const num = n => String(n).padStart(2, '0');
+  return /*#__PURE__*/React.createElement("div", {
+    className: "rail",
+    ref: wrapRef,
+    role: "group",
+    "aria-roledescription": tr.galRole,
+    "aria-label": label,
+    onMouseEnter: () => setSurvol(true),
+    onMouseLeave: () => setSurvol(false),
+    onFocus: () => setSurvol(true),
+    onBlur: () => setSurvol(false)
+  }, /*#__PURE__*/React.createElement("ul", {
+    className: "rail__track",
+    ref: trackRef,
+    onScroll: onScroll,
+    onKeyDown: onKeyDown,
+    tabIndex: 0,
+    "aria-label": `${label} — ${slides.length}`
+  }, slides.map((s, i) => /*#__PURE__*/React.createElement("li", {
+    className: "rail__slide",
+    key: i,
+    "aria-label": `${i + 1} / ${slides.length}`
+  }, s))), /*#__PURE__*/React.createElement("div", {
+    className: "rail__bar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "rail__dots"
+  }, Array.from({
+    length: positions
+  }).map((_, i) => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    key: i,
+    className: i === idx ? 'is-active' : '',
+    onClick: () => goTo(i),
+    "aria-label": `${tr.railGo} ${i + 1}`,
+    "aria-current": i === idx
+  })))));
+}
 
 /* ---------- Placeholder imagery ----------
    Using CSS gradients + subtle noise pattern to evoke real photography
@@ -631,7 +1131,7 @@ function Placeholder({
   }, label), children);
 }
 
-/* ---------- HotelRunner Modal ---------- */
+/* ---------- Panneau de réservation ---------- */
 function HotelRunnerModal({
   open,
   onClose,
@@ -644,20 +1144,23 @@ function HotelRunnerModal({
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  /* Chiffres confirmés par le client le 28/08 — ne pas réintroduire les données
+     de l'ancien établissement (230 chambres, Casablanca, 4 étoiles). */
   const L = lc === 'en' ? {
     title: 'Book your stay',
-    sub: 'The White Valley · Casablanca',
-    note: 'Flexible cancellation · Check-in from 3 PM',
-    feats: ['230 air-conditioned rooms', 'Spa & Hammam · Indoor pool', '4-star · Casablanca'],
-    cta: 'Book on HotelRunner',
-    ctaSub: 'Secure booking · Official rates'
+    sub: 'The White Valley · Ifrane, Middle Atlas',
+    note: 'Cancellation policy: [TO BE CONFIRMED]',
+    feats: ['74 suites, from 28 to 65 m²', 'Spa, hammam and sauna · Heated pool', 'The WHITE, our restaurant'],
+    cta: 'Book your stay',
+    ctaSub: 'Direct booking · Official rates'
   } : {
     title: 'Réservez votre séjour',
-    sub: 'The White Valley · Casablanca',
-    note: 'Annulation flexible · Arrivée dès 15h00',
-    feats: ['230 chambres climatisées', 'Spa & Hammam · Piscine intérieure', '4 étoiles · Casablanca'],
-    cta: 'Réserver sur HotelRunner',
-    ctaSub: 'Réservation sécurisée · Tarifs officiels'
+    sub: 'The White Valley · Ifrane, Moyen Atlas',
+    note: "Politique d'annulation : [À CONFIRMER]",
+    feats: ['74 suites, de 28 à 65 m²', 'Spa, hammam et sauna · Piscine chauffée', 'The WHITE, notre restaurant'],
+    cta: 'Réserver votre séjour',
+    ctaSub: 'Réservation en direct · Tarifs officiels'
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: `bp-overlay${open ? ' is-open' : ''}`,
@@ -669,7 +1172,7 @@ function HotelRunnerModal({
   }, /*#__PURE__*/React.createElement("button", {
     className: "bp__close",
     onClick: onClose,
-    "aria-label": "Fermer"
+    "aria-label": (T[lc] || T.fr).aClose
   }, "\u2715")), /*#__PURE__*/React.createElement("div", {
     className: "bp__hero"
   }, /*#__PURE__*/React.createElement("p", {
@@ -688,19 +1191,23 @@ function HotelRunnerModal({
     key: f
   }, /*#__PURE__*/React.createElement("span", {
     className: "bp__feat-dot"
-  }, "\u2726"), f))), /*#__PURE__*/React.createElement("a", {
-    href: HR_BOOKING_URL[lc] || HR_BOOKING_URL.fr,
-    target: "_blank",
-    rel: "noopener noreferrer",
+  }, "\u2726"), f))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
     className: "bp__book-btn",
-    onClick: onClose
+    onClick: () => {
+      onClose();
+      openBooking(lc);
+    }
   }, L.cta, /*#__PURE__*/React.createElement("span", null, "\u2197")), /*#__PURE__*/React.createElement("p", {
     className: "bp__book-sub"
   }, L.ctaSub)), /*#__PURE__*/React.createElement("div", {
     className: "bp__foot"
   }, /*#__PURE__*/React.createElement("p", null, L.note))));
 }
-/* ---------- Booking bar — formulaire natif → HotelRunner nouvel onglet ---------- */
+/* ---------- Booking bar ----------
+   Audit 28/08 · point 4 : le select fusionnait treize combinaisons chambres × adultes.
+   Avec quatre suites et un couchage fixe par suite, cette combinatoire ne veut plus rien
+   dire — remplacé par un compteur adultes / enfants, navigable au clavier.            */
 function BookingBar({
   lang
 }) {
@@ -719,10 +1226,11 @@ function BookingBar({
   const [checkIn, setCheckIn] = useState(todayStr);
   const [checkOut, setCheckOut] = useState(() => nextDay(todayStr()));
   const [adults, setAdults] = useState(2);
-  const [rooms, setRooms] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [guestsOpen, setGuestsOpen] = useState(false);
   const inRef = useRef(null);
   const outRef = useRef(null);
-  const selRef = useRef(null);
+  const guestsRef = useRef(null);
   const openPicker = ref => e => {
     e.preventDefault();
     if (!ref.current) return;
@@ -733,6 +1241,23 @@ function BookingBar({
       ref.current.click();
     }
   };
+
+  /* Fermeture du compteur au clic extérieur et à la touche Échap */
+  useEffect(() => {
+    if (!guestsOpen) return;
+    const onDown = e => {
+      if (guestsRef.current && !guestsRef.current.contains(e.target)) setGuestsOpen(false);
+    };
+    const onKey = e => {
+      if (e.key === 'Escape') setGuestsOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [guestsOpen]);
   const fmt = s => {
     try {
       return new Date(s + 'T12:00:00').toLocaleDateString(lc === 'en' ? 'en-GB' : 'fr-FR', {
@@ -744,47 +1269,43 @@ function BookingBar({
       return s;
     }
   };
-  const gL = n => `${n} ${n === 1 ? lc === 'en' ? 'adult' : 'adulte' : lc === 'en' ? 'adults' : 'adultes'}`;
-  const rL = n => `${n} ${n === 1 ? lc === 'en' ? 'room' : 'chambre' : lc === 'en' ? 'rooms' : 'chambres'}`;
+  const aL = n => `${n} ${n === 1 ? lc === 'en' ? 'adult' : 'adulte' : lc === 'en' ? 'adults' : 'adultes'}`;
+  const cL = n => `${n} ${n === 1 ? lc === 'en' ? 'child' : 'enfant' : lc === 'en' ? 'children' : 'enfants'}`;
   const handleSubmit = e => {
     e.preventDefault();
-
-    /* Nombre de nuits */
-    const msPerDay = 86400000;
-    const dayCount = Math.max(1, Math.round((new Date(checkOut + 'T12:00:00') - new Date(checkIn + 'T12:00:00')) / msPerDay));
-
-    /* Répartir les adultes équitablement entre les chambres */
-    const base = Math.floor(adults / rooms);
-    const extra = adults % rooms;
-    const roomsArr = Array.from({
-      length: rooms
-    }, (_, i) => {
-      const a = base + (i < extra ? 1 : 0);
-      return {
-        adult_count: a,
-        child_count: 0,
-        guest_count: a,
-        child_ages: []
-      };
+    openBooking(lc, {
+      checkIn,
+      checkOut,
+      adults,
+      children
     });
-    const guestRooms = {};
-    roomsArr.forEach((r, i) => {
-      guestRooms[String(i)] = {
-        ...r
-      };
-    });
-    const search = JSON.stringify({
-      checkin_date: checkIn,
-      checkout_date: checkOut,
-      day_count: dayCount,
-      room_count: rooms,
-      total_adult: adults,
-      total_child: 0,
-      rooms: roomsArr,
-      guest_rooms: guestRooms
-    });
-    window.open(`https://le-zenith-hotel-spa.hotelrunner.com/bv3/search?search=${encodeURIComponent(search)}`, '_blank', 'noopener');
   };
+  const Counter = ({
+    label,
+    value,
+    min,
+    max,
+    onChange
+  }) => /*#__PURE__*/React.createElement("div", {
+    className: "bb__counter"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "bb__counter-label"
+  }, label), /*#__PURE__*/React.createElement("div", {
+    className: "bb__counter-ctrl"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => onChange(Math.max(min, value - 1)),
+    disabled: value <= min,
+    "aria-label": `${tr.bbLess} — ${label}`
+  }, "\u2212"), /*#__PURE__*/React.createElement("span", {
+    className: "bb__counter-val",
+    "aria-live": "polite"
+  }, value), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => onChange(Math.min(max, value + 1)),
+    disabled: value >= max,
+    "aria-label": `${tr.bbMore} — ${label}`
+  }, "+")));
   return /*#__PURE__*/React.createElement("form", {
     className: "bb",
     onSubmit: handleSubmit
@@ -830,28 +1351,33 @@ function BookingBar({
   })), /*#__PURE__*/React.createElement("div", {
     className: "bb__sep"
   }), /*#__PURE__*/React.createElement("div", {
-    className: "bb__field",
-    style: {
-      cursor: 'pointer',
-      position: 'relative'
-    }
+    className: `bb__field bb__field--guests${guestsOpen ? ' is-open' : ''}`,
+    ref: guestsRef
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "bb__guests-trigger",
+    onClick: () => setGuestsOpen(o => !o),
+    "aria-expanded": guestsOpen,
+    "aria-haspopup": "true"
   }, /*#__PURE__*/React.createElement("span", {
     className: "bb__label"
   }, tr.bbVoyageurs), /*#__PURE__*/React.createElement("span", {
     className: "bb__value"
-  }, rL(rooms), " \xB7 ", gL(adults)), /*#__PURE__*/React.createElement("select", {
-    ref: selRef,
-    className: "bb__select-overlay",
-    value: `${rooms}|${adults}`,
-    onChange: e => {
-      const [r, a] = e.target.value.split('|');
-      setRooms(+r);
-      setAdults(+a);
-    }
-  }, [1, 2, 3].flatMap(r => [1, 2, 3, 4].map(a => /*#__PURE__*/React.createElement("option", {
-    key: `${r}|${a}`,
-    value: `${r}|${a}`
-  }, rL(r), " \xB7 ", gL(a)))))), /*#__PURE__*/React.createElement("button", {
+  }, aL(adults), children > 0 ? ` · ${cL(children)}` : '')), guestsOpen && /*#__PURE__*/React.createElement("div", {
+    className: "bb__guests-pop"
+  }, /*#__PURE__*/React.createElement(Counter, {
+    label: tr.bbAdults,
+    value: adults,
+    min: 1,
+    max: 6,
+    onChange: setAdults
+  }), /*#__PURE__*/React.createElement(Counter, {
+    label: tr.bbChildren,
+    value: children,
+    min: 0,
+    max: 4,
+    onChange: setChildren
+  }))), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "bb__submit"
   }, tr.bbSubmit, /*#__PURE__*/React.createElement("span", {
@@ -916,29 +1442,34 @@ function SplashScreen({
     d: "M120 3 L122 9 L128 9 L123 12.5 L125 18 L120 14.5 L115 18 L117 12.5 L112 9 L118 9 Z"
   })), /*#__PURE__*/React.createElement("div", {
     className: "splash__tag"
-  }, "L'\xE9l\xE9gance \xE0 l'\xE9tat pure")));
+  }, "La Parenth\xE8se Blanche d'Ifrane.")));
 }
 
 /* ---------- Season Toggle ---------- */
 function SeasonToggle({
   season,
-  onSeason
+  onSeason,
+  lang
 }) {
+  const tr = T[lang] || T.fr;
   return /*#__PURE__*/React.createElement("div", {
     className: "season-toggle"
   }, /*#__PURE__*/React.createElement("button", {
     className: `season-toggle__btn${season === 'ete' ? ' season-toggle__btn--active' : ''}`,
     onClick: () => onSeason('ete'),
-    "aria-label": "\xC9t\xE9"
+    "aria-label": tr.aEte
   }, "\u2600"), /*#__PURE__*/React.createElement("button", {
     className: `season-toggle__btn${season === 'hiver' ? ' season-toggle__btn--active' : ''}`,
     onClick: () => onSeason('hiver'),
-    "aria-label": "Hiver"
+    "aria-label": tr.aHiver
   }, "\u2744"));
 }
 
 /* ---------- Back to Top ---------- */
-function BackToTop() {
+function BackToTop({
+  lang
+}) {
+  const tr = T[lang] || T.fr;
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 500);
@@ -955,7 +1486,7 @@ function BackToTop() {
   return /*#__PURE__*/React.createElement("button", {
     className: "back-top",
     onClick: scrollTop,
-    "aria-label": "Retour en haut"
+    "aria-label": tr.aTop
   }, /*#__PURE__*/React.createElement("svg", {
     width: "18",
     height: "18",
@@ -1005,27 +1536,18 @@ function Nav({
       behavior: 'smooth'
     });
   };
-  const navLinks = [{
-    label: 'Chambres',
-    id: 'rooms'
-  }, {
-    label: 'Expériences',
-    id: 'experiences'
-  }, {
-    label: 'Instagram',
-    id: 'instagram'
-  }, {
-    label: 'Contact',
-    id: 'contact'
-  }];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("header", {
     className: `nav ${scrolled ? 'is-scrolled' : ''}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "nav__inner"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "nav__lead"
   }, /*#__PURE__*/React.createElement("button", {
-    className: "nav__menu",
+    className: `nav__menu ${menuOpen ? 'is-open' : ''}`,
     onClick: () => setMenuOpen(!menuOpen)
-  }, /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("em", null, menuOpen ? (T[lang] || T.fr).close : (T[lang] || T.fr).menu)), /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "nav__menu-lines"
+  }, /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null)), /*#__PURE__*/React.createElement("em", null, menuOpen ? (T[lang] || T.fr).close : (T[lang] || T.fr).menu))), /*#__PURE__*/React.createElement("a", {
     href: "#",
     className: "nav__brand",
     onClick: e => {
@@ -1065,7 +1587,7 @@ function Nav({
       opacity: lang === 'en' ? 1 : 0.5
     }
   }, "EN"))), /*#__PURE__*/React.createElement("button", {
-    className: "nav__action",
+    className: "nav__action nav__action--book",
     onClick: onBook
   }, /*#__PURE__*/React.createElement("span", {
     className: "nav__action-lines"
@@ -1080,7 +1602,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement("button", {
     className: "nav__close-btn",
     onClick: () => setMenuOpen(false),
-    "aria-label": "Fermer le menu"
+    "aria-label": (T[lang] || T.fr).aCloseMenu
   }, /*#__PURE__*/React.createElement("svg", {
     width: "20",
     height: "20",
@@ -1098,9 +1620,11 @@ function Nav({
     }, /*#__PURE__*/React.createElement("em", null, tr.dHotel), /*#__PURE__*/React.createElement("a", {
       onClick: () => scrollTo('story')
     }, tr.dPresent), /*#__PURE__*/React.createElement("a", {
-      onClick: () => scrollTo('instagram')
+      onClick: () => scrollTo('rooms')
     }, tr.dGallery), /*#__PURE__*/React.createElement("a", {
-      onClick: () => scrollTo('contact')
+      onClick: () => scrollTo('seasons')
+    }, tr.dSeasons), /*#__PURE__*/React.createElement("a", {
+      onClick: () => scrollTo('newsletter')
     }, tr.dLocal)), /*#__PURE__*/React.createElement("div", {
       className: "nav__drawer-col"
     }, /*#__PURE__*/React.createElement("em", null, tr.dSejour), /*#__PURE__*/React.createElement("a", {
@@ -1110,7 +1634,7 @@ function Nav({
     }, tr.dSup), /*#__PURE__*/React.createElement("a", {
       onClick: () => scrollTo('rooms')
     }, tr.dSuite), /*#__PURE__*/React.createElement("a", {
-      onClick: onBook
+      onClick: () => scrollTo('rooms')
     }, tr.dOffres)), /*#__PURE__*/React.createElement("div", {
       className: "nav__drawer-col"
     }, /*#__PURE__*/React.createElement("em", null, tr.dSpa), /*#__PURE__*/React.createElement("a", {
@@ -1130,29 +1654,89 @@ function Nav({
     }, tr.dContact), /*#__PURE__*/React.createElement("a", {
       onClick: () => scrollTo('contact')
     }, tr.dEvents), /*#__PURE__*/React.createElement("a", {
-      onClick: onBook
+      onClick: () => scrollTo('contact')
     }, tr.dRoom)));
-  })()))), /*#__PURE__*/React.createElement(SeasonToggle, {
+  })(), /*#__PURE__*/React.createElement("div", {
+    className: "nav__drawer-cta"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "nav__drawer-taps"
+  }, CONTACT_PHONE && /*#__PURE__*/React.createElement("a", {
+    className: "nav__tap",
+    href: `tel:${CONTACT_PHONE.replace(/\s/g, '')}`
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "15",
+    height: "15",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M6.5 3h3l1.5 5-2 1.5a12 12 0 005 5l1.5-2 5 1.5v3a2 2 0 01-2 2A16 16 0 014.5 5a2 2 0 012-2z",
+    stroke: "currentColor",
+    strokeWidth: "1.6",
+    strokeLinejoin: "round"
+  })), (T[lang] || T.fr).navPhone), CONTACT_WHATSAPP && /*#__PURE__*/React.createElement("a", {
+    className: "nav__tap",
+    href: `https://wa.me/${CONTACT_WHATSAPP}`,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "15",
+    height: "15",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M12 3a9 9 0 00-7.7 13.6L3 21l4.5-1.2A9 9 0 1012 3z",
+    stroke: "currentColor",
+    strokeWidth: "1.6",
+    strokeLinejoin: "round"
+  })), (T[lang] || T.fr).navWhats), /*#__PURE__*/React.createElement("a", {
+    className: "nav__tap",
+    href: `mailto:${CONTACT_EMAIL}`
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "15",
+    height: "15",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M3 6h18v12H3z",
+    stroke: "currentColor",
+    strokeWidth: "1.6",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M3 7l9 6 9-6",
+    stroke: "currentColor",
+    strokeWidth: "1.6",
+    strokeLinejoin: "round"
+  })), CONTACT_EMAIL)), /*#__PURE__*/React.createElement("button", {
+    className: "nav__drawer-book",
+    onClick: () => {
+      setMenuOpen(false);
+      onBook();
+    }
+  }, (T[lang] || T.fr).book))))), /*#__PURE__*/React.createElement(SeasonToggle, {
     season: season,
-    onSeason: onSeason
-  }), /*#__PURE__*/React.createElement(BackToTop, null));
+    onSeason: onSeason,
+    lang: lang
+  }), /*#__PURE__*/React.createElement(BackToTop, {
+    lang: lang
+  }));
 }
 
 /* ---------- Hero ---------- */
 function Hero({
   variant,
   season,
-  lang
+  lang,
+  onBook
 }) {
   const [imgIdx, setImgIdx] = useState(0);
   const scenes = [{
-    label: 'facade hotel 4 etoiles casablanca',
+    label: 'facade the white valley ifrane',
     tone: 'warm'
   }, {
-    label: 'chambre climatisee balcon',
+    label: 'suite senior salon vue vallee',
     tone: 'brass'
   }, {
-    label: 'spa piscine interieure',
+    label: 'spa piscine chauffee',
     tone: 'stone'
   }];
   useEffect(() => {
@@ -1174,16 +1758,16 @@ function Hero({
     }, season === 'ete' ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", null, tr.heroEteA), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("em", null, tr.heroEteB)), /*#__PURE__*/React.createElement("span", null, tr.heroEteC)) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", null, tr.heroHivA), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("em", null, tr.heroHivB)), /*#__PURE__*/React.createElement("span", null, tr.heroHivC))), /*#__PURE__*/React.createElement("p", {
       className: "hero__lede"
     }, tr.heroLedeSplit), /*#__PURE__*/React.createElement("div", {
-      className: "hero__cta"
-    }, /*#__PURE__*/React.createElement("a", {
-      href: "#rooms",
-      className: "btn btn--primary"
-    }, tr.heroCta1), /*#__PURE__*/React.createElement("a", {
-      href: "#story",
-      className: "btn btn--ghost"
-    }, tr.heroCta2, " ", /*#__PURE__*/React.createElement("span", null, "\u2192"))), /*#__PURE__*/React.createElement("dl", {
+      className: "hero__cta hero__cta--single"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn--primary",
+      onClick: onBook
+    }, tr.heroCta1)), /*#__PURE__*/React.createElement("a", {
+      href: "#experiences",
+      className: "quote-link"
+    }, tr.heroCta2, " ", /*#__PURE__*/React.createElement("span", null, "\u2192")), /*#__PURE__*/React.createElement("dl", {
       className: "hero__meta"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.heroMetaCat), /*#__PURE__*/React.createElement("dd", null, tr.heroMetaCatV)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.heroMetaTel), /*#__PURE__*/React.createElement("dd", null, "+212 522-894949")))), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.heroMetaCat), /*#__PURE__*/React.createElement("dd", null, tr.heroMetaCatV)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.heroMetaTel), /*#__PURE__*/React.createElement("dd", null, tr.heroMetaTelV)))), /*#__PURE__*/React.createElement("div", {
       className: "hero__media"
     }, scenes.map((s, i) => /*#__PURE__*/React.createElement("div", {
       key: i,
@@ -1225,7 +1809,7 @@ function Hero({
     src: img.s,
     srcSet: `${img.s} 1920w, ${img.l} 2560w`,
     sizes: "100vw",
-    alt: ""
+    alt: season === 'hiver' ? tr.heroAltHiver : tr.heroAltEte
   })), /*#__PURE__*/React.createElement("div", {
     className: "hero__scrim"
   })), /*#__PURE__*/React.createElement("div", {
@@ -1238,24 +1822,19 @@ function Hero({
     className: "hero__h1 hero__h1--light"
   }, season === 'ete' ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", null, tr.heroEteA), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("em", null, tr.heroEteB)), /*#__PURE__*/React.createElement("span", null, tr.heroEteC)) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", null, tr.heroHivA), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("em", null, tr.heroHivB)), /*#__PURE__*/React.createElement("span", null, tr.heroHivC))), /*#__PURE__*/React.createElement("p", {
     className: "hero__lede hero__lede--light"
-  }, tr.heroLedeFull)));
+  }, tr.heroLedeFull), /*#__PURE__*/React.createElement("div", {
+    className: "hero__cta hero__cta--full hero__cta--single"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn--primary",
+    onClick: onBook
+  }, tr.heroCta1)), /*#__PURE__*/React.createElement("a", {
+    href: "#experiences",
+    className: "quote-link quote-link--light"
+  }, tr.heroCta2, " ", /*#__PURE__*/React.createElement("span", null, "\u2192"))));
 }
-/* ---------- Marquee ---------- */
-function Marquee({
-  lang
-}) {
-  const items = (T[lang] || T.fr).marquee;
-  return /*#__PURE__*/React.createElement("div", {
-    className: "marquee"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "marquee__track"
-  }, [...items, ...items, ...items].map((t, i) => /*#__PURE__*/React.createElement("span", {
-    key: i,
-    className: "marquee__item"
-  }, t, /*#__PURE__*/React.createElement("span", {
-    className: "marquee__sep"
-  }, "\u25C6")))));
-}
+
+/* Le second bandeau défilant (Marquee) a été retiré — audit 28/08, point 7 :
+   deux bandeaux à trente secondes d'écart, dont un doublon partiel. On n'en garde qu'un. */
 
 /* ---------- Intro block ---------- */
 function Intro({
@@ -1277,7 +1856,7 @@ function Intro({
     className: "h-display"
   }, tr.introH2)), /*#__PURE__*/React.createElement("div", {
     className: "intro__right"
-  }, /*#__PURE__*/React.createElement("p", null, tr.introP1a, " ", /*#__PURE__*/React.createElement("em", null, tr.introP1em), " ", tr.introP1b), /*#__PURE__*/React.createElement("p", null, tr.introP2), /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("p", null, tr.introP1), /*#__PURE__*/React.createElement("p", null, tr.introP2), /*#__PURE__*/React.createElement("p", null, tr.introP3), /*#__PURE__*/React.createElement("a", {
     href: "#rooms",
     className: "link-arrow"
   }, tr.introLink, " ", /*#__PURE__*/React.createElement("span", null, "\u2192")))));
@@ -1287,13 +1866,11 @@ function Rooms({
   lang
 }) {
   const tr = T[lang] || T.fr;
-  const [filterIdx, setFilterIdx] = useState(0);
+  /* Audit 28/08 · points 8 à 11 : les quatre typologies affichées n'existaient pas dans
+     l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés
+     — quatre suites d'une seule famille ne se filtrent pas — badge « le plus choisi » et
+     preuve sociale retirés : l'hôtel n'a pas ouvert.                                   */
   const [hoverIdx, setHoverIdx] = useState(null);
-  useEffect(() => {
-    setFilterIdx(0);
-  }, [lang]);
-  const groups = [tr.rooms, tr.rooms.filter(r => r.type === tr.tabs[1]), tr.rooms.filter(r => r.type === tr.tabs[2])];
-  const visible = groups[filterIdx];
   return /*#__PURE__*/React.createElement("section", {
     className: "rooms",
     id: "rooms"
@@ -1305,55 +1882,40 @@ function Rooms({
     className: "eyebrow__dot"
   }), tr.roomsEye), /*#__PURE__*/React.createElement("h2", {
     className: "h-display"
-  }, tr.roomsH2)), /*#__PURE__*/React.createElement("div", {
-    className: "rooms__filter"
-  }, tr.tabs.map((t, i) => /*#__PURE__*/React.createElement("button", {
-    key: t,
-    className: `chip ${filterIdx === i ? 'is-active' : ''}`,
-    onClick: () => setFilterIdx(i)
-  }, t, /*#__PURE__*/React.createElement("span", {
-    className: "chip__count"
-  }, groups[i].length))))), /*#__PURE__*/React.createElement("div", {
+  }, tr.roomsH2), /*#__PURE__*/React.createElement("p", {
+    className: "rooms__lede"
+  }, tr.roomsLede))), /*#__PURE__*/React.createElement("div", {
     className: "rooms__grid"
-  }, visible.map((r, i) => /*#__PURE__*/React.createElement("article", {
+  }, tr.rooms.map((r, i) => /*#__PURE__*/React.createElement("article", {
     key: r.name,
     className: `room ${hoverIdx === i ? 'is-hover' : ''}`,
     onMouseEnter: () => setHoverIdx(i),
     onMouseLeave: () => setHoverIdx(null)
   }, /*#__PURE__*/React.createElement("div", {
     className: "room__media"
-  }, /*#__PURE__*/React.createElement(Placeholder, {
-    label: `${r.name.toLowerCase()} · ${r.view.toLowerCase()}`,
-    tone: r.tone,
-    aspect: "4/5"
-  }), r.tag && /*#__PURE__*/React.createElement("span", {
-    className: "room__tag"
-  }, r.tag), /*#__PURE__*/React.createElement("button", {
-    className: "room__fav",
-    "aria-label": "Favori"
-  }, "\u2661"), /*#__PURE__*/React.createElement("div", {
-    className: "room__hover"
-  }, /*#__PURE__*/React.createElement("span", null, tr.rDisc, " ", /*#__PURE__*/React.createElement("span", null, "\u2192")))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Gallery, {
+    slug: r.photos,
+    name: r.name,
+    lang: lang,
+    eager: i === 0,
+    variant: "arch",
+    autoplay: true,
+    interval: 5200 + i * 700
+  })), /*#__PURE__*/React.createElement("div", {
     className: "room__body"
   }, /*#__PURE__*/React.createElement("div", {
     className: "room__row"
   }, /*#__PURE__*/React.createElement("h3", {
     className: "room__name"
-  }, r.name), /*#__PURE__*/React.createElement("span", {
-    className: "room__type"
-  }, r.type)), /*#__PURE__*/React.createElement("p", {
+  }, r.name)), /*#__PURE__*/React.createElement("p", {
     className: "room__desc"
   }, r.desc), /*#__PURE__*/React.createElement("dl", {
     className: "room__specs"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rSurface), /*#__PURE__*/React.createElement("dd", null, r.size, " m\xB2")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rVue), /*#__PURE__*/React.createElement("dd", null, r.view)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rLit), /*#__PURE__*/React.createElement("dd", null, r.bed))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rSurface), /*#__PURE__*/React.createElement("dd", null, r.size, " m\xB2")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rCap), /*#__PURE__*/React.createElement("dd", null, r.cap)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rKitchen), /*#__PURE__*/React.createElement("dd", null, r.kitchen))), /*#__PURE__*/React.createElement("div", {
     className: "room__foot"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "room__from"
-  }, tr.rFrom), /*#__PURE__*/React.createElement("span", {
-    className: "room__price"
-  }, r.price.toLocaleString('fr-FR'), " MAD"), /*#__PURE__*/React.createElement("span", {
-    className: "room__night"
-  }, tr.rNight)), /*#__PURE__*/React.createElement("button", {
+    className: "room__price-note"
+  }, tr.rPriceNote)), /*#__PURE__*/React.createElement("button", {
     className: "btn btn--dark btn--sm",
     onClick: onBook
   }, tr.rBook)))))));
@@ -1375,28 +1937,40 @@ function Experiences({
     className: "eyebrow__dot"
   }), tr.expEye), /*#__PURE__*/React.createElement("h2", {
     className: "h-display"
-  }, tr.expH2)), /*#__PURE__*/React.createElement("div", {
-    className: "exp__grid"
-  }, tr.exps.map(it => /*#__PURE__*/React.createElement("a", {
+  }, tr.expH2)), /*#__PURE__*/React.createElement(Rail, {
+    lang: lang,
+    label: tr.expH2,
+    autoplay: true,
+    interval: 5000
+  }, tr.exps.map(it => /*#__PURE__*/React.createElement("article", {
     key: it.idx,
-    className: "exp__item",
-    href: "#"
-  }, /*#__PURE__*/React.createElement(Placeholder, {
-    label: `expérience · ${it.title.toLowerCase()}`,
-    tone: it.tone,
-    aspect: "1/1"
-  }), /*#__PURE__*/React.createElement("div", {
+    className: "exp__item"
+  }, it.photos ? /*#__PURE__*/React.createElement(Gallery, {
+    slug: it.photos,
+    name: it.title,
+    lang: lang,
+    variant: "arch",
+    autoplay: true,
+    interval: 5600 + Number(it.idx) * 700
+  }) :
+  /*#__PURE__*/
+  /* Les séminaires n'ont aucune photo : la carte porte les faits plutôt
+     qu'un visuel de remplissage. */
+  React.createElement("ul", {
+    className: "exp__facts"
+  }, tr.seminaireFacts.map(f => /*#__PURE__*/React.createElement("li", {
+    key: f
+  }, f))), /*#__PURE__*/React.createElement("div", {
     className: "exp__meta"
   }, /*#__PURE__*/React.createElement("span", {
     className: "exp__idx"
-  }, it.idx), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, it.title), /*#__PURE__*/React.createElement("p", null, it.sub)), /*#__PURE__*/React.createElement("span", {
-    className: "exp__arrow"
-  }, "\u2197"))))));
+  }, it.idx), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, it.title), /*#__PURE__*/React.createElement("p", null, it.sub)))))));
 }
 
 /* ---------- Localisation & coordonnées ---------- */
 function Destinations({
-  lang
+  lang,
+  season
 }) {
   const tr = T[lang] || T.fr;
   const [sel, setSel] = useState(0);
@@ -1432,43 +2006,36 @@ function Destinations({
     className: "dest__region"
   }, x.region), /*#__PURE__*/React.createElement("span", {
     className: "dest__arrow"
-  }, "\u2192"))))), /*#__PURE__*/React.createElement("div", {
+  }, "\u2192")))), /*#__PURE__*/React.createElement("a", {
+    href: MAPS_URL,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "link-arrow dest__btn"
+  }, tr.destBtn, " ", /*#__PURE__*/React.createElement("span", null, "\u2192"))), /*#__PURE__*/React.createElement("div", {
     className: "dest__preview"
-  }, /*#__PURE__*/React.createElement(Placeholder, {
-    label: `casablanca · ${d.city.toLowerCase()}`,
-    tone: d.tone,
-    aspect: "auto"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "dest__photo",
+    src: `assets/photos/dest-${season === 'hiver' ? 'hiver' : 'ete'}-800.jpg`,
+    srcSet: `assets/photos/dest-${season === 'hiver' ? 'hiver' : 'ete'}-800.jpg 800w, assets/photos/dest-${season === 'hiver' ? 'hiver' : 'ete'}-1600.jpg 1600w`,
+    sizes: "(max-width: 1100px) 90vw, 600px",
+    width: "1600",
+    height: "1200",
+    loading: "lazy",
+    decoding: "async",
+    alt: season === 'hiver' ? tr.destAltHiver : tr.destAltEte
   }), /*#__PURE__*/React.createElement("div", {
     className: "dest__card"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "dest__card-eyebrow"
   }, tr.destCard), /*#__PURE__*/React.createElement("h3", null, d.desc)), /*#__PURE__*/React.createElement("dl", {
     className: "dest__stats"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.destRooms), /*#__PURE__*/React.createElement("dd", null, d.rooms)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.destFloors), /*#__PURE__*/React.createElement("dd", null, "5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.destCoord), /*#__PURE__*/React.createElement("dd", null, d.coord)))))));
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.destRooms), /*#__PURE__*/React.createElement("dd", null, "1\u202F650\xA0m")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.destCoord), /*#__PURE__*/React.createElement("dd", null, d.coord)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.destFloors), /*#__PURE__*/React.createElement("dd", null, "74")))))));
 }
 
-/* ---------- Editorial / press ---------- */
-function Editorial({
-  lang
-}) {
-  const tr = T[lang] || T.fr;
-  return /*#__PURE__*/React.createElement("section", {
-    className: "edito"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "edito__wrap"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "eyebrow eyebrow--light"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "eyebrow__dot"
-  }), tr.editoEye), /*#__PURE__*/React.createElement("div", {
-    className: "edito__grid"
-  }, tr.quotes.map((q, i) => /*#__PURE__*/React.createElement("figure", {
-    key: i,
-    className: "edito__q"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "edito__mark"
-  }, "\""), /*#__PURE__*/React.createElement("blockquote", null, q.txt), /*#__PURE__*/React.createElement("figcaption", null, "\u2014 ", q.src))))));
-}
+/* Le bloc « La maison, par ceux qui la tiennent » a été retiré — audit 28/08, point 18 :
+   citations anonymes, et un chef qui dit diriger la cuisine « depuis l'ouverture » alors que
+   l'hôtel n'a pas ouvert. Arbitrage client du 28/08 : suppression. Le bloc pourra revenir
+   avec de vraies signatures, ou avec de vrais avis clients. */
 
 /* ---------- Newsletter ---------- */
 function Newsletter({
@@ -1482,7 +2049,8 @@ function Newsletter({
     setEmail('');
   }, [lang]);
   return /*#__PURE__*/React.createElement("section", {
-    className: "nl"
+    className: "nl",
+    id: "newsletter"
   }, /*#__PURE__*/React.createElement("div", {
     className: "nl__grid"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
@@ -1499,7 +2067,9 @@ function Newsletter({
       e.preventDefault();
       setSent(true);
     }
-  }, /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", null, tr.nlLabel), /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("span", {
+    className: "visually-hidden"
+  }, tr.nlLabel), /*#__PURE__*/React.createElement("input", {
     type: "email",
     value: email,
     onChange: e => setEmail(e.target.value),
@@ -1508,10 +2078,16 @@ function Newsletter({
   })), /*#__PURE__*/React.createElement("button", {
     className: "btn btn--primary",
     disabled: sent
-  }, sent ? tr.nlSent : tr.nlBtn))));
+  }, sent ? tr.nlSent : tr.nlBtn), /*#__PURE__*/React.createElement("p", {
+    className: `nl__note${sent ? ' nl__note--sent' : ''}`,
+    role: sent ? 'status' : undefined
+  }, sent ? tr.nlConfirm : tr.nlNote))));
 }
 
-/* ---------- Instagram ---------- */
+/* ---------- Instagram ----------
+   Composant non monté par <App /> : il n'apparaît pas sur le site, et l'audit du 28/08
+   ne le couvre donc pas. Ses identifiants sont encore ceux de l'ancienne marque
+   (@LeZenithCasablanca) : à mettre à jour — ou à supprimer — avant toute réactivation. */
 function Instagram() {
   /* 5 slots — remplacer chaque <div className="ig__img"> par une vraie <img src="..." /> */
   return /*#__PURE__*/React.createElement("section", {
@@ -1680,30 +2256,149 @@ function Footer({
     className: "ft__cols"
   }, tr.ftCols.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.t
-  }, /*#__PURE__*/React.createElement("h4", null, c.t), c.l.map(x => /*#__PURE__*/React.createElement("a", {
-    key: x,
-    href: "#"
-  }, x)))))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("h4", null, c.t), c.l.map(it => {
+    if (it.to) return /*#__PURE__*/React.createElement("a", {
+      key: it.x,
+      href: `#${it.to}`,
+      onClick: e => {
+        e.preventDefault();
+        const el = document.getElementById(it.to);
+        if (el) el.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    }, it.x);
+    if (it.href) return /*#__PURE__*/React.createElement("a", {
+      key: it.x,
+      href: it.href
+    }, it.x);
+    return /*#__PURE__*/React.createElement("span", {
+      key: it.x,
+      className: "ft__static"
+    }, it.x);
+  }))))), /*#__PURE__*/React.createElement("div", {
     className: "ft__bottom"
   }, /*#__PURE__*/React.createElement("span", null, tr.ftCopy), /*#__PURE__*/React.createElement("span", {
     className: "ft__dests"
-  }, /*#__PURE__*/React.createElement("a", null, "Route d'El Jadida"), /*#__PURE__*/React.createElement("em", null, "\xB7"), /*#__PURE__*/React.createElement("a", null, "Lissasfa"), /*#__PURE__*/React.createElement("em", null, "\xB7"), /*#__PURE__*/React.createElement("a", null, "Casablanca 20000"), /*#__PURE__*/React.createElement("em", null, "\xB7"), /*#__PURE__*/React.createElement("a", null, "Maroc")), /*#__PURE__*/React.createElement("span", null, "FR \xB7 EN")));
+  }, /*#__PURE__*/React.createElement("span", null, "Ifrane"), /*#__PURE__*/React.createElement("em", null, "\xB7"), /*#__PURE__*/React.createElement("span", null, "Moyen Atlas"), /*#__PURE__*/React.createElement("em", null, "\xB7"), /*#__PURE__*/React.createElement("span", null, "Maroc")), /*#__PURE__*/React.createElement("span", null, "FR \xB7 EN")));
+}
+
+/* ---------- Bandeau de réassurance (unique) ----------
+   Audit 28/08 · points 5 et 7 : un seul bandeau, six mentions toutes confirmées, et un
+   contrôle de pause — un défilement automatique doit pouvoir être arrêté (accessibilité).
+   Il se met aussi en pause au survol et au focus clavier (voir styles.css).            */
+function Reperes({
+  lang
+}) {
+  const tr = T[lang] || T.fr;
+  const items = tr.reperes;
+  const [paused, setPaused] = useState(false);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `reperes${paused ? ' is-paused' : ''}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "reperes__track"
+  }, [...items, ...items, ...items].map((it, i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    className: "reperes__item"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "reperes__gem"
+  }, "\u2726"), /*#__PURE__*/React.createElement("span", {
+    className: "reperes__txt"
+  }, it)))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "reperes__pause",
+    onClick: () => setPaused(p => !p),
+    "aria-pressed": paused,
+    "aria-label": paused ? tr.reperesPlay : tr.reperesPause
+  }, paused ? '▶' : '❚❚'));
+}
+
+/* ---------- Dernier appel ---------- */
+function DernierAppel({
+  lang,
+  onBook
+}) {
+  const tr = T[lang] || T.fr;
+  return /*#__PURE__*/React.createElement("section", {
+    className: "call"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "call__inner"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "call__title h-display"
+  }, tr.callTitle), /*#__PURE__*/React.createElement("div", {
+    className: "call__cta call__cta--single"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn--primary",
+    onClick: onBook
+  }, tr.heroCta1)), /*#__PURE__*/React.createElement("a", {
+    href: "#experiences",
+    className: "quote-link"
+  }, tr.heroCta2, " ", /*#__PURE__*/React.createElement("span", null, "\u2192"))));
+}
+
+/* ---------- Quatre saisons ---------- */
+function Saisons({
+  lang,
+  onBook
+}) {
+  const tr = T[lang] || T.fr;
+  return /*#__PURE__*/React.createElement("section", {
+    className: "seasons",
+    id: "seasons"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "seasons__head"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "eyebrow"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow__dot"
+  }), tr.saisonsEye), /*#__PURE__*/React.createElement("h2", {
+    className: "h-display"
+  }, tr.saisonsH2)), /*#__PURE__*/React.createElement("div", {
+    className: "seasons__grid"
+  }, tr.saisons.map((s, i) => /*#__PURE__*/React.createElement("article", {
+    key: i,
+    className: "season"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "season__media"
+  }, /*#__PURE__*/React.createElement(Placeholder, {
+    label: `${s.name.toLowerCase()} · ifrane`,
+    tone: s.tone,
+    aspect: "3/4"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "season__body"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "season__row"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "season__name"
+  }, s.name), /*#__PURE__*/React.createElement("span", {
+    className: "season__period"
+  }, s.period)), /*#__PURE__*/React.createElement("p", {
+    className: "season__txt"
+  }, s.txt))))), /*#__PURE__*/React.createElement("div", {
+    className: "seasons__cta"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn--primary",
+    onClick: onBook
+  }, tr.saisonsBtn)));
 }
 Object.assign(window, {
   SplashScreen,
+  Rail,
   WhiteValleyLogo,
   Nav,
   Hero,
   BookingBar,
   HotelRunnerModal,
-  Marquee,
   Intro,
   Rooms,
   Experiences,
   Destinations,
-  Editorial,
   Newsletter,
   Instagram,
   Footer,
-  Placeholder
+  Placeholder,
+  Reperes,
+  DernierAppel,
+  Saisons,
+  openBooking
 });

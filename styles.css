@@ -2838,3 +2838,647 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   outline-color: var(--accent) !important;
   border-color:  var(--accent) !important;
 }
+/* =========================================================
+   AUDIT 28/08 — AJUSTEMENTS v2
+   Rédactionnel TWV_Audit-et-Contenus_v2 (DO FACTORY).
+   ========================================================= */
+
+/* ── CTA unique + lien discret « Demander un devis » ──
+   Audit blocs 1 et 9 : un seul bouton, le séminaire passe en lien. */
+.hero__cta--single { margin-bottom: 18px; }
+.call__cta--single { margin-bottom: 0; }
+
+.quote-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 3px;
+  margin-bottom: 44px;
+  transition: color .25s, border-color .25s;
+}
+.quote-link span { color: var(--accent); transition: transform .3s; }
+.quote-link:hover { color: var(--fg); border-bottom-color: var(--accent); }
+.quote-link:hover span { transform: translateX(5px); }
+.quote-link--light { color: rgba(255,255,255,0.78); }
+.quote-link--light:hover { color: #fff; }
+.hero__full-content .quote-link { margin-bottom: 0; }
+/* Appel final : fond clair en thème ivoire — le lien prend la couleur de texte pleine
+   du thème pour rester lisible (noir en clair, ivoire en thème sombre). */
+.call__inner .quote-link {
+  margin-top: -20px;
+  margin-bottom: 0;
+  color: var(--fg);
+  border-bottom-color: var(--line);
+}
+.call__inner .quote-link:hover { border-bottom-color: var(--accent); }
+
+/* ── Bandeau de réassurance : contrôle de pause ──
+   Audit point 7 : un défilement automatique doit pouvoir être arrêté,
+   au clic comme au focus clavier. */
+.reperes { position: relative; }
+.reperes.is-paused .reperes__track,
+.reperes:hover .reperes__track,
+.reperes:focus-within .reperes__track { animation-play-state: paused; }
+.reperes__pause {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  line-height: 1;
+  color: #f5f0e8;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(245,240,232,0.35);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.reperes__pause:hover { background: rgba(0,0,0,0.6); border-color: var(--accent-2); }
+.reperes__pause:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .reperes__track { animation: none; }
+}
+
+/* ── Barre de réservation : compteur adultes / enfants ──
+   Audit point 4 : remplace le select à treize combinaisons. */
+.bb__field--guests { padding: 0; }
+.bb__guests-trigger {
+  width: 100%;
+  height: 100%;
+  padding: 18px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+.bb__guests-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.bb__guests-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 260px;
+  z-index: 40;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -24px rgba(0,0,0,0.55);
+  padding: 8px 20px;
+}
+.bb__counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+}
+.bb__counter + .bb__counter { border-top: 1px solid var(--line); }
+.bb__counter-label {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+}
+.bb__counter-ctrl { display: inline-flex; align-items: center; gap: 14px; }
+.bb__counter-ctrl button {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: none;
+  color: var(--fg);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, opacity .2s;
+}
+.bb__counter-ctrl button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.bb__counter-ctrl button:disabled { opacity: 0.3; cursor: not-allowed; }
+.bb__counter-ctrl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bb__counter-val {
+  min-width: 18px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--fg);
+}
+
+/* ── Les cinq lieux : grille à cinq cartes ──
+   Audit point 16 : la piscine et la salle de sport rejoignent le bloc. */
+/* minmax(0, 1fr) et non 1fr : sans cela, la largeur minimale des colonnes est calculée
+   sur le contenu — le placeholder en height:100% + aspect-ratio se mesure alors sur la
+   hauteur de la ligne, les colonnes gonflent et la grille déborde de la page. */
+.exp__grid--five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.exp__grid--five .exp__item { min-width: 0; }
+/* La hauteur du visuel vient de son ratio, pas de la hauteur de la ligne. */
+.exp__grid--five .exp__item > .ph { height: auto; }
+.exp__grid--five .exp__meta { grid-template-columns: auto 1fr; }
+.exp__grid--five .exp__meta h3 { font-size: 19px; }
+@media (max-width: 1280px) { .exp__grid--five { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } }
+@media (max-width: 900px)  { .exp__grid--five { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px)  { .exp__grid--five { grid-template-columns: minmax(0, 1fr); } }
+
+/* ── Les suites : en-tête sans filtres (audit point 9) ── */
+.rooms__head > div { max-width: 900px; }
+
+/* ── Footer : entrées sans page derrière, rendues en texte (audit point 21) ── */
+.ft__static {
+  display: block;
+  padding: 6px 0;
+  font-size: 14px;
+  color: rgba(245,240,232,0.7);
+}
+.ft__dests span { color: inherit; }
+.nl__note--sent { color: var(--accent); }
+
+/* =========================================================
+   GALERIE PHOTO — carrousel dans les cartes
+   La photo est posée dans un cadre de --surface bordé de --line : elle reste
+   un objet sur la page, ce qui la tient à distance de la palette — chaude en
+   été, froide et claire en hiver. Aucun défilement automatique.
+   ========================================================= */
+.gal { display: flex; flex-direction: column; gap: 10px; }
+
+.gal__frame {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 8px;
+}
+.gal__track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.gal__track::-webkit-scrollbar { display: none; }
+.gal__track:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.gal__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: center;
+}
+.gal__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--bg-alt);
+}
+
+/* Flèches : discrètes, révélées au survol, toujours atteignables au clavier */
+.gal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .25s, border-color .2s, color .2s;
+}
+.gal__nav--prev { left: 16px; }
+.gal__nav--next { right: 16px; }
+.gal:hover .gal__nav,
+.gal:focus-within .gal__nav { opacity: 1; }
+.gal__nav:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.gal__nav:focus-visible { opacity: 1; outline: 2px solid var(--accent); outline-offset: 2px; }
+.gal__nav:disabled { opacity: 0; pointer-events: none; }
+.gal:hover .gal__nav:disabled,
+.gal:focus-within .gal__nav:disabled { opacity: .25; }
+@media (hover: none) {
+  .gal__nav { opacity: 1; }          /* au doigt, on glisse — mais les flèches restent visibles */
+  .gal__nav:disabled { opacity: .25; }
+}
+
+/* Barre sous la photo : compteur, légende du sujet, points */
+.gal__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+}
+.gal__count {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--fg-mute);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.gal__legend {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--fg-dim);
+  letter-spacing: 0.04em;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gal__dots { display: inline-flex; gap: 6px; flex-shrink: 0; }
+.gal__dots button {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.gal__dots button:hover { background: var(--fg-mute); }
+.gal__dots button.is-active { background: var(--accent); transform: scale(1.35); }
+.gal__dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gal__track { scroll-behavior: auto; }
+}
+
+/* ── Suites : les photos sont en 4/3 paysage, la grille passe donc à deux colonnes ──
+   Recadrer du 4:3 en 4:5 portrait amputait 60 % de la largeur, c'est-à-dire le volume
+   de la pièce — précisément ce que les suites vendent. */
+.rooms__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 40px; }
+@media (max-width: 900px) { .rooms__grid { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
+.room__media { margin-bottom: 24px; }
+
+/* ── Les cinq lieux : trois colonnes (3 + 2) pour que les photos respirent ── */
+.exp__grid--five { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+@media (max-width: 1000px) { .exp__grid--five { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px)  { .exp__grid--five { grid-template-columns: minmax(0, 1fr); } }
+.exp__item .gal { margin-bottom: 20px; }
+.exp__grid--five .exp__meta h3 { font-size: 22px; }
+
+/* Carte séminaires : pas de photo, donc les faits à la place */
+.exp__facts {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 26px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.exp__facts li {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--fg-dim);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.exp__facts li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+/* ── Nous rejoindre : la galerie remplace le visuel unique ── */
+
+/* =========================================================
+   LES LETTRES DE LA VALLÉE — section en photo pleine largeur
+   La façade de nuit passe en fond. Le texte repasse en clair au-dessus d'un
+   voile sombre : mêmes réglages dans les quatre palettes et dans les deux
+   saisons, puisque c'est la photo qui porte le contraste, pas les tokens.
+   ========================================================= */
+.nl {
+  position: relative;
+  isolation: isolate;
+  max-width: none;
+  background-image: url('assets/photos/facade-02-1600.jpg');
+  background-size: cover;
+  background-position: center 42%;
+  border-top: 0;
+}
+@media (max-width: 900px) {
+  .nl { background-image: url('assets/photos/facade-02-800.jpg'); }
+}
+.nl::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Dégradé vertical plutôt que latéral : le haut de la photo reste sans voile — on voit
+     la façade, l'enseigne et le ciel — et l'ombre ne se dépose que sous les textes. */
+  background:
+    linear-gradient(180deg,
+      rgba(8,10,12,0.10) 0%,
+      rgba(8,10,12,0.22) 32%,
+      rgba(8,10,12,0.58) 58%,
+      rgba(8,10,12,0.86) 82%,
+      rgba(8,10,12,0.90) 100%);
+}
+.nl__grid { max-width: 1344px; margin: 0 auto; }
+
+.nl .eyebrow { color: rgba(255,255,255,0.72); }
+.nl .h-display { color: #fff; }
+.nl__desc { color: rgba(255,255,255,0.85); }
+.nl__form span { color: rgba(255,255,255,0.7); }
+.nl__form input {
+  color: #fff;
+  border-bottom-color: rgba(255,255,255,0.55);
+}
+.nl__form input::placeholder { color: rgba(255,255,255,0.62); }
+.nl__form input:focus { border-bottom-color: var(--accent-2); }
+.nl__note { color: rgba(255,255,255,0.65); }
+.nl__note--sent { color: var(--accent-2); }
+
+/* Formulaire décalé vers le bas : il passe sous l'enseigne, qui reste entièrement
+   visible. Uniquement à partir de deux colonnes — en dessous, la grille s'empile. */
+/* Deux colonnes : section haute, l'enseigne occupe la moitié supérieure, libre de
+   tout texte, et le formulaire descend sous elle. */
+@media (min-width: 1101px) {
+  .nl { padding: 300px 48px 150px; }
+  .nl__form { position: relative; top: 58px; }
+}
+/* Tablette : la grille s'empile, on garde de la photo au-dessus du texte. */
+@media (max-width: 1100px) {
+  .nl { padding: 190px 40px 90px; }
+}
+@media (max-width: 768px) {
+  .nl { padding: 150px 20px 72px; }
+  /* Section plus courte : le dégradé doit couvrir plus tôt, le texte y descend moins bas. */
+  .nl::before {
+    background: linear-gradient(180deg,
+      rgba(8,10,12,0.25) 0%,
+      rgba(8,10,12,0.50) 30%,
+      rgba(8,10,12,0.80) 62%,
+      rgba(8,10,12,0.90) 100%);
+  }
+  /* En colonne, le align-items:flex-end du desktop plaquait libellé, champ et mention
+     contre le bord droit. */
+  .nl__form { align-items: stretch; }
+}
+
+/* ── Nous rejoindre : le cadre s'ajuste à la galerie ──
+   Le conteneur était calé sur l'ancien placeholder : ratio 4/5 et hauteur maximale
+   figés, avec une image qui s'étirait pour remplir le reste. Avec une photo en 4/3
+   plus la barre de légende, le total dépassait la hauteur imposée et la carte du bas
+   se retrouvait rognée. La hauteur suit maintenant le contenu.                      */
+.dest__preview {
+  aspect-ratio: auto;
+  max-height: none;
+}
+.dest__card { border-top: 1px solid var(--line); }
+
+/* Texte réservé aux lecteurs d'écran : retiré de l'affichage, pas de l'accessibilité. */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Carte séminaires : alignement avec les cartes à photo ──
+   Un bloc de galerie mesure (largeur × 3/4) + 46 px fixes : 16 de marge interne du
+   cadre, 2 de filet, 10 d'écart et 18 de barre de légende. Le bloc de faits, lui, ne
+   fait que (largeur × 3/4). Sans compensation, son titre remontait de 46 px par
+   rapport à celui de la carte voisine. */
+.gal__bar { min-height: 18px; }
+.exp__facts {
+  justify-content: space-between;
+  padding: 32px 28px;
+  margin-bottom: 52px;   /* 20 d'origine + 32 de compensation, mesurés */
+}
+.exp__facts li { font-size: 18px; }
+
+/* =========================================================
+   GALERIES — variante « arche »  (inspiration éditoriale du 03/09)
+   Ce qui est repris de la référence : l'arche haute sur la photo, la carte crème
+   sous l'image, le compteur traité comme un signe graphique. Ce qui n'est pas
+   repris : sa palette brune, qui ferait mentir la saison hiver. La forme remplace
+   le cadre — c'est elle qui pose la photo sur la page.
+   ========================================================= */
+.gal--arch .gal__frame {
+  background: none;
+  border: 0;
+  padding: 0;
+  overflow: visible;
+}
+.gal--arch .gal__slide img {
+  /* Arche : demi-cercle aplati en haut, base droite. */
+  border-radius: 999px 999px 6px 6px / 34% 34% 6px 6px;
+}
+.gal--arch .gal__track { border-radius: inherit; }
+.gal--arch .gal__nav {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-color: color-mix(in srgb, var(--fg) 18%, transparent);
+}
+.gal--arch .gal__nav--prev { left: 12px; }
+.gal--arch .gal__nav--next { right: 12px; }
+
+/* Barre sous la photo : compteur en signe graphique, comme les « 1/4 » de la référence */
+.gal--arch .gal__bar { padding: 0 4px; }
+.gal--arch .gal__count {
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.gal--arch .gal__legend { font-size: 10.5px; }
+
+/* Bouton pause du carrousel */
+.gal__pause {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  line-height: 1;
+  color: var(--fg-mute);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.gal__pause:hover { color: var(--accent); border-color: var(--accent); }
+.gal__pause:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── Cartes suites : le texte passe sur une carte crème ── */
+.room__body {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 30px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.room__media { margin-bottom: 14px; }
+
+/* ── Cartes lieux : même traitement, carte crème sous l'arche ── */
+.exp__grid--five .exp__meta {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 26px 28px;
+  align-items: start;
+}
+.exp__item .gal { margin-bottom: 14px; }
+.exp__facts { margin-bottom: 46px; }   /* recalé : la galerie a perdu son cadre */
+
+/* Arche adoucie : sur des photos en paysage, une courbe trop creusée ampute les
+   plafonds et tire vers l'écran de cinéma. */
+.gal--arch .gal__slide img {
+  border-radius: 999px 999px 4px 4px / 20% 20% 4px 4px;
+}
+
+/* Cartes de même hauteur sur une ligne, comme dans la référence : le crème forme
+   une bande régulière, ce sont les photos qui portent la variation. */
+.rooms__grid, .exp__grid--five { align-items: stretch; }
+.room { display: flex; flex-direction: column; }
+.room__body { flex: 1; }
+.exp__grid--five .exp__meta { flex: 1; }
+
+/* =========================================================
+   RAIL — carrousel de cartes (les cinq lieux)
+   Une carte par vue : autant de points que de cartes. Un rail qui en montrerait
+   trois à la fois aurait des points inatteignables, puisque le défilement s'arrête
+   avant la dernière position.
+   ========================================================= */
+.rail { max-width: 1440px; margin: 0 auto; }
+.rail__track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.rail__track::-webkit-scrollbar { display: none; }
+.rail__track:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.rail__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.rail__bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-top: 26px;
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+/* Cinq points, plus grands que ceux d'une galerie : ce sont les repères de section */
+.rail__dots { display: inline-flex; gap: 10px; }
+.rail__dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.rail__dots button:hover { border-color: var(--accent); }
+.rail__dots button.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.3);
+}
+.rail__dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+
+/* ── Le rail montre trois cartes à la fois, deux en tablette, une sur mobile ──
+   Le pas d'avancement est d'une carte. Le nombre de points est mesuré côté JS
+   d'après la largeur d'une carte, donc il suit ces paliers sans être écrit deux fois. */
+.rail__track {
+  --rail-gap: 32px;
+  gap: var(--rail-gap);
+  align-items: stretch;
+  padding-bottom: 2px;   /* laisse respirer l'ombre de focus */
+}
+.rail__slide {
+  flex: 0 0 calc((100% - 2 * var(--rail-gap)) / 3);
+  display: flex;
+}
+.rail__slide > * { flex: 1; min-width: 0; }
+@media (max-width: 1000px) {
+  .rail__slide { flex-basis: calc((100% - var(--rail-gap)) / 2); }
+}
+@media (max-width: 680px) {
+  .rail__track { --rail-gap: 20px; }
+  .rail__slide { flex-basis: 100%; }
+}
+
+/* La carte lieu dans le rail : arche, puis carte crème — celle des colonnes d'avant */
+.rail .exp__item { display: flex; flex-direction: column; }
+.rail .exp__item .gal { margin-bottom: 14px; }
+.rail .exp__item .exp__meta {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 26px 28px;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  flex: 1;
+}
+.rail .exp__item .exp__meta h3 { font-size: 22px; }
+.rail .exp__facts {
+  margin-bottom: 46px;   /* compense la barre de légende des cartes à photo */
+  justify-content: space-between;
+}
+
+/* Barre du rail en trois colonnes : les points restent centrés, le compteur et la
+   pause tiennent la droite. Les flèches ont été retirées le 3 septembre. */
+.rail__bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0;
+}
+.rail__dots { grid-column: 2; justify-self: center; }
+
+/* Nous rejoindre : une photo par saison, cadrée par le conteneur */
+.dest__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+}
