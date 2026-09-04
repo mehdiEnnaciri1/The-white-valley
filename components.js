@@ -187,6 +187,16 @@ const T = {
     galPause: 'Mettre le carrousel en pause',
     galPlay: 'Relancer le carrousel',
     railGo: 'Aller au lieu',
+    fxSuitesAria: 'Les quatre suites',
+    fxSaisonsAria: 'Les quatre saisons',
+    fxLieuxAria: 'Les cinq lieux en arc',
+    fxPrev: 'Saison précédente',
+    fxNext: 'Saison suivante',
+    fxDotSuite: 'Suite',
+    fxDotVue: 'Vue',
+    fxDragArc: "Glissez l'arc",
+    fxDragFlow: 'Glissez · cliquez les côtés',
+    fxLieu: 'ifrane',
     photoK: {
       chambre: 'la chambre',
       salon: 'le salon',
@@ -217,21 +227,25 @@ const T = {
     saisons: [{
       name: 'Hiver',
       period: 'décembre à mars',
+      k: 'hiver',
       tone: 'stone',
       txt: "Entre −5 °C la nuit et 8 °C le jour. La neige vient trois à six fois par hiver. Feu de cheminée, forêt de cèdres silencieuse, ski à vingt minutes quand la pente est blanche."
     }, {
       name: 'Printemps',
       period: 'avril à mai',
+      k: 'printemps',
       tone: 'sage',
       txt: "La meilleure saison pour marcher. Les premières herbes sauvages, les amandes encore vertes, une lumière nette pour la photo. Notre saison favorite, en confidence."
     }, {
       name: 'Été',
       period: 'juin à septembre',
+      k: 'ete',
       tone: 'warm',
       txt: "Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée."
     }, {
       name: 'Automne',
       period: 'octobre à novembre',
+      k: 'automne',
       tone: 'brass',
       txt: "Les forêts virent au cuivre, l'air sèche. Très peu de monde en semaine. La saison idéale pour une retraite ou un long week-end à deux, sans concurrence d'agenda."
     }],
@@ -278,6 +292,7 @@ const T = {
       name: 'Suite Senior Grand lit',
       photos: 'suite-senior-grand-lit',
       size: 65,
+      niveau: 'Senior',
       cap: '[À CONFIRMER]',
       kitchen: 'Kitchenette équipée',
       tone: 'warm',
@@ -286,6 +301,7 @@ const T = {
       name: 'Suite Senior Twin',
       photos: 'suite-senior-twin',
       size: 65,
+      niveau: 'Senior',
       cap: '[À CONFIRMER]',
       kitchen: 'Kitchenette équipée',
       tone: 'sage',
@@ -294,6 +310,7 @@ const T = {
       name: 'Suite Junior Grand lit',
       photos: 'suite-junior-grand-lit',
       size: 28,
+      niveau: 'Junior',
       cap: '[À CONFIRMER]',
       kitchen: 'Kitchenette équipée',
       tone: 'stone',
@@ -302,6 +319,7 @@ const T = {
       name: 'Suite Junior Twin',
       photos: 'suite-junior-twin',
       size: 45,
+      niveau: 'Junior',
       cap: '[À CONFIRMER]',
       kitchen: 'Kitchenette équipée',
       tone: 'brass',
@@ -313,29 +331,34 @@ const T = {
       idx: '01',
       title: 'Le spa',
       photos: 'spa',
+      fxEye: "Cinq cabines",
       sub: "Cinq cabines, un hammam, un sauna, et des parcours séparés pour les femmes et pour les hommes. Des soins pensés pour l'altitude : à 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Pas de musique dans les couloirs.",
       tone: 'sage'
     }, {
       idx: '02',
       title: 'The WHITE',
       photos: 'the-white',
+      fxEye: "La table",
       sub: "Notre restaurant. Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit. Ouvert aux non-résidents sur réservation.",
       tone: 'warm'
     }, {
       idx: '03',
       title: 'La piscine',
       photos: 'piscine',
+      fxEye: "Chauffée",
       sub: "Chauffée, ce qui à 1 650 mètres n'est pas un détail : on y entre en janvier au lieu de la regarder depuis la baie vitrée.",
       tone: 'pool'
     }, {
       idx: '04',
       title: 'La salle de sport',
       photos: 'sport',
+      fxEye: "Vitrée sur l'eau",
       sub: "Vitrée sur la piscine : deux vélos de biking, un elliptique, deux tapis de course, une presse à cuisses et une station à poulies. On voit l'eau pendant qu'on court.",
       tone: 'stone'
     }, {
       idx: '05',
       title: 'Les séminaires',
+      fxEye: "Séminaires",
       sub: "Une salle de conférence, les suites au-dessus, The WHITE pour les repas, le spa pour la fin de journée. Tout tient dans le même bâtiment, et sur un séminaire de deux jours, cela change à peu près tout.",
       tone: 'brass'
     }],
@@ -469,6 +492,16 @@ const T = {
     galPause: 'Pause the carousel',
     galPlay: 'Resume the carousel',
     railGo: 'Go to place',
+    fxSuitesAria: 'The four suites',
+    fxSaisonsAria: 'The four seasons',
+    fxLieuxAria: 'The five places, on an arc',
+    fxPrev: 'Previous season',
+    fxNext: 'Next season',
+    fxDotSuite: 'Suite',
+    fxDotVue: 'View',
+    fxDragArc: 'Drag the arc',
+    fxDragFlow: 'Drag · click the sides',
+    fxLieu: 'ifrane',
     photoK: {
       chambre: 'the bedroom',
       salon: 'the living room',
@@ -499,21 +532,25 @@ const T = {
     saisons: [{
       name: 'Winter',
       period: 'December to March',
+      k: 'hiver',
       tone: 'stone',
       txt: "Between −5 °C at night and 8 °C by day. Snow comes three to six times each winter. A fireplace, the silent cedar forest, skiing twenty minutes away when the slope is white."
     }, {
       name: 'Spring',
       period: 'April to May',
+      k: 'printemps',
       tone: 'sage',
       txt: "The best season for walking. The first wild herbs, almonds still green, a crisp light for photographs. Our favourite season, in confidence."
     }, {
       name: 'Summer',
       period: 'June to September',
+      k: 'ete',
       tone: 'warm',
       txt: "The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated."
     }, {
       name: 'Autumn',
       period: 'October to November',
+      k: 'automne',
       tone: 'brass',
       txt: "The forests turn copper, the air dries. Very few people midweek. The ideal season for a retreat or a long weekend for two, with no competing schedules."
     }],
@@ -560,6 +597,7 @@ const T = {
       name: 'Senior Suite · King bed',
       photos: 'suite-senior-grand-lit',
       size: 65,
+      niveau: 'Senior',
       cap: '[TO BE CONFIRMED]',
       kitchen: 'Equipped kitchenette',
       tone: 'warm',
@@ -568,6 +606,7 @@ const T = {
       name: 'Senior Suite · Twin beds',
       photos: 'suite-senior-twin',
       size: 65,
+      niveau: 'Senior',
       cap: '[TO BE CONFIRMED]',
       kitchen: 'Equipped kitchenette',
       tone: 'sage',
@@ -576,6 +615,7 @@ const T = {
       name: 'Junior Suite · King bed',
       photos: 'suite-junior-grand-lit',
       size: 28,
+      niveau: 'Junior',
       cap: '[TO BE CONFIRMED]',
       kitchen: 'Equipped kitchenette',
       tone: 'stone',
@@ -584,6 +624,7 @@ const T = {
       name: 'Junior Suite · Twin beds',
       photos: 'suite-junior-twin',
       size: 45,
+      niveau: 'Junior',
       cap: '[TO BE CONFIRMED]',
       kitchen: 'Equipped kitchenette',
       tone: 'brass',
@@ -595,29 +636,34 @@ const T = {
       idx: '01',
       title: 'The spa',
       photos: 'spa',
+      fxEye: "Five cabins",
       sub: "Five cabins, a hammam, a sauna, and separate circuits for women and for men. Treatments designed for altitude: at 1,650 metres, the skin doesn't ask for what it asks for by the sea. No music in the corridors.",
       tone: 'sage'
     }, {
       idx: '02',
       title: 'The WHITE',
       photos: 'the-white',
+      fxEye: "The table",
       sub: "Our restaurant. Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a cooking we respect, a plate you finish. Open to non-residents by reservation.",
       tone: 'warm'
     }, {
       idx: '03',
       title: 'The pool',
       photos: 'piscine',
+      fxEye: "Heated",
       sub: "Heated, which at 1,650 metres is not a detail: you get in during January instead of looking at it through the window.",
       tone: 'pool'
     }, {
       idx: '04',
       title: 'The gym',
       photos: 'sport',
+      fxEye: "Glazed onto the water",
       sub: "Glazed onto the pool: two spin bikes, one elliptical, two treadmills, a leg press and a cable station. You watch the water while you run.",
       tone: 'stone'
     }, {
       idx: '05',
       title: 'The seminars',
+      fxEye: "Seminars",
       sub: "A conference room, the suites above, The WHITE for meals, the spa at the end of the day. Everything is in the same building, and over a two-day seminar that changes just about everything.",
       tone: 'brass'
     }],
@@ -754,6 +800,12 @@ function openBooking(lang = 'fr', trip = null) {
 
 /* ── Photos ── Générées depuis assets/photos/ (deux tailles : -800 et -1600).
    n = numéro du fichier, k = sujet (sert à composer le texte alternatif et la légende). */
+/* Saisons : seuls l'hiver et l'été ont un visuel, ce sont les deux photos de la section
+   « Nous rejoindre ». Printemps et automne restent en panneau dégradé, faute de photo. */
+const PHOTOS_SAISON = {
+  hiver: 'dest-hiver',
+  ete: 'dest-ete'
+};
 const PHOTOS = {
   /* Tri client du 3 septembre : les vues écartées ne sont plus listées ici. Les fichiers
      restent dans assets/photos/, il suffit de remettre l'entrée pour les réafficher.
@@ -1861,21 +1913,31 @@ function Intro({
     className: "link-arrow"
   }, tr.introLink, " ", /*#__PURE__*/React.createElement("span", null, "\u2192")))));
 }
+
+/* Chemin d'une photo de PHOTOS : assets/photos/<slug>-<nn>-<largeur>.jpg */
+function photoSrc(slug, n, w) {
+  return `assets/photos/${slug}-${n}-${w}.jpg`;
+}
 function Rooms({
   onBook,
   lang
 }) {
   const tr = T[lang] || T.fr;
   /* Audit 28/08 · points 8 à 11 : les quatre typologies affichées n'existaient pas dans
-     l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés
-     — quatre suites d'une seule famille ne se filtrent pas — badge « le plus choisi » et
-     preuve sociale retirés : l'hôtel n'a pas ouvert.                                   */
-  const [hoverIdx, setHoverIdx] = useState(null);
+     l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés,
+     badge « le plus choisi » et preuve sociale retirés : l'hôtel n'a pas ouvert.
+     04/09 : la grille de cartes devient une rangée de bandes (mécanique « squeeze »).
+     La couverture de chaque bande est la première photo de PHOTOS[slug], donc l'ordre
+     établi par le client. */
+  const ref = useRef(null);
+  useEffect(() => TWVCarousels.init(ref.current), [lang]);
   return /*#__PURE__*/React.createElement("section", {
     className: "rooms",
-    id: "rooms"
+    id: "rooms",
+    ref: ref
   }, /*#__PURE__*/React.createElement("div", {
-    className: "rooms__head"
+    className: "rooms__head",
+    "data-reveal": true
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
@@ -1885,86 +1947,205 @@ function Rooms({
   }, tr.roomsH2), /*#__PURE__*/React.createElement("p", {
     className: "rooms__lede"
   }, tr.roomsLede))), /*#__PURE__*/React.createElement("div", {
-    className: "rooms__grid"
-  }, tr.rooms.map((r, i) => /*#__PURE__*/React.createElement("article", {
-    key: r.name,
-    className: `room ${hoverIdx === i ? 'is-hover' : ''}`,
-    onMouseEnter: () => setHoverIdx(i),
-    onMouseLeave: () => setHoverIdx(null)
+    className: "fx fx--squeeze",
+    "data-fx": "squeeze",
+    "data-every": "5200",
+    "data-slat": "86px",
+    "data-reveal": true
   }, /*#__PURE__*/React.createElement("div", {
-    className: "room__media"
-  }, /*#__PURE__*/React.createElement(Gallery, {
-    slug: r.photos,
-    name: r.name,
-    lang: lang,
-    eager: i === 0,
-    variant: "arch",
-    autoplay: true,
-    interval: 5200 + i * 700
+    className: "fx__stage fx__stage--squeeze",
+    "data-fxstage": true
+  }, tr.rooms.map((r, i) => {
+    const photos = PHOTOS[r.photos] || [];
+    const n = photos.length ? photos[0][0] : null;
+    const rang = String(i + 1).padStart(2, '0');
+    return /*#__PURE__*/React.createElement("article", {
+      className: "fx__band",
+      "data-fxi": true,
+      key: r.name
+    }, n && /*#__PURE__*/React.createElement("img", {
+      className: "fx__band-img",
+      src: photoSrc(r.photos, n, 800),
+      srcSet: `${photoSrc(r.photos, n, 800)} 800w, ${photoSrc(r.photos, n, 1600)} 1600w`,
+      sizes: "(max-width: 900px) 100vw, 900px",
+      alt: r.name,
+      loading: i === 0 ? 'eager' : 'lazy',
+      decoding: "async"
+    }), /*#__PURE__*/React.createElement("span", {
+      className: "fx__band-scrim"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "fx__slat",
+      "data-fxslat": true
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "fx__slat-num"
+    }, rang), /*#__PURE__*/React.createElement("span", {
+      className: "fx__slat-name"
+    }, r.name), /*#__PURE__*/React.createElement("span", {
+      className: "fx__slat-size"
+    }, r.size, " m\xB2")), /*#__PURE__*/React.createElement("div", {
+      className: "fx__open",
+      "data-fxopen": true
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "fx__open-eye"
+    }, rang, " \u2014 ", r.niveau, " \xB7 ", r.size, " m\xB2"), /*#__PURE__*/React.createElement("h3", {
+      className: "fx__open-title"
+    }, r.name), /*#__PURE__*/React.createElement("p", {
+      className: "fx__open-txt"
+    }, r.desc), /*#__PURE__*/React.createElement("span", {
+      className: "fx__open-meta"
+    }, r.kitchen, " \xB7 ", tr.rCap, " ", r.cap, " \xB7 ", tr.rPriceNote)));
   })), /*#__PURE__*/React.createElement("div", {
-    className: "room__body"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "room__row"
-  }, /*#__PURE__*/React.createElement("h3", {
-    className: "room__name"
-  }, r.name)), /*#__PURE__*/React.createElement("p", {
-    className: "room__desc"
-  }, r.desc), /*#__PURE__*/React.createElement("dl", {
-    className: "room__specs"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rSurface), /*#__PURE__*/React.createElement("dd", null, r.size, " m\xB2")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rCap), /*#__PURE__*/React.createElement("dd", null, r.cap)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, tr.rKitchen), /*#__PURE__*/React.createElement("dd", null, r.kitchen))), /*#__PURE__*/React.createElement("div", {
-    className: "room__foot"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "room__price-note"
-  }, tr.rPriceNote)), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn--dark btn--sm",
+    className: "fx__bar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "fx__count",
+    "data-fxk": true
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "fx__dots"
+  }, tr.rooms.map((r, i) => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__dot",
+    "data-fxd": true,
+    key: r.name,
+    "aria-label": `${tr.fxDotSuite} ${i + 1}`
+  }))), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn--dark",
     onClick: onBook
-  }, tr.rBook)))))));
+  }, tr.rBook))));
 }
 
-/* ---------- Experience strip ---------- */
+/* ---------- Les cinq lieux, en arc ----------
+   Audit 28/08 · points 13 à 16 : cinq lieux au lieu de trois — la piscine et la salle de
+   sport cessent d'être des mentions en marge.
+   04/09 : les cartes passent en arc sur fond --ink. Neuf vues pour cinq lieux — les deux
+   premières photos de chaque lieu photographié, plus la carte de faits des séminaires,
+   qui n'ont aucune photo. Plusieurs vues partagent la même légende : elles portent
+   data-cap, et il n'y a donc que cinq blocs de légende.                               */
 function Experiences({
   lang
 }) {
   const tr = T[lang] || T.fr;
+  const ref = useRef(null);
+
+  /* L'arc se resserre sur petit écran (rayon 560, ouverture 18°, cf. handoff). Le moteur
+     lit ces attributs une seule fois : on les cale avant le montage, et on le remonte
+     seulement quand on franchit le palier — pas à chaque pixel de redimensionnement. */
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const arc = el.querySelector('[data-fx="arc"]');
+    const petit = () => window.innerWidth <= 900;
+    const caler = () => {
+      if (!arc) return;
+      arc.dataset.spread = petit() ? '18' : '13';
+      arc.dataset.radius = petit() ? '560' : '950';
+    };
+    caler();
+    let detruire = TWVCarousels.init(el);
+    let etait = petit();
+    const onResize = () => {
+      if (petit() === etait) return;
+      etait = petit();
+      detruire();
+      caler();
+      detruire = TWVCarousels.init(el);
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      detruire();
+    };
+  }, [lang]);
+
+  /* Deux vues par lieu photographié, prises dans l'ordre du client. */
+  const vues = [];
+  tr.exps.forEach((it, cap) => {
+    const photos = it.photos ? PHOTOS[it.photos] || [] : [];
+    if (!photos.length) {
+      vues.push({
+        cap,
+        it,
+        faits: true
+      });
+      return;
+    }
+    photos.slice(0, 2).forEach(([n, k]) => vues.push({
+      cap,
+      it,
+      slug: it.photos,
+      n,
+      k
+    }));
+  });
   return /*#__PURE__*/React.createElement("section", {
-    className: "exp",
-    id: "experiences"
+    className: "exp exp--arc",
+    id: "experiences",
+    ref: ref
   }, /*#__PURE__*/React.createElement("div", {
-    className: "exp__head"
+    className: "exp__head",
+    "data-reveal": true
   }, /*#__PURE__*/React.createElement("p", {
-    className: "eyebrow"
+    className: "eyebrow eyebrow--light"
   }, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow__dot"
   }), tr.expEye), /*#__PURE__*/React.createElement("h2", {
-    className: "h-display"
-  }, tr.expH2)), /*#__PURE__*/React.createElement(Rail, {
-    lang: lang,
-    label: tr.expH2,
-    autoplay: true,
-    interval: 5000
-  }, tr.exps.map(it => /*#__PURE__*/React.createElement("article", {
-    key: it.idx,
-    className: "exp__item"
-  }, it.photos ? /*#__PURE__*/React.createElement(Gallery, {
-    slug: it.photos,
-    name: it.title,
-    lang: lang,
-    variant: "arch",
-    autoplay: true,
-    interval: 5600 + Number(it.idx) * 700
-  }) :
-  /*#__PURE__*/
-  /* Les séminaires n'ont aucune photo : la carte porte les faits plutôt
-     qu'un visuel de remplissage. */
-  React.createElement("ul", {
-    className: "exp__facts"
+    className: "h-display h-display--light"
+  }, tr.expH2)), /*#__PURE__*/React.createElement("div", {
+    className: "fx fx--arc",
+    "data-fx": "arc",
+    "data-every": "3800",
+    "data-spread": "13",
+    "data-radius": "950",
+    "data-tone": "dark",
+    "data-reveal": true
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fx__stage fx__stage--arc",
+    "data-fxstage": true,
+    tabIndex: 0,
+    "aria-label": tr.fxLieuxAria
+  }, vues.map((v, i) => /*#__PURE__*/React.createElement("figure", {
+    className: `fx__view${v.faits ? ' fx__view--facts' : ''}`,
+    "data-fxi": true,
+    "data-cap": v.cap,
+    key: v.faits ? 'facts' : `${v.slug}-${v.n}`
+  }, v.faits ? /*#__PURE__*/React.createElement("ul", {
+    className: "fx__facts"
   }, tr.seminaireFacts.map(f => /*#__PURE__*/React.createElement("li", {
     key: f
-  }, f))), /*#__PURE__*/React.createElement("div", {
-    className: "exp__meta"
+  }, f))) : /*#__PURE__*/React.createElement("img", {
+    src: photoSrc(v.slug, v.n, 800),
+    srcSet: `${photoSrc(v.slug, v.n, 800)} 800w, ${photoSrc(v.slug, v.n, 1600)} 1600w`,
+    sizes: "240px",
+    alt: `${v.it.title} — ${tr.photoK && tr.photoK[v.k] || ''}`,
+    loading: i === 0 ? 'eager' : 'lazy',
+    decoding: "async"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "fx__caps"
+  }, tr.exps.map(it => /*#__PURE__*/React.createElement("div", {
+    className: "fx__cap",
+    "data-fxc": true,
+    key: it.idx
   }, /*#__PURE__*/React.createElement("span", {
-    className: "exp__idx"
-  }, it.idx), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, it.title), /*#__PURE__*/React.createElement("p", null, it.sub)))))));
+    className: "fx__cap-eye"
+  }, it.idx, " \u2014 ", it.fxEye), /*#__PURE__*/React.createElement("h3", {
+    className: "fx__cap-title"
+  }, it.title), /*#__PURE__*/React.createElement("p", {
+    className: "fx__cap-txt"
+  }, it.sub)))), /*#__PURE__*/React.createElement("div", {
+    className: "fx__bar fx__bar--arc"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "fx__count",
+    "data-fxk": true
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "fx__dots"
+  }, vues.map((v, i) => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__dot",
+    "data-fxd": true,
+    key: v.faits ? 'd-facts' : `d-${v.slug}-${v.n}`,
+    "aria-label": `${tr.fxDotVue} ${i + 1}`
+  }))), /*#__PURE__*/React.createElement("span", {
+    className: "fx__hint"
+  }, tr.fxDragArc))));
 }
 
 /* ---------- Localisation & coordonnées ---------- */
@@ -2342,11 +2523,18 @@ function Saisons({
   onBook
 }) {
   const tr = T[lang] || T.fr;
+  /* 04/09 : la grille de quatre cartes devient un flux 3D — la saison centrale en
+     volume, les voisines tournées et floutées. Hiver et été portent une photo ;
+     printemps et automne n'en ont aucune et gardent un panneau dégradé. */
+  const ref = useRef(null);
+  useEffect(() => TWVCarousels.init(ref.current), [lang]);
   return /*#__PURE__*/React.createElement("section", {
     className: "seasons",
-    id: "seasons"
+    id: "seasons",
+    ref: ref
   }, /*#__PURE__*/React.createElement("div", {
-    className: "seasons__head"
+    className: "seasons__head",
+    "data-reveal": true
   }, /*#__PURE__*/React.createElement("p", {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
@@ -2354,27 +2542,95 @@ function Saisons({
   }), tr.saisonsEye), /*#__PURE__*/React.createElement("h2", {
     className: "h-display"
   }, tr.saisonsH2)), /*#__PURE__*/React.createElement("div", {
-    className: "seasons__grid"
-  }, tr.saisons.map((s, i) => /*#__PURE__*/React.createElement("article", {
-    key: i,
-    className: "season"
+    className: "fx fx--flow",
+    "data-fx": "flow",
+    "data-every": "4600",
+    "data-reveal": true
   }, /*#__PURE__*/React.createElement("div", {
-    className: "season__media"
-  }, /*#__PURE__*/React.createElement(Placeholder, {
-    label: `${s.name.toLowerCase()} · ifrane`,
-    tone: s.tone,
-    aspect: "3/4"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "season__body"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "season__row"
-  }, /*#__PURE__*/React.createElement("h3", {
-    className: "season__name"
-  }, s.name), /*#__PURE__*/React.createElement("span", {
-    className: "season__period"
-  }, s.period)), /*#__PURE__*/React.createElement("p", {
-    className: "season__txt"
-  }, s.txt))))), /*#__PURE__*/React.createElement("div", {
+    className: "fx__stage fx__stage--flow",
+    "data-fxstage": true,
+    tabIndex: 0,
+    "aria-label": tr.fxSaisonsAria
+  }, tr.saisons.map((s, i) => {
+    const base = PHOTOS_SAISON[s.k];
+    return /*#__PURE__*/React.createElement("article", {
+      className: `fx__card fx__card--${s.k}`,
+      "data-fxi": true,
+      key: s.k
+    }, base ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("img", {
+      className: "fx__card-img",
+      src: `assets/photos/${base}-800.jpg`,
+      srcSet: `assets/photos/${base}-800.jpg 800w, assets/photos/${base}-1600.jpg 1600w`,
+      sizes: "(max-width: 900px) 78vw, 410px",
+      alt: s.name,
+      loading: i === 0 ? 'eager' : 'lazy',
+      decoding: "async"
+    }), /*#__PURE__*/React.createElement("span", {
+      className: "fx__card-scrim"
+    })) : /*#__PURE__*/React.createElement("span", {
+      className: "fx__card-grain"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "fx__card-body"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "fx__card-num"
+    }, i + 1, "/", tr.saisons.length), /*#__PURE__*/React.createElement("div", {
+      className: "fx__card-txt"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "fx__card-name"
+    }, s.name), /*#__PURE__*/React.createElement("span", {
+      className: "fx__card-period"
+    }, s.period), /*#__PURE__*/React.createElement("p", {
+      className: "fx__card-p"
+    }, s.txt), /*#__PURE__*/React.createElement("span", {
+      className: "fx__card-sign"
+    }, s.name.toLowerCase(), " \xB7 ", tr.fxLieu))));
+  })), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__arrow fx__arrow--prev",
+    "data-fxp": true,
+    "aria-label": tr.fxPrev
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.4"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M15 5l-7 7 7 7"
+  }))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__arrow fx__arrow--next",
+    "data-fxn": true,
+    "aria-label": tr.fxNext
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.4"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M9 5l7 7-7 7"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "fx__bar fx__bar--flow"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "fx__count",
+    "data-fxk": true
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "fx__dots"
+  }, tr.saisons.map(s => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__dot",
+    "data-fxd": true,
+    key: s.k,
+    "aria-label": s.name
+  }))), /*#__PURE__*/React.createElement("span", {
+    className: "fx__rail"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "fx__rail-fill",
+    "data-fxbar": true
+  })))), /*#__PURE__*/React.createElement("div", {
     className: "seasons__cta"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn--primary",

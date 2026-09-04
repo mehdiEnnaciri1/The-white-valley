@@ -42,5 +42,28 @@
 
   <script type="text/babel" src="app.jsx"></script>
 
+
+  <script>
+  (function(){
+    function trim(){
+      var root=document.getElementById('root');
+      var t=root&&root.querySelector('#rooms');
+      if(!t) return false;
+      Array.prototype.forEach.call(root.children,function(el){
+        if(el!==t&&!el.contains(t)) el.style.display='none';
+      });
+      setTimeout(function(){
+        var rv=document.querySelectorAll('#rooms [data-reveal]');
+        var caches=Array.prototype.filter.call(rv,function(e){return getComputedStyle(e).opacity==='0';}).length;
+        var pre=document.createElement('pre'); pre.id='probe';
+        pre.textContent='reveal visibles : '+(rv.length-caches)+' / '+rv.length;
+        document.body.appendChild(pre);
+      }, 1800);
+      return true;
+    }
+    if(trim()) return;
+    new MutationObserver(function(_,o){ if(trim()) o.disconnect(); }).observe(document.getElementById('root'),{childList:true,subtree:true});
+  })();
+  </script>
 </body>
 </html>

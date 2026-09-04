@@ -42,5 +42,43 @@
 
   <script type="text/babel" src="app.jsx"></script>
 
+
+  <script>
+  (function(){
+    var J=[];
+    function cpt(){ var k=document.querySelector('#seasons [data-fxk]'); return k?k.textContent.trim():'?'; }
+    function go(){
+      var root=document.getElementById('root');
+      var t=root&&root.querySelector('#seasons');
+      if(!t) return false;
+      Array.prototype.forEach.call(root.children,function(el){
+        if(el!==t&&!el.contains(t)) el.style.display='none';
+      });
+      var fx=document.querySelector('#seasons [data-fx]');
+      var stage=document.querySelector('#seasons [data-fxstage]');
+      setTimeout(function(){ J.push('t0     = '+cpt()); }, 1200);
+      setTimeout(function(){
+        J.push('t+7s   = '+cpt()+'   <- doit avoir avance');
+        fx.dispatchEvent(new PointerEvent('pointerenter',{bubbles:true}));
+        var fige=cpt();
+        setTimeout(function(){
+          J.push('t+18s  = '+cpt()+'   <- survol, doit rester '+fige);
+          fx.dispatchEvent(new PointerEvent('pointerleave',{bubbles:true}));
+          stage.focus();
+          J.push('focus  : '+(document.activeElement===stage?'la scene a le focus':'NON'));
+          stage.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));
+          setTimeout(function(){
+            J.push('fleche droite -> '+cpt());
+            var pre=document.createElement('pre'); pre.id='probe'; pre.textContent=J.join(String.fromCharCode(10));
+            document.body.appendChild(pre);
+          }, 900);
+        }, 11000);
+      }, 7000);
+      return true;
+    }
+    if(go()) return;
+    new MutationObserver(function(_,o){ if(go()) o.disconnect(); }).observe(document.getElementById('root'),{childList:true,subtree:true});
+  })();
+  </script>
 </body>
 </html>

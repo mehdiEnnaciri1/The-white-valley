@@ -42,5 +42,28 @@
 
   <script type="text/babel" src="app.jsx"></script>
 
+
+  <script>
+  (function(){
+    function go(){
+      var root=document.getElementById('root');
+      var t=root&&root.querySelector('#rooms');
+      var neige=root&&root.querySelectorAll('.season-toggle__btn')[1];
+      var lang=root&&root.querySelector('.nav__action--lang');
+      if(!t||!neige||!lang) return false;
+      neige.click();
+      setTimeout(function(){
+        var root2=document.getElementById('root');
+        var t2=root2.querySelector('#rooms');
+        Array.prototype.forEach.call(root2.children,function(el){
+          if(el!==t2&&!el.contains(t2)) el.style.display='none';
+        });
+      }, 300);
+      return true;
+    }
+    if(go()) return;
+    new MutationObserver(function(_,o){ if(go()) o.disconnect(); }).observe(document.getElementById('root'),{childList:true,subtree:true});
+  })();
+  </script>
 </body>
 </html>

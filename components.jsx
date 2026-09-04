@@ -88,6 +88,10 @@ const T = {
     aEte:'Été', aHiver:'Hiver',
     galRole:'carrousel', galPrev:'Photo précédente', galNext:'Photo suivante', galGo:'Aller à la photo', galPhotos:'photos',
     galPause:'Mettre le carrousel en pause', galPlay:'Relancer le carrousel', railGo:'Aller au lieu',
+    fxSuitesAria:'Les quatre suites', fxSaisonsAria:'Les quatre saisons', fxLieuxAria:'Les cinq lieux en arc',
+    fxPrev:'Saison précédente', fxNext:'Saison suivante',
+    fxDotSuite:'Suite', fxDotVue:'Vue',
+    fxDragArc:"Glissez l'arc", fxDragFlow:'Glissez · cliquez les côtés', fxLieu:'ifrane',
     photoK:{ chambre:'la chambre', salon:'le salon', cuisine:'la kitchenette', bain:'la salle de bain',
              bureau:"l'espace de travail", cabine:'une cabine de soin', hammam:'le hammam',
              linge:'le linge et les savons', detente:'les transats', ambiance:'le spa',
@@ -102,10 +106,10 @@ const T = {
     navPhone:'Téléphone', navWhats:'WhatsApp',
     saisonsEye:'QUATRE SAISONS', saisonsH2:'Quatre saisons, une signature', saisonsBtn:'Quand venir',
     saisons:[
-      {name:'Hiver',period:'décembre à mars',tone:'stone',txt:"Entre −5 °C la nuit et 8 °C le jour. La neige vient trois à six fois par hiver. Feu de cheminée, forêt de cèdres silencieuse, ski à vingt minutes quand la pente est blanche."},
-      {name:'Printemps',period:'avril à mai',tone:'sage',txt:"La meilleure saison pour marcher. Les premières herbes sauvages, les amandes encore vertes, une lumière nette pour la photo. Notre saison favorite, en confidence."},
-      {name:'Été',period:'juin à septembre',tone:'warm',txt:"Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée."},
-      {name:'Automne',period:'octobre à novembre',tone:'brass',txt:"Les forêts virent au cuivre, l'air sèche. Très peu de monde en semaine. La saison idéale pour une retraite ou un long week-end à deux, sans concurrence d'agenda."},
+      {name:'Hiver',period:'décembre à mars',k:'hiver',tone:'stone',txt:"Entre −5 °C la nuit et 8 °C le jour. La neige vient trois à six fois par hiver. Feu de cheminée, forêt de cèdres silencieuse, ski à vingt minutes quand la pente est blanche."},
+      {name:'Printemps',period:'avril à mai',k:'printemps',tone:'sage',txt:"La meilleure saison pour marcher. Les premières herbes sauvages, les amandes encore vertes, une lumière nette pour la photo. Notre saison favorite, en confidence."},
+      {name:'Été',period:'juin à septembre',k:'ete',tone:'warm',txt:"Le refuge climatique. 14 °C la nuit, 28 °C le jour pendant que les villes étouffent. Les soirées se prennent dehors, la piscine reste chauffée."},
+      {name:'Automne',period:'octobre à novembre',k:'automne',tone:'brass',txt:"Les forêts virent au cuivre, l'air sèche. Très peu de monde en semaine. La saison idéale pour une retraite ou un long week-end à deux, sans concurrence d'agenda."},
     ],
     heroEyeSplit:'THE WHITE VALLEY · IFRANE · MOYEN ATLAS',
     heroEteA:"L'hôtel de suites", heroEteB:"d'altitude", heroEteC:'à Ifrane.',
@@ -128,18 +132,18 @@ const T = {
     rSurface:'Surface', rCap:'Capacité', rKitchen:'Cuisine', rPriceNote:'Tarifs sur demande',
     rBook:'Réserver',
     rooms:[
-      {name:'Suite Senior Grand lit',photos:'suite-senior-grand-lit',size:65,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'warm',desc:"Soixante-cinq mètres carrés, un grand lit, un vrai salon. Du rangement, et de quoi rester à l'intérieur quand il neige depuis deux jours. Ce qu'on choisit pour une semaine à deux."},
-      {name:'Suite Senior Twin',photos:'suite-senior-twin',size:65,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'sage',desc:"Le même volume, deux lits séparés. Le format le plus répandu de la maison, quarante suites sur soixante-quatorze."},
-      {name:'Suite Junior Grand lit',photos:'suite-junior-grand-lit',size:28,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'stone',desc:"Vingt-huit mètres carrés, un grand lit, un coin salon. Notre format le plus compact, pour deux ou trois nuits à deux."},
-      {name:'Suite Junior Twin',photos:'suite-junior-twin',size:45,cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'brass',desc:"Quarante-cinq mètres carrés, deux lits séparés. Il n'y en a qu'une dans la maison, ce qui veut dire qu'elle part vite."},
+      {name:'Suite Senior Grand lit',photos:'suite-senior-grand-lit',size:65,niveau:'Senior',cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'warm',desc:"Soixante-cinq mètres carrés, un grand lit, un vrai salon. Du rangement, et de quoi rester à l'intérieur quand il neige depuis deux jours. Ce qu'on choisit pour une semaine à deux."},
+      {name:'Suite Senior Twin',photos:'suite-senior-twin',size:65,niveau:'Senior',cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'sage',desc:"Le même volume, deux lits séparés. Le format le plus répandu de la maison, quarante suites sur soixante-quatorze."},
+      {name:'Suite Junior Grand lit',photos:'suite-junior-grand-lit',size:28,niveau:'Junior',cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'stone',desc:"Vingt-huit mètres carrés, un grand lit, un coin salon. Notre format le plus compact, pour deux ou trois nuits à deux."},
+      {name:'Suite Junior Twin',photos:'suite-junior-twin',size:45,niveau:'Junior',cap:'[À CONFIRMER]',kitchen:'Kitchenette équipée',tone:'brass',desc:"Quarante-cinq mètres carrés, deux lits séparés. Il n'y en a qu'une dans la maison, ce qui veut dire qu'elle part vite."},
     ],
     expEye:'SPA · TABLE · PISCINE · SPORT · SÉMINAIRES', expH2:'Cinq lieux, sous le même toit.',
     exps:[
-      {idx:'01',title:'Le spa',photos:'spa',sub:"Cinq cabines, un hammam, un sauna, et des parcours séparés pour les femmes et pour les hommes. Des soins pensés pour l'altitude : à 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Pas de musique dans les couloirs.",tone:'sage'},
-      {idx:'02',title:'The WHITE',photos:'the-white',sub:"Notre restaurant. Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit. Ouvert aux non-résidents sur réservation.",tone:'warm'},
-      {idx:'03',title:'La piscine',photos:'piscine',sub:"Chauffée, ce qui à 1 650 mètres n'est pas un détail : on y entre en janvier au lieu de la regarder depuis la baie vitrée.",tone:'pool'},
-      {idx:'04',title:'La salle de sport',photos:'sport',sub:"Vitrée sur la piscine : deux vélos de biking, un elliptique, deux tapis de course, une presse à cuisses et une station à poulies. On voit l'eau pendant qu'on court.",tone:'stone'},
-      {idx:'05',title:'Les séminaires',sub:"Une salle de conférence, les suites au-dessus, The WHITE pour les repas, le spa pour la fin de journée. Tout tient dans le même bâtiment, et sur un séminaire de deux jours, cela change à peu près tout.",tone:'brass'},
+      {idx:'01',title:'Le spa',photos:'spa',fxEye:"Cinq cabines",sub:"Cinq cabines, un hammam, un sauna, et des parcours séparés pour les femmes et pour les hommes. Des soins pensés pour l'altitude : à 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Pas de musique dans les couloirs.",tone:'sage'},
+      {idx:'02',title:'The WHITE',photos:'the-white',fxEye:"La table",sub:"Notre restaurant. Une cuisine du Moyen Atlas en produits courts, midi et soir. Trois saveurs par assiette, une cuisson qu'on respecte, une assiette qu'on finit. Ouvert aux non-résidents sur réservation.",tone:'warm'},
+      {idx:'03',title:'La piscine',photos:'piscine',fxEye:"Chauffée",sub:"Chauffée, ce qui à 1 650 mètres n'est pas un détail : on y entre en janvier au lieu de la regarder depuis la baie vitrée.",tone:'pool'},
+      {idx:'04',title:'La salle de sport',photos:'sport',fxEye:"Vitrée sur l'eau",sub:"Vitrée sur la piscine : deux vélos de biking, un elliptique, deux tapis de course, une presse à cuisses et une station à poulies. On voit l'eau pendant qu'on court.",tone:'stone'},
+      {idx:'05',title:'Les séminaires',fxEye:"Séminaires",sub:"Une salle de conférence, les suites au-dessus, The WHITE pour les repas, le spa pour la fin de journée. Tout tient dans le même bâtiment, et sur un séminaire de deux jours, cela change à peu près tout.",tone:'brass'},
     ],
     destEye:'IFRANE À PORTÉE DE MAIN', destH2:'Nous rejoindre.', destCard:'THE WHITE VALLEY · IFRANE', destBtn:"Plan d'accès",
     destRooms:'Altitude', destFloors:'Suites', destCoord:'Distance',
@@ -192,6 +196,10 @@ const T = {
     aEte:'Summer', aHiver:'Winter',
     galRole:'carousel', galPrev:'Previous photo', galNext:'Next photo', galGo:'Go to photo', galPhotos:'photos',
     galPause:'Pause the carousel', galPlay:'Resume the carousel', railGo:'Go to place',
+    fxSuitesAria:'The four suites', fxSaisonsAria:'The four seasons', fxLieuxAria:'The five places, on an arc',
+    fxPrev:'Previous season', fxNext:'Next season',
+    fxDotSuite:'Suite', fxDotVue:'View',
+    fxDragArc:'Drag the arc', fxDragFlow:'Drag · click the sides', fxLieu:'ifrane',
     photoK:{ chambre:'the bedroom', salon:'the living room', cuisine:'the kitchenette', bain:'the bathroom',
              bureau:'the work space', cabine:'a treatment cabin', hammam:'the hammam',
              linge:'towels and soaps', detente:'the loungers', ambiance:'the spa',
@@ -206,10 +214,10 @@ const T = {
     navPhone:'Phone', navWhats:'WhatsApp',
     saisonsEye:'FOUR SEASONS', saisonsH2:'Four seasons, one signature', saisonsBtn:'When to come',
     saisons:[
-      {name:'Winter',period:'December to March',tone:'stone',txt:"Between −5 °C at night and 8 °C by day. Snow comes three to six times each winter. A fireplace, the silent cedar forest, skiing twenty minutes away when the slope is white."},
-      {name:'Spring',period:'April to May',tone:'sage',txt:"The best season for walking. The first wild herbs, almonds still green, a crisp light for photographs. Our favourite season, in confidence."},
-      {name:'Summer',period:'June to September',tone:'warm',txt:"The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated."},
-      {name:'Autumn',period:'October to November',tone:'brass',txt:"The forests turn copper, the air dries. Very few people midweek. The ideal season for a retreat or a long weekend for two, with no competing schedules."},
+      {name:'Winter',period:'December to March',k:'hiver',tone:'stone',txt:"Between −5 °C at night and 8 °C by day. Snow comes three to six times each winter. A fireplace, the silent cedar forest, skiing twenty minutes away when the slope is white."},
+      {name:'Spring',period:'April to May',k:'printemps',tone:'sage',txt:"The best season for walking. The first wild herbs, almonds still green, a crisp light for photographs. Our favourite season, in confidence."},
+      {name:'Summer',period:'June to September',k:'ete',tone:'warm',txt:"The climate refuge. 14 °C at night, 28 °C by day while the cities swelter. Evenings are spent outside, the pool stays heated."},
+      {name:'Autumn',period:'October to November',k:'automne',tone:'brass',txt:"The forests turn copper, the air dries. Very few people midweek. The ideal season for a retreat or a long weekend for two, with no competing schedules."},
     ],
     heroEyeSplit:'THE WHITE VALLEY · IFRANE · MIDDLE ATLAS',
     heroEteA:'The high-altitude', heroEteB:'suite hotel', heroEteC:'in Ifrane.',
@@ -232,18 +240,18 @@ const T = {
     rSurface:'Size', rCap:'Capacity', rKitchen:'Kitchen', rPriceNote:'Rates on request',
     rBook:'Book',
     rooms:[
-      {name:'Senior Suite · King bed',photos:'suite-senior-grand-lit',size:65,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'warm',desc:"Sixty-five square metres, a king bed, a real living room. Storage, and enough space to stay indoors when it has been snowing for two days. What you choose for a week for two."},
-      {name:'Senior Suite · Twin beds',photos:'suite-senior-twin',size:65,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'sage',desc:"The same volume, two separate beds. The most common format in the house, forty suites out of seventy-four."},
-      {name:'Junior Suite · King bed',photos:'suite-junior-grand-lit',size:28,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'stone',desc:"Twenty-eight square metres, a king bed, a sitting corner. Our most compact format, for two or three nights for two."},
-      {name:'Junior Suite · Twin beds',photos:'suite-junior-twin',size:45,cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'brass',desc:"Forty-five square metres, two separate beds. There is only one in the house, which means it goes fast."},
+      {name:'Senior Suite · King bed',photos:'suite-senior-grand-lit',size:65,niveau:'Senior',cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'warm',desc:"Sixty-five square metres, a king bed, a real living room. Storage, and enough space to stay indoors when it has been snowing for two days. What you choose for a week for two."},
+      {name:'Senior Suite · Twin beds',photos:'suite-senior-twin',size:65,niveau:'Senior',cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'sage',desc:"The same volume, two separate beds. The most common format in the house, forty suites out of seventy-four."},
+      {name:'Junior Suite · King bed',photos:'suite-junior-grand-lit',size:28,niveau:'Junior',cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'stone',desc:"Twenty-eight square metres, a king bed, a sitting corner. Our most compact format, for two or three nights for two."},
+      {name:'Junior Suite · Twin beds',photos:'suite-junior-twin',size:45,niveau:'Junior',cap:'[TO BE CONFIRMED]',kitchen:'Equipped kitchenette',tone:'brass',desc:"Forty-five square metres, two separate beds. There is only one in the house, which means it goes fast."},
     ],
     expEye:'SPA · TABLE · POOL · GYM · SEMINARS', expH2:'Five places, under one roof.',
     exps:[
-      {idx:'01',title:'The spa',photos:'spa',sub:"Five cabins, a hammam, a sauna, and separate circuits for women and for men. Treatments designed for altitude: at 1,650 metres, the skin doesn't ask for what it asks for by the sea. No music in the corridors.",tone:'sage'},
-      {idx:'02',title:'The WHITE',photos:'the-white',sub:"Our restaurant. Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a cooking we respect, a plate you finish. Open to non-residents by reservation.",tone:'warm'},
-      {idx:'03',title:'The pool',photos:'piscine',sub:"Heated, which at 1,650 metres is not a detail: you get in during January instead of looking at it through the window.",tone:'pool'},
-      {idx:'04',title:'The gym',photos:'sport',sub:"Glazed onto the pool: two spin bikes, one elliptical, two treadmills, a leg press and a cable station. You watch the water while you run.",tone:'stone'},
-      {idx:'05',title:'The seminars',sub:"A conference room, the suites above, The WHITE for meals, the spa at the end of the day. Everything is in the same building, and over a two-day seminar that changes just about everything.",tone:'brass'},
+      {idx:'01',title:'The spa',photos:'spa',fxEye:"Five cabins",sub:"Five cabins, a hammam, a sauna, and separate circuits for women and for men. Treatments designed for altitude: at 1,650 metres, the skin doesn't ask for what it asks for by the sea. No music in the corridors.",tone:'sage'},
+      {idx:'02',title:'The WHITE',photos:'the-white',fxEye:"The table",sub:"Our restaurant. Middle Atlas cuisine with short supply chains, midday and evening. Three flavours per plate, a cooking we respect, a plate you finish. Open to non-residents by reservation.",tone:'warm'},
+      {idx:'03',title:'The pool',photos:'piscine',fxEye:"Heated",sub:"Heated, which at 1,650 metres is not a detail: you get in during January instead of looking at it through the window.",tone:'pool'},
+      {idx:'04',title:'The gym',photos:'sport',fxEye:"Glazed onto the water",sub:"Glazed onto the pool: two spin bikes, one elliptical, two treadmills, a leg press and a cable station. You watch the water while you run.",tone:'stone'},
+      {idx:'05',title:'The seminars',fxEye:"Seminars",sub:"A conference room, the suites above, The WHITE for meals, the spa at the end of the day. Everything is in the same building, and over a two-day seminar that changes just about everything.",tone:'brass'},
     ],
     destEye:'IFRANE WITHIN REACH', destH2:'Getting to us.', destCard:'THE WHITE VALLEY · IFRANE', destBtn:'Getting here',
     destRooms:'Altitude', destFloors:'Suites', destCoord:'Distance',
@@ -335,6 +343,10 @@ function openBooking(lang = 'fr', trip = null) {
 
 /* ── Photos ── Générées depuis assets/photos/ (deux tailles : -800 et -1600).
    n = numéro du fichier, k = sujet (sert à composer le texte alternatif et la légende). */
+/* Saisons : seuls l'hiver et l'été ont un visuel, ce sont les deux photos de la section
+   « Nous rejoindre ». Printemps et automne restent en panneau dégradé, faute de photo. */
+const PHOTOS_SAISON = { hiver: 'dest-hiver', ete: 'dest-ete' };
+
 const PHOTOS = {
   /* Tri client du 3 septembre : les vues écartées ne sont plus listées ici. Les fichiers
      restent dans assets/photos/, il suffit de remettre l'entrée pour les réafficher.
@@ -1243,17 +1255,23 @@ function Intro({ lang }) {
   );
 }
 
+/* Chemin d'une photo de PHOTOS : assets/photos/<slug>-<nn>-<largeur>.jpg */
+function photoSrc(slug, n, w) { return `assets/photos/${slug}-${n}-${w}.jpg`; }
+
 function Rooms({ onBook, lang }) {
   const tr = T[lang]||T.fr;
   /* Audit 28/08 · points 8 à 11 : les quatre typologies affichées n'existaient pas dans
-     l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés
-     — quatre suites d'une seule famille ne se filtrent pas — badge « le plus choisi » et
-     preuve sociale retirés : l'hôtel n'a pas ouvert.                                   */
-  const [hoverIdx, setHoverIdx] = useState(null);
+     l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés,
+     badge « le plus choisi » et preuve sociale retirés : l'hôtel n'a pas ouvert.
+     04/09 : la grille de cartes devient une rangée de bandes (mécanique « squeeze »).
+     La couverture de chaque bande est la première photo de PHOTOS[slug], donc l'ordre
+     établi par le client. */
+  const ref = useRef(null);
+  useEffect(() => TWVCarousels.init(ref.current), [lang]);
 
   return (
-    <section className="rooms" id="rooms">
-      <div className="rooms__head">
+    <section className="rooms" id="rooms" ref={ref}>
+      <div className="rooms__head" data-reveal>
         <div>
           <p className="eyebrow"><span className="eyebrow__dot" />{tr.roomsEye}</p>
           <h2 className="h-display">{tr.roomsH2}</h2>
@@ -1261,79 +1279,156 @@ function Rooms({ onBook, lang }) {
         </div>
       </div>
 
-      <div className="rooms__grid">
-          {tr.rooms.map((r, i) => (
-          <article
-            key={r.name}
-            className={`room ${hoverIdx === i ? 'is-hover' : ''}`}
-            onMouseEnter={() => setHoverIdx(i)}
-            onMouseLeave={() => setHoverIdx(null)}
-          >
-            <div className="room__media">
-              <Gallery slug={r.photos} name={r.name} lang={lang} eager={i === 0}
-                       variant="arch" autoplay interval={5200 + i * 700} />
-            </div>
-            <div className="room__body">
-              <div className="room__row">
-                <h3 className="room__name">{r.name}</h3>
-              </div>
-              <p className="room__desc">{r.desc}</p>
-              <dl className="room__specs">
-                <div><dt>{tr.rSurface}</dt><dd>{r.size} m²</dd></div>
-                <div><dt>{tr.rCap}</dt><dd>{r.cap}</dd></div>
-                <div><dt>{tr.rKitchen}</dt><dd>{r.kitchen}</dd></div>
-              </dl>
-              <div className="room__foot">
-                <div>
-                  <span className="room__price-note">{tr.rPriceNote}</span>
+      <div className="fx fx--squeeze" data-fx="squeeze" data-every="5200" data-slat="86px" data-reveal>
+        <div className="fx__stage fx__stage--squeeze" data-fxstage>
+          {tr.rooms.map((r, i) => {
+            const photos = PHOTOS[r.photos] || [];
+            const n = photos.length ? photos[0][0] : null;
+            const rang = String(i + 1).padStart(2, '0');
+            return (
+              <article className="fx__band" data-fxi key={r.name}>
+                {n && (
+                  <img className="fx__band-img"
+                    src={photoSrc(r.photos, n, 800)}
+                    srcSet={`${photoSrc(r.photos, n, 800)} 800w, ${photoSrc(r.photos, n, 1600)} 1600w`}
+                    sizes="(max-width: 900px) 100vw, 900px"
+                    alt={r.name}
+                    loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                )}
+                <span className="fx__band-scrim" />
+
+                <div className="fx__slat" data-fxslat>
+                  <span className="fx__slat-num">{rang}</span>
+                  <span className="fx__slat-name">{r.name}</span>
+                  <span className="fx__slat-size">{r.size} m²</span>
                 </div>
-                <button className="btn btn--dark btn--sm" onClick={onBook}>{tr.rBook}</button>
-              </div>
-            </div>
-          </article>
-          ))}
+
+                <div className="fx__open" data-fxopen>
+                  <span className="fx__open-eye">{rang} — {r.niveau} · {r.size} m²</span>
+                  <h3 className="fx__open-title">{r.name}</h3>
+                  <p className="fx__open-txt">{r.desc}</p>
+                  <span className="fx__open-meta">
+                    {r.kitchen} · {tr.rCap} {r.cap} · {tr.rPriceNote}
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="fx__bar">
+          <span className="fx__count" data-fxk />
+          <span className="fx__dots">
+            {tr.rooms.map((r, i) => (
+              <button type="button" className="fx__dot" data-fxd key={r.name}
+                aria-label={`${tr.fxDotSuite} ${i + 1}`} />
+            ))}
+          </span>
+          <button className="btn btn--dark" onClick={onBook}>{tr.rBook}</button>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------- Experience strip ---------- */
+/* ---------- Les cinq lieux, en arc ----------
+   Audit 28/08 · points 13 à 16 : cinq lieux au lieu de trois — la piscine et la salle de
+   sport cessent d'être des mentions en marge.
+   04/09 : les cartes passent en arc sur fond --ink. Neuf vues pour cinq lieux — les deux
+   premières photos de chaque lieu photographié, plus la carte de faits des séminaires,
+   qui n'ont aucune photo. Plusieurs vues partagent la même légende : elles portent
+   data-cap, et il n'y a donc que cinq blocs de légende.                               */
 function Experiences({ lang }) {
   const tr = T[lang]||T.fr;
+  const ref = useRef(null);
+
+  /* L'arc se resserre sur petit écran (rayon 560, ouverture 18°, cf. handoff). Le moteur
+     lit ces attributs une seule fois : on les cale avant le montage, et on le remonte
+     seulement quand on franchit le palier — pas à chaque pixel de redimensionnement. */
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const arc = el.querySelector('[data-fx="arc"]');
+    const petit = () => window.innerWidth <= 900;
+    const caler = () => {
+      if (!arc) return;
+      arc.dataset.spread = petit() ? '18' : '13';
+      arc.dataset.radius = petit() ? '560' : '950';
+    };
+    caler();
+    let detruire = TWVCarousels.init(el);
+    let etait = petit();
+    const onResize = () => {
+      if (petit() === etait) return;
+      etait = petit();
+      detruire();
+      caler();
+      detruire = TWVCarousels.init(el);
+    };
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('resize', onResize); detruire(); };
+  }, [lang]);
+
+  /* Deux vues par lieu photographié, prises dans l'ordre du client. */
+  const vues = [];
+  tr.exps.forEach((it, cap) => {
+    const photos = it.photos ? (PHOTOS[it.photos] || []) : [];
+    if (!photos.length) { vues.push({ cap, it, faits: true }); return; }
+    photos.slice(0, 2).forEach(([n, k]) => vues.push({ cap, it, slug: it.photos, n, k }));
+  });
+
   return (
-    <section className="exp" id="experiences">
-      <div className="exp__head">
-        <p className="eyebrow"><span className="eyebrow__dot" />{tr.expEye}</p>
-        <h2 className="h-display">{tr.expH2}</h2>
+    <section className="exp exp--arc" id="experiences" ref={ref}>
+      <div className="exp__head" data-reveal>
+        <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" />{tr.expEye}</p>
+        <h2 className="h-display h-display--light">{tr.expH2}</h2>
       </div>
-      {/* Audit 28/08 · points 13 à 16 : cinq lieux au lieu de trois — la piscine et la
-          salle de sport cessent d'être des mentions en marge. Les cartes ne sont plus des
-          liens : les pages correspondantes n'existent pas encore.
-          03/09 : la grille 3 + 2 laissait une case vide. Les cinq lieux passent en
-          carrousel, une carte par vue, cinq points — photo à gauche, texte à droite. */}
-      <Rail lang={lang} label={tr.expH2} autoplay interval={5000}>
-        {tr.exps.map(it => (
-          <article key={it.idx} className="exp__item">
-              {it.photos
-                ? <Gallery slug={it.photos} name={it.title} lang={lang}
-                    variant="arch" autoplay interval={5600 + Number(it.idx) * 700} />
-                : (
-                  /* Les séminaires n'ont aucune photo : la carte porte les faits plutôt
-                     qu'un visuel de remplissage. */
-                  <ul className="exp__facts">
-                    {tr.seminaireFacts.map(f => <li key={f}>{f}</li>)}
-                  </ul>
-                )}
-            <div className="exp__meta">
-              <span className="exp__idx">{it.idx}</span>
-              <div>
-                <h3>{it.title}</h3>
-                <p>{it.sub}</p>
-              </div>
+
+      <div className="fx fx--arc" data-fx="arc" data-every="3800" data-spread="13"
+           data-radius="950" data-tone="dark" data-reveal>
+        <div className="fx__stage fx__stage--arc" data-fxstage
+             tabIndex={0} aria-label={tr.fxLieuxAria}>
+          {vues.map((v, i) => (
+            <figure className={`fx__view${v.faits ? ' fx__view--facts' : ''}`}
+              data-fxi data-cap={v.cap} key={v.faits ? 'facts' : `${v.slug}-${v.n}`}>
+              {v.faits ? (
+                <ul className="fx__facts">
+                  {tr.seminaireFacts.map(f => <li key={f}>{f}</li>)}
+                </ul>
+              ) : (
+                <img
+                  src={photoSrc(v.slug, v.n, 800)}
+                  srcSet={`${photoSrc(v.slug, v.n, 800)} 800w, ${photoSrc(v.slug, v.n, 1600)} 1600w`}
+                  sizes="240px"
+                  alt={`${v.it.title} — ${(tr.photoK && tr.photoK[v.k]) || ''}`}
+                  loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+              )}
+            </figure>
+          ))}
+        </div>
+
+        <div className="fx__caps">
+          {tr.exps.map(it => (
+            <div className="fx__cap" data-fxc key={it.idx}>
+              <span className="fx__cap-eye">{it.idx} — {it.fxEye}</span>
+              <h3 className="fx__cap-title">{it.title}</h3>
+              <p className="fx__cap-txt">{it.sub}</p>
             </div>
-          </article>
-        ))}
-      </Rail>
+          ))}
+        </div>
+
+        <div className="fx__bar fx__bar--arc">
+          <span className="fx__count" data-fxk />
+          <span className="fx__dots">
+            {vues.map((v, i) => (
+              <button type="button" className="fx__dot" data-fxd
+                key={v.faits ? 'd-facts' : `d-${v.slug}-${v.n}`}
+                aria-label={`${tr.fxDotVue} ${i + 1}`} />
+            ))}
+          </span>
+          <span className="fx__hint">{tr.fxDragArc}</span>
+        </div>
+      </div>
     </section>
   );
 }
@@ -1615,28 +1710,71 @@ function DernierAppel({ lang, onBook }) {
 /* ---------- Quatre saisons ---------- */
 function Saisons({ lang, onBook }) {
   const tr = T[lang]||T.fr;
+  /* 04/09 : la grille de quatre cartes devient un flux 3D — la saison centrale en
+     volume, les voisines tournées et floutées. Hiver et été portent une photo ;
+     printemps et automne n'en ont aucune et gardent un panneau dégradé. */
+  const ref = useRef(null);
+  useEffect(() => TWVCarousels.init(ref.current), [lang]);
+
   return (
-    <section className="seasons" id="seasons">
-      <div className="seasons__head">
+    <section className="seasons" id="seasons" ref={ref}>
+      <div className="seasons__head" data-reveal>
         <p className="eyebrow"><span className="eyebrow__dot" />{tr.saisonsEye}</p>
         <h2 className="h-display">{tr.saisonsH2}</h2>
       </div>
-      <div className="seasons__grid">
-          {tr.saisons.map((s, i) => (
-          <article key={i} className="season">
-            <div className="season__media">
-              <Placeholder label={`${s.name.toLowerCase()} · ifrane`} tone={s.tone} aspect="3/4" />
-            </div>
-            <div className="season__body">
-              <div className="season__row">
-                <h3 className="season__name">{s.name}</h3>
-                <span className="season__period">{s.period}</span>
-              </div>
-              <p className="season__txt">{s.txt}</p>
-            </div>
-          </article>
-          ))}
+
+      <div className="fx fx--flow" data-fx="flow" data-every="4600" data-reveal>
+        <div className="fx__stage fx__stage--flow" data-fxstage
+             tabIndex={0} aria-label={tr.fxSaisonsAria}>
+          {tr.saisons.map((s, i) => {
+            const base = PHOTOS_SAISON[s.k];
+            return (
+              <article className={`fx__card fx__card--${s.k}`} data-fxi key={s.k}>
+                {base ? (
+                  <>
+                    <img className="fx__card-img"
+                      src={`assets/photos/${base}-800.jpg`}
+                      srcSet={`assets/photos/${base}-800.jpg 800w, assets/photos/${base}-1600.jpg 1600w`}
+                      sizes="(max-width: 900px) 78vw, 410px"
+                      alt={s.name}
+                      loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                    <span className="fx__card-scrim" />
+                  </>
+                ) : (
+                  <span className="fx__card-grain" />
+                )}
+                <div className="fx__card-body">
+                  <span className="fx__card-num">{i + 1}/{tr.saisons.length}</span>
+                  <div className="fx__card-txt">
+                    <h3 className="fx__card-name">{s.name}</h3>
+                    <span className="fx__card-period">{s.period}</span>
+                    <p className="fx__card-p">{s.txt}</p>
+                    <span className="fx__card-sign">{s.name.toLowerCase()} · {tr.fxLieu}</span>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <button type="button" className="fx__arrow fx__arrow--prev" data-fxp aria-label={tr.fxPrev}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <button type="button" className="fx__arrow fx__arrow--next" data-fxn aria-label={tr.fxNext}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
+
+        <div className="fx__bar fx__bar--flow">
+          <span className="fx__count" data-fxk />
+          <span className="fx__dots">
+            {tr.saisons.map(s => (
+              <button type="button" className="fx__dot" data-fxd key={s.k} aria-label={s.name} />
+            ))}
+          </span>
+          <span className="fx__rail"><span className="fx__rail-fill" data-fxbar /></span>
+        </div>
       </div>
+
       <div className="seasons__cta">
         <button className="btn btn--primary" onClick={onBook}>{tr.saisonsBtn}</button>
       </div>

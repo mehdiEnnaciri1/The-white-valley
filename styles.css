@@ -3482,3 +3482,435 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   border-bottom: 1px solid var(--line);
   background: var(--bg-alt);
 }
+
+/* =========================================================
+   CARROUSELS — trois mécaniques (handoff du 4 septembre)
+   Le moteur (carousel-engine.js) pose les transformations en style inline ; ce bloc
+   ne porte que la mise en page, les transitions et les couleurs, toutes en tokens.
+   Les valeurs suivent le README du handoff.
+   ========================================================= */
+
+/* ── Révélation au scroll, commune aux trois ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .9s cubic-bezier(.22,.9,.3,1), transform .9s cubic-bezier(.22,.9,.3,1);
+}
+.fx[data-reveal] { transform: translateY(36px); }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Éléments partagés : barre, compteur, points ── */
+.fx__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 26px;
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.fx__count {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--fg-mute);
+}
+.fx__dots { display: inline-flex; gap: 10px; }
+.fx__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+.fx__dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.fx__stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+
+/* =========================================================
+   1 — BANDES (squeeze) · Les suites
+   ========================================================= */
+.fx__stage--squeeze {
+  display: flex;
+  gap: 8px;
+  height: 600px;
+  overflow: hidden;
+}
+.fx__band {
+  position: relative;
+  flex: 0 1 86px;              /* état fermé par défaut ; le moteur ouvre la bande active */
+  min-width: 0;
+  overflow: hidden;
+  background: var(--ink);
+  cursor: pointer;
+  transition: flex-grow .95s cubic-bezier(.62,.02,.16,1),
+              flex-basis .95s cubic-bezier(.62,.02,.16,1);
+}
+.fx__band:first-child { flex-grow: 1; flex-basis: 0px; }
+.fx__band-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(.35) brightness(.7);
+  transition: filter .8s;
+}
+.fx__band:first-child .fx__band-img { filter: none; }
+/* Voile neutre, volontairement indépendant de la saison : la photo ne doit pas
+   changer de température quand le thème bascule. */
+.fx__band-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6,8,10,.05) 0%, rgba(6,8,10,.35) 50%, rgba(6,8,10,.92) 100%);
+}
+.fx__slat {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 86px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 0;
+  transition: opacity .5s;
+}
+.fx__band:first-child .fx__slat { opacity: 0; }
+.fx__slat-num, .fx__slat-size {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,.75);
+}
+.fx__slat-name {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  white-space: nowrap;
+}
+/* Largeur figée : le texte ne doit pas se recomposer pendant que la bande s'ouvre. */
+.fx__open {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: clamp(320px, 42vw, 600px);
+  padding: 0 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s .2s cubic-bezier(.22,.9,.3,1),
+              transform .6s .2s cubic-bezier(.22,.9,.3,1);
+}
+.fx__band:first-child .fx__open { opacity: 1; transform: none; }
+.fx__open-eye {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.72);
+}
+.fx__open-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1.04;
+  color: #fff;
+}
+.fx__open-txt {
+  font-size: 15px;
+  line-height: 1.62;
+  color: rgba(255,255,255,.86);
+  text-wrap: pretty;
+}
+.fx__open-meta {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+
+/* =========================================================
+   2 — FLUX 3D (flow) · Quatre saisons
+   ========================================================= */
+.fx--flow { position: relative; }
+.fx__stage--flow {
+  position: relative;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1700px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  transition: transform .5s cubic-bezier(.22,.9,.3,1);
+}
+.fx__card {
+  position: absolute;
+  width: min(44vw, 410px);
+  height: 580px;
+  overflow: hidden;
+  background: #14110e;
+  opacity: 0;
+  transition: transform .9s cubic-bezier(.22,.9,.3,1),
+              opacity .9s cubic-bezier(.22,.9,.3,1),
+              filter .9s;
+  will-change: transform;
+}
+.fx__card:first-child { opacity: 1; z-index: 20; }
+/* Panneaux des saisons sans photo — teintes de substitution, hors thème. */
+.fx__card--printemps { background: linear-gradient(150deg, #2a332a 0%, #141a14 100%); }
+.fx__card--automne   { background: linear-gradient(150deg, #4a3820 0%, #251a0e 100%); }
+.fx__card--ete       { background: #1a130c; }
+.fx__card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.fx__card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6,8,12,.15) 0%, rgba(6,8,12,.4) 44%, rgba(6,8,12,.92) 100%);
+}
+.fx__card--ete .fx__card-scrim {
+  background: linear-gradient(180deg, rgba(10,7,4,.15) 0%, rgba(10,7,4,.4) 44%, rgba(10,7,4,.92) 100%);
+}
+.fx__card-grain {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(135deg, transparent 0 26px, rgba(255,255,255,.028) 26px 52px);
+}
+.fx__card-body {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 34px 32px 38px;
+}
+.fx__card-num {
+  font-family: 'Fraunces', serif;
+  font-size: 60px;
+  line-height: 1;
+  color: rgba(255,255,255,.92);
+}
+.fx__card-txt { display: flex; flex-direction: column; gap: 13px; }
+.fx__card-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.04;
+  color: #fff;
+}
+.fx__card-period {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.62);
+}
+.fx__card-p {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: rgba(255,255,255,.85);
+  text-wrap: pretty;
+}
+.fx__card-sign {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,.5);
+}
+.fx__arrow {
+  position: absolute;
+  top: calc(50% - 40px);
+  transform: translateY(-50%);
+  z-index: 30;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background .25s, transform .25s;
+}
+.fx__arrow--prev { left: 8px; }
+.fx__arrow--next { right: 8px; }
+.fx__arrow:hover { background: var(--surface); }
+.fx__arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fx__bar--flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+}
+.fx__bar--flow .fx__dots { grid-column: 2; justify-self: center; }
+.fx__rail {
+  grid-column: 3;
+  justify-self: end;
+  position: relative;
+  width: min(240px, 30vw);
+  height: 1px;
+  background: var(--line);
+}
+.fx__rail-fill {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 3px;
+  width: 25%;
+  background: var(--accent);
+  transition: width .6s cubic-bezier(.22,.9,.3,1);
+}
+
+/* =========================================================
+   3 — ARC (arc) · Spa · table · piscine · sport · séminaires
+   ========================================================= */
+.exp--arc {
+  background: var(--ink);
+  padding: 78px 0 110px;
+  border: 0;
+}
+.exp--arc .exp__head {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.exp--arc .h-display--light { color: #fff; }
+.fx--arc { margin-top: 44px; }
+.fx__stage--arc {
+  position: relative;
+  height: 430px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  transition: transform .5s cubic-bezier(.22,.9,.3,1);
+}
+.fx__view {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  width: 214px;
+  height: 298px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0a0a0a;
+  transform-origin: 50% 50%;
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.22,.9,.3,1), opacity 1s, filter 1s;
+  will-change: transform;
+}
+.fx__view:first-child { opacity: 1; z-index: 20; }
+.fx__view img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fx__view--facts { background: var(--surface); }
+.fx__facts {
+  list-style: none;
+  margin: 0;
+  padding: 26px 22px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.fx__facts li {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--fg-dim);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.fx__facts li:last-child { border-bottom: 0; padding-bottom: 0; }
+.fx__caps {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 230px;
+}
+.fx__cap {
+  position: absolute;
+  inset: 0;
+  padding: 0 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.22,.9,.3,1), transform .7s cubic-bezier(.22,.9,.3,1);
+}
+.fx__caps .fx__cap:first-child { opacity: 1; transform: none; }
+.fx__cap-eye {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.fx__cap-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.06;
+  color: #fff;
+}
+.fx__cap-txt {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255,255,255,.72);
+  max-width: 640px;
+  text-wrap: pretty;
+}
+.fx__bar--arc {
+  justify-content: center;
+  gap: 22px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+  border-top: 0;
+}
+.fx__bar--arc .fx__count { color: rgba(255,255,255,.5); }
+.fx__bar--arc .fx__dot { width: 8px; height: 8px; border-color: rgba(255,255,255,.3); }
+.fx__hint {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+
+/* ── Responsive, selon le handoff ── */
+@media (max-width: 900px) {
+  /* Bandes : accordéon vertical, la lecture verticale du nom ne tient pas sur mobile */
+  .fx__stage--squeeze { flex-direction: column; height: auto; }
+  .fx__band { flex: 0 0 120px; height: 120px; }
+  .fx__band:first-child { flex: 0 0 420px; height: 420px; }
+  .fx__slat { width: 100%; height: 120px; flex-direction: row; padding: 0 22px; }
+  .fx__slat-name { writing-mode: horizontal-tb; transform: none; font-size: 17px; }
+  .fx__open { width: 100%; padding: 0 24px 26px; }
+  .fx__bar { flex-wrap: wrap; gap: 16px; }
+
+  /* Flux : carte plus étroite, flèches masquées — le glissement suffit */
+  .fx__stage--flow { height: 520px; }
+  .fx__card { width: min(78vw, 340px); height: 500px; }
+  .fx__arrow { display: none; }
+
+  /* Arc : rayon et ouverture réduits */
+  .fx__stage--arc { height: 320px; }
+  .fx__view { width: 150px; height: 210px; top: 28px; }
+  .fx__caps { height: 280px; padding: 0 24px; }
+  .fx__cap { padding: 0 24px; }
+  .fx__bar--arc { flex-wrap: wrap; padding: 0 24px; }
+}
