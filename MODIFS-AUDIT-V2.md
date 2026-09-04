@@ -238,3 +238,96 @@ Deux effets de bord à connaître : la Suite Senior Grand lit perd sa seule vue 
 Les numéros sont ceux des fichiers, pas des positions. Vérifié en navigateur : compteurs 09 et 04, ordre des fichiers conforme. Piscine (4) et salle de sport (3) inchangées.
 
 À noter pour The WHITE : la couverture est maintenant la prise cadrée entre les arbres. Il ne reste que quatre vues, toutes de la façade — le manque de vue intérieure du restaurant devient plus visible.
+
+---
+
+## 9. Trois mécaniques de carrousel (handoff du 4 septembre)
+
+Source : `design_handoff_carrousels/` — `README.md`, `reference-sections.html` et `carousel-engine.js`.
+
+| Section | Mécanique | Attribut | Cadence |
+|---|---|---|---|
+| Les suites (`#rooms`) | **Bandes** — une ouverte, trois réduites à un onglet vertical | `data-fx="squeeze"` | 5200 ms |
+| Quatre saisons (`#seasons`) | **Flux 3D** — la saison centrale en volume, les voisines tournées et floutées | `data-fx="flow"` | 4600 ms |
+| Cinq lieux (`#experiences`) | **Arc** — neuf vues sur un arc, fond `--ink` | `data-fx="arc"` | 3800 ms |
+
+### Ce qui a été respecté
+
+- **`carousel-engine.js` déposé tel quel**, chargé dans `index.html` avant `components.jsx`. Aucune dépendance ajoutée : le moteur est du JS natif, les flèches sont deux SVG inline.
+- **Aucun texte en dur dans le JSX.** Tout passe par `T.fr` / `T.en`, y compris les nouvelles clés : `niveau` sur chaque suite (surtitre « 01 — SENIOR · 65 M² »), `fxEye` sur chaque lieu (« 01 — CINQ CABINES »), `k` sur chaque saison, et les libellés `fxSuitesAria`, `fxSaisonsAria`, `fxLieuxAria`, `fxPrev`, `fxNext`, `fxDotSuite`, `fxDotVue`, `fxDragArc`, `fxLieu`.
+- **Les photos viennent de `PHOTOS[slug]`**, dans l'ordre établi par le client : couverture de chaque bande = première entrée de la suite ; arc = deux premières entrées de chaque lieu photographié. Aucune liste réécrite.
+- **Le style est dans `styles.css`**, en classes `.fx*` et en tokens. Deux exceptions assumées, prescrites par le README : les voiles sombres posés sur les photos (`rgba(6,8,10,…)`) et les dégradés des saisons sans photo (vert, cuivre) sont volontairement hors thème, pour que la photo ne change pas de température quand la saison bascule.
+- **Garde-fous du défilement conservés** : le moteur arrête l'avance au survol, au focus clavier, hors écran, onglet en arrière-plan et sous `prefers-reduced-motion`.
+- **`Gallery` et `Rail` ne sont pas supprimés**, conformément à la consigne — ils ne sont toutefois plus utilisés nulle part depuis ce changement.
+
+### Vérifié en navigateur
+
+- Structure : 3 carrousels (squeeze, flow, arc) ; 4 bandes / 4 points ; 4 cartes / 4 points / 2 flèches ; **9 vues, 5 légendes, 9 points** pour l'arc, comme spécifié.
+- Compteurs : 01/04, 01/04, 01/09.
+- Défilement : 01/04 → 02/04 après 7 s, puis figé pendant 11 s de survol.
+- Clavier : tabulation jusqu'à la scène, flèche droite → 03/04, anneau de focus visible.
+- Mouvement réduit : l'avance automatique ne démarre pas, mais les flèches continuent de fonctionner.
+- Bascule été/hiver : l'arc passe du vert forêt au bleu nuit, les surtitres au bleu d'accent, la carte de faits au blanc — aucune couleur de thème codée en dur.
+- Anglais : les trois sections rendent la copie `T.en`, surtitres compris.
+- Aucun débordement horizontal en 1440 px comme en 560 px.
+
+### Corrigé pendant l'intégration
+
+**L'accordéon mobile des bandes était cassé** : en colonne et sur une hauteur « auto », la bande active — que le moteur ouvre avec `flex-grow:1; flex-basis:0` — se réduisait à zéro et disparaissait. La scène a maintenant une hauteur définie (780 px) et la largeur de bande fermée passe par `data-slat` (120 px sur mobile), donc par le contrat du moteur plutôt que contre lui.
+
+Le même mécanisme sert à l'arc : `data-spread` et `data-radius` sont recalés à 18 et 560 sous 900 px. Comme le moteur ne lit ces attributs qu'au montage, un hook partagé (`useCarrousel`) le remonte au franchissement du palier, et une seule fois — pas à chaque pixel.
+
+### Écarts à signaler
+
+- **Les quatre lignes de spécifications des suites ne suivent plus le docx du 28/08.** Il prescrit « Surface 65 m² · Capacité [À CONFIRMER] · Cuisine kitchenette équipée » ; le handoff impose une ligne de service unique : « Kitchenette équipée · Capacité [À CONFIRMER] · Tarifs sur demande ». Les quatre informations restent affichées — la surface figure au surtitre et sur l'onglet vertical — mais les libellés « Surface » et « Cuisine » disparaissent. Le handoff étant postérieur, il l'emporte ; à valider si DO FACTORY repasse derrière.
+- **Le décalage latéral du flux reste à 54 % sur mobile**, là où le README demande 64 %. Cette valeur est à l'intérieur du moteur, que la consigne demande de déposer tel quel. La carte étant plus étroite sur mobile (`min(78vw, 340px)`), le décalage absolu diminue de lui-même. À trancher : patcher le moteur ou laisser.
+
+### Ajustements de l'arc (4 septembre, après-midi)
+
+- **Compteur et « Glissez l'arc » retirés** de la barre : ne restent que les neuf points.
+- **Cadence à 2 s** (`data-every`, était 3,8 s).
+- **Flèches gauche/droite ajoutées** (`data-fxp`/`data-fxn`), avec un style propre au fond `--ink` — la variante claire du flux n'y était pas lisible. Le glissement au curseur et le clic direct sur une vue existaient déjà dans le moteur pour ce mode (tout mode ≠ squeeze) ; seule la navigation explicite manquait.
+- Vérifié en navigateur : point actif 0 → 1 après 2,3 s ; clic flèche suivante 1→2, précédente 2→1, clic sur la 6e vue → 5.
+
+À noter : avec une transition de 1 s sur les vues et un intervalle de 2 s, chaque vue n'a qu'une seconde de pause avant le mouvement suivant — un rythme volontairement rapide, à confirmer que c'est bien l'effet recherché.
+
+### Deux vues de plus pour le spa et The WHITE (4 septembre)
+
+Chaque lieu montrait ses deux premières photos (`PHOTOS[slug].slice(0,2)`). Le spa et The WHITE en montrent désormais quatre chacun (nouveau champ `arcCount` sur ces deux entrées de `tr.exps`, lu comme `photos.slice(0, it.arcCount || 2)`) ; piscine et salle de sport restent à deux, comme avant.
+
+- **Spa** : ajout de `spa-06` (hammam) et `spa-03` (cabine) — déjà dans `PHOTOS.spa`, aucun fichier à produire.
+- **The WHITE** : ajout de `the-white-03` et `the-white-05` — les quatre entrées de `PHOTOS["the-white"]` sont désormais toutes affichées ; c'était déjà la totalité de la sélection retenue le 3 septembre, il n'y avait donc rien de plus à produire non plus.
+
+Vérifié en navigateur : 13 vues au total (4 + 4 + 2 + 2 + 1 carte de faits), 13 points en bas de section, répartition par lieu confirmée fichier par fichier.
+
+### Retouche des vues de l'arc (4 septembre, suite)
+
+- **Spa** : la 3e vue affichée passe de `spa-06` (hammam) à `spa-08` (cabine) — simple permutation dans `PHOTOS.spa`, aucun fichier ajouté ni retiré. Les quatre vues montrées sont maintenant `04, 05, 08, 03` : deux hammam, deux cabines, un meilleur équilibre avec le texte de la carte (« Cinq cabines, un hammam, un sauna »).
+- **The WHITE** : les 2e et 3e vues (`the-white-01` et `03`) sont retirées. Il ne reste que `04` et `05` — retour à deux vues, le champ `arcCount` devenu sans objet a été retiré de cette entrée.
+- **Salle de sport** : troisième vue ajoutée (`sport-03`, déjà dans `PHOTOS.sport`) via `arcCount:3`.
+
+Vérifié en navigateur, groupé par lieu : spa 4 vues, The WHITE 2, piscine 2, sport 3, séminaires 1 carte de faits — 12 vues au total.
+
+### Espace texte → points resserré dans l'arc (4 septembre)
+
+La boîte de légende (`.fx__caps`) a une hauteur fixe, nécessaire pour empiler les cinq légendes en fondu enchaîné les unes sur les autres. Elle faisait 230px alors que la plus longue légende (spa, The WHITE) n'en occupe naturellement que 164 — d'où le vide sous les légendes courtes comme la piscine (140px). Ramenée à 180px : mesuré, aucune des cinq légendes ne déborde, et l'écart entre le bas du texte et les points est nettement réduit.
+
+### Quatre saisons : compteur, espacement et flèches (4 septembre)
+
+- **Compteur `02 / 04` retiré** de la barre (même traitement que les suites et l'arc : ne restent que les points).
+- **Espace resserré** entre la barre de points et le bouton « Quand venir » : `.seasons__cta` passe de 48px à 24px de marge haute.
+- **Flèches gauche/droite sans cercle** : même traitement que l'arc, étendu à la règle de base `.fx__arrow` (fond et bordure transparents, pas de flou) — s'applique donc aussi aux flèches de l'arc, déjà transparentes par leur propre règle, sans changement visible côté arc.
+
+Vérifié par capture d'écran (rendu réel, pas de mesure DOM instrumentée — la section carrousel utilise un système de révélation au scroll dont l'état intermédiaire fausse les lectures `getBoundingClientRect` prises hors contexte de défilement normal).
+
+### Les suites : plusieurs photos par bande, cycle de 2 s (4 septembre)
+
+Chaque bande ne montrait qu'une seule photo (la couverture). Elle fait maintenant défiler en fondu **toutes** les photos de `PHOTOS[slug]` — 5 ou 6 selon la suite —, empilées et croisées toutes les 2 secondes (nouveau composant `BandPhotos`). Le cycle tourne aussi bien bande ouverte que fermée, et suit les mêmes garde-fous que le reste du site : pause au survol, au focus clavier, hors écran, onglet en arrière-plan, et sous `prefers-reduced-motion` (la première photo reste alors fixe).
+
+**Correction nécessaire dans `carousel-engine.js`** : le moteur ne dégrisait que la première image de chaque bande (`it.querySelector('img')`, singulier). Avec plusieurs photos empilées, seule la couverture aurait repassé en couleur à l'ouverture — les suivantes seraient restées grisées en permanence. Corrigé en `querySelectorAll` : toutes les photos d'une bande suivent désormais son état ouvert/fermé.
+
+Vérifié en navigateur : 5, 6, 5 et 5 photos par bande (soit toutes celles retenues au tri du 3 septembre), photo active qui change bien après 2,3 s, filtre `none` sur les 5 photos de la bande ouverte et `grayscale(.35) brightness(.7)` sur l'ensemble des photos des bandes fermées.
+
+### Espace resserré sous « Découvrir l'hôtel » (4 septembre)
+
+La marge basse de la section `.intro` (80px) s'ajoutait à la marge haute de la section suivante (80px), soit 160px de vide sous le lien. Ramenée à 32px (desktop et mobile). Vérifié : 32px du bas du lien au bas de la section.

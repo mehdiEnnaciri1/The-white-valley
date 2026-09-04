@@ -192,6 +192,8 @@ const T = {
     fxLieuxAria: 'Les cinq lieux en arc',
     fxPrev: 'Saison précédente',
     fxNext: 'Saison suivante',
+    fxViewPrev: 'Vue précédente',
+    fxViewNext: 'Vue suivante',
     fxDotSuite: 'Suite',
     fxDotVue: 'Vue',
     fxDragArc: "Glissez l'arc",
@@ -331,6 +333,7 @@ const T = {
       idx: '01',
       title: 'Le spa',
       photos: 'spa',
+      arcCount: 4,
       fxEye: "Cinq cabines",
       sub: "Cinq cabines, un hammam, un sauna, et des parcours séparés pour les femmes et pour les hommes. Des soins pensés pour l'altitude : à 1 650 mètres, la peau ne demande pas ce qu'elle demande au bord de la mer. Pas de musique dans les couloirs.",
       tone: 'sage'
@@ -352,6 +355,7 @@ const T = {
       idx: '04',
       title: 'La salle de sport',
       photos: 'sport',
+      arcCount: 3,
       fxEye: "Vitrée sur l'eau",
       sub: "Vitrée sur la piscine : deux vélos de biking, un elliptique, deux tapis de course, une presse à cuisses et une station à poulies. On voit l'eau pendant qu'on court.",
       tone: 'stone'
@@ -497,6 +501,8 @@ const T = {
     fxLieuxAria: 'The five places, on an arc',
     fxPrev: 'Previous season',
     fxNext: 'Next season',
+    fxViewPrev: 'Previous view',
+    fxViewNext: 'Next view',
     fxDotSuite: 'Suite',
     fxDotVue: 'View',
     fxDragArc: 'Drag the arc',
@@ -636,6 +642,7 @@ const T = {
       idx: '01',
       title: 'The spa',
       photos: 'spa',
+      arcCount: 4,
       fxEye: "Five cabins",
       sub: "Five cabins, a hammam, a sauna, and separate circuits for women and for men. Treatments designed for altitude: at 1,650 metres, the skin doesn't ask for what it asks for by the sea. No music in the corridors.",
       tone: 'sage'
@@ -657,6 +664,7 @@ const T = {
       idx: '04',
       title: 'The gym',
       photos: 'sport',
+      arcCount: 3,
       fxEye: "Glazed onto the water",
       sub: "Glazed onto the pool: two spin bikes, one elliptical, two treadmills, a leg press and a cable station. You watch the water while you run.",
       tone: 'stone'
@@ -818,10 +826,10 @@ const PHOTOS = {
   /* Spa — ordre client du 03/09 : le hammam ouvre la galerie ; les fichiers 02 et 01
      sont écartés (3e puis 2e vue, dans cet ordre de demande) ; les hammams 05 et 06
      suivent la couverture. */
-  "spa": [["04", "hammam"], ["05", "hammam"], ["06", "hammam"], ["03", "cabine"], ["07", "linge"], ["08", "cabine"], ["09", "detente"], ["10", "ambiance"]],
+  "spa": [["04", "hammam"], ["05", "hammam"], ["08", "cabine"], ["03", "cabine"], ["07", "linge"], ["06", "hammam"], ["09", "detente"], ["10", "ambiance"]],
   /* The WHITE — ordre client du 03/09 : la 4e vue passe en couverture ; les 2e et 6e
      sont écartées. */
-  "the-white": [["04", "restaurant"], ["01", "restaurant"], ["03", "restaurant"], ["05", "restaurant"]],
+  "the-white": [["04", "restaurant"], ["05", "restaurant"]],
   "piscine": [["01", "piscine"], ["02", "piscine"], ["03", "piscine"], ["04", "piscine"]],
   "sport": [["01", "sport"], ["02", "sport"], ["03", "sport"]]
   /* Le groupe « facade » n'est plus une galerie : « Nous rejoindre » affiche une
@@ -1918,6 +1926,93 @@ function Intro({
 function photoSrc(slug, n, w) {
   return `assets/photos/${slug}-${n}-${w}.jpg`;
 }
+
+/* ---------- BandPhotos ----------
+   Chaque bande des suites montre plusieurs photos, pas une seule : elles s'enchaînent
+   en fondu toutes les deux secondes (demande du 04/09). Empilées en absolute, une
+   seule à la fois en opacité 1 — c'est le moteur qui gère l'ouverture/fermeture de la
+   bande, ce cycle est indépendant et tourne aussi bien bande ouverte que fermée.
+   Mêmes garde-fous que le reste du site : pause hors écran, au survol, au focus
+   clavier, onglet en arrière-plan, et sous prefers-reduced-motion (le cycle ne
+   démarre pas du tout, la première photo reste affichée). */
+function BandPhotos({
+  slug,
+  name,
+  interval = 2000,
+  eager
+}) {
+  const photos = PHOTOS[slug] || [];
+  const [idx, setIdx] = useState(0);
+  const [pause, setPause] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const wrapRef = useRef(null);
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setVisible(true);
+      return;
+    }
+    const io = new IntersectionObserver(entries => entries.forEach(e => setVisible(e.isIntersecting)), {
+      threshold: 0.2
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    const reduit = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (reduit || pause || !visible || photos.length < 2) return;
+    const t = setInterval(() => {
+      if (document.hidden) return;
+      setIdx(i => (i + 1) % photos.length);
+    }, interval);
+    return () => clearInterval(t);
+  }, [pause, visible, photos.length, interval]);
+  if (!photos.length) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "fx__band-photos",
+    ref: wrapRef,
+    onMouseEnter: () => setPause(true),
+    onMouseLeave: () => setPause(false),
+    onFocus: () => setPause(true),
+    onBlur: () => setPause(false)
+  }, photos.map(([n, k], i) => /*#__PURE__*/React.createElement("img", {
+    key: n,
+    className: `fx__band-img${i === idx ? ' is-active' : ''}`,
+    src: photoSrc(slug, n, 800),
+    srcSet: `${photoSrc(slug, n, 800)} 800w, ${photoSrc(slug, n, 1600)} 1600w`,
+    sizes: "(max-width: 900px) 100vw, 900px",
+    alt: i === 0 ? name : '',
+    loading: eager && i === 0 ? 'eager' : 'lazy',
+    decoding: "async"
+  })));
+}
+
+/* Monte le moteur de carrousels sur une section, et le remonte quand on franchit le
+   palier de 900 px — le moteur ne lit ses attributs (data-slat, data-spread, data-radius)
+   qu'au montage, alors que leurs valeurs changent entre desktop et mobile.
+   `caler(el, petit)` pose ces attributs avant chaque montage. */
+function useCarrousel(ref, caler, lang) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof TWVCarousels === 'undefined') return;
+    const petit = () => window.innerWidth <= 900;
+    if (caler) caler(el, petit());
+    let detruire = TWVCarousels.init(el);
+    let etait = petit();
+    const onResize = () => {
+      if (petit() === etait) return;
+      etait = petit();
+      detruire();
+      if (caler) caler(el, etait);
+      detruire = TWVCarousels.init(el);
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      detruire();
+    };
+  }, [lang]);
+}
 function Rooms({
   onBook,
   lang
@@ -1927,10 +2022,13 @@ function Rooms({
      l'inventaire. Nomenclature refaite (Junior/Senior × Grand lit/Twin), filtres retirés,
      badge « le plus choisi » et preuve sociale retirés : l'hôtel n'a pas ouvert.
      04/09 : la grille de cartes devient une rangée de bandes (mécanique « squeeze »).
-     La couverture de chaque bande est la première photo de PHOTOS[slug], donc l'ordre
-     établi par le client. */
+     Chaque bande fait défiler toutes les photos de PHOTOS[slug] en fondu, dans l'ordre
+     établi par le client (BandPhotos). */
   const ref = useRef(null);
-  useEffect(() => TWVCarousels.init(ref.current), [lang]);
+  useCarrousel(ref, (el, petit) => {
+    const fx = el.querySelector('[data-fx="squeeze"]');
+    if (fx) fx.dataset.slat = petit ? '120px' : '86px';
+  }, lang);
   return /*#__PURE__*/React.createElement("section", {
     className: "rooms",
     id: "rooms",
@@ -1956,29 +2054,21 @@ function Rooms({
     className: "fx__stage fx__stage--squeeze",
     "data-fxstage": true
   }, tr.rooms.map((r, i) => {
-    const photos = PHOTOS[r.photos] || [];
-    const n = photos.length ? photos[0][0] : null;
     const rang = String(i + 1).padStart(2, '0');
     return /*#__PURE__*/React.createElement("article", {
       className: "fx__band",
       "data-fxi": true,
       key: r.name
-    }, n && /*#__PURE__*/React.createElement("img", {
-      className: "fx__band-img",
-      src: photoSrc(r.photos, n, 800),
-      srcSet: `${photoSrc(r.photos, n, 800)} 800w, ${photoSrc(r.photos, n, 1600)} 1600w`,
-      sizes: "(max-width: 900px) 100vw, 900px",
-      alt: r.name,
-      loading: i === 0 ? 'eager' : 'lazy',
-      decoding: "async"
+    }, /*#__PURE__*/React.createElement(BandPhotos, {
+      slug: r.photos,
+      name: r.name,
+      eager: i === 0
     }), /*#__PURE__*/React.createElement("span", {
       className: "fx__band-scrim"
     }), /*#__PURE__*/React.createElement("div", {
       className: "fx__slat",
       "data-fxslat": true
     }, /*#__PURE__*/React.createElement("span", {
-      className: "fx__slat-num"
-    }, rang), /*#__PURE__*/React.createElement("span", {
       className: "fx__slat-name"
     }, r.name), /*#__PURE__*/React.createElement("span", {
       className: "fx__slat-size"
@@ -1997,9 +2087,6 @@ function Rooms({
   })), /*#__PURE__*/React.createElement("div", {
     className: "fx__bar"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "fx__count",
-    "data-fxk": true
-  }), /*#__PURE__*/React.createElement("span", {
     className: "fx__dots"
   }, tr.rooms.map((r, i) => /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -2026,37 +2113,18 @@ function Experiences({
   const tr = T[lang] || T.fr;
   const ref = useRef(null);
 
-  /* L'arc se resserre sur petit écran (rayon 560, ouverture 18°, cf. handoff). Le moteur
-     lit ces attributs une seule fois : on les cale avant le montage, et on le remonte
-     seulement quand on franchit le palier — pas à chaque pixel de redimensionnement. */
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  /* L'arc se resserre sur petit écran : rayon 560, ouverture 18° (handoff). */
+  useCarrousel(ref, (el, petit) => {
     const arc = el.querySelector('[data-fx="arc"]');
-    const petit = () => window.innerWidth <= 900;
-    const caler = () => {
-      if (!arc) return;
-      arc.dataset.spread = petit() ? '18' : '13';
-      arc.dataset.radius = petit() ? '560' : '950';
-    };
-    caler();
-    let detruire = TWVCarousels.init(el);
-    let etait = petit();
-    const onResize = () => {
-      if (petit() === etait) return;
-      etait = petit();
-      detruire();
-      caler();
-      detruire = TWVCarousels.init(el);
-    };
-    window.addEventListener('resize', onResize);
-    return () => {
-      window.removeEventListener('resize', onResize);
-      detruire();
-    };
-  }, [lang]);
+    if (!arc) return;
+    arc.dataset.spread = petit ? '18' : '13';
+    arc.dataset.radius = petit ? '560' : '950';
+  }, lang);
 
-  /* Deux vues par lieu photographié, prises dans l'ordre du client. */
+  /* Deux vues par lieu photographié, prises dans l'ordre du client — sauf le spa et
+     The WHITE (arcCount:4, demande du 04/09), qui en montrent quatre. Pour The WHITE,
+     les quatre entrées de PHOTOS['the-white'] sont déjà toute la sélection retenue :
+     aucune photo supplémentaire à produire, seul le nombre affiché augmente. */
   const vues = [];
   tr.exps.forEach((it, cap) => {
     const photos = it.photos ? PHOTOS[it.photos] || [] : [];
@@ -2068,7 +2136,7 @@ function Experiences({
       });
       return;
     }
-    photos.slice(0, 2).forEach(([n, k]) => vues.push({
+    photos.slice(0, it.arcCount || 2).forEach(([n, k]) => vues.push({
       cap,
       it,
       slug: it.photos,
@@ -2092,7 +2160,7 @@ function Experiences({
   }, tr.expH2)), /*#__PURE__*/React.createElement("div", {
     className: "fx fx--arc",
     "data-fx": "arc",
-    "data-every": "3800",
+    "data-every": "2000",
     "data-spread": "13",
     "data-radius": "950",
     "data-tone": "dark",
@@ -2118,7 +2186,35 @@ function Experiences({
     alt: `${v.it.title} — ${tr.photoK && tr.photoK[v.k] || ''}`,
     loading: i === 0 ? 'eager' : 'lazy',
     decoding: "async"
-  })))), /*#__PURE__*/React.createElement("div", {
+  })))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__arrow fx__arrow--arc fx__arrow--prev",
+    "data-fxp": true,
+    "aria-label": tr.fxViewPrev
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.4"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M15 5l-7 7 7 7"
+  }))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "fx__arrow fx__arrow--arc fx__arrow--next",
+    "data-fxn": true,
+    "aria-label": tr.fxViewNext
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.4"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M9 5l7 7-7 7"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "fx__caps"
   }, tr.exps.map(it => /*#__PURE__*/React.createElement("div", {
     className: "fx__cap",
@@ -2133,9 +2229,6 @@ function Experiences({
   }, it.sub)))), /*#__PURE__*/React.createElement("div", {
     className: "fx__bar fx__bar--arc"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "fx__count",
-    "data-fxk": true
-  }), /*#__PURE__*/React.createElement("span", {
     className: "fx__dots"
   }, vues.map((v, i) => /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -2143,9 +2236,7 @@ function Experiences({
     "data-fxd": true,
     key: v.faits ? 'd-facts' : `d-${v.slug}-${v.n}`,
     "aria-label": `${tr.fxDotVue} ${i + 1}`
-  }))), /*#__PURE__*/React.createElement("span", {
-    className: "fx__hint"
-  }, tr.fxDragArc))));
+  }))))));
 }
 
 /* ---------- Localisation & coordonnées ---------- */
@@ -2527,7 +2618,7 @@ function Saisons({
      volume, les voisines tournées et floutées. Hiver et été portent une photo ;
      printemps et automne n'en ont aucune et gardent un panneau dégradé. */
   const ref = useRef(null);
-  useEffect(() => TWVCarousels.init(ref.current), [lang]);
+  useCarrousel(ref, null, lang);
   return /*#__PURE__*/React.createElement("section", {
     className: "seasons",
     id: "seasons",
@@ -2571,9 +2662,7 @@ function Saisons({
       className: "fx__card-grain"
     }), /*#__PURE__*/React.createElement("div", {
       className: "fx__card-body"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "fx__card-num"
-    }, i + 1, "/", tr.saisons.length), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("div", {
       className: "fx__card-txt"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "fx__card-name"
@@ -2615,9 +2704,6 @@ function Saisons({
   }))), /*#__PURE__*/React.createElement("div", {
     className: "fx__bar fx__bar--flow"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "fx__count",
-    "data-fxk": true
-  }), /*#__PURE__*/React.createElement("span", {
     className: "fx__dots"
   }, tr.saisons.map(s => /*#__PURE__*/React.createElement("button", {
     type: "button",

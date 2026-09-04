@@ -124,8 +124,12 @@
           }
           var tab = it.querySelector('[data-fxslat]');
           if (tab) tab.style.opacity = on ? '0' : '1';
-          var im = it.querySelector('img');
-          if (im) im.style.filter = on ? 'none' : 'grayscale(.35) brightness(.7)';
+          /* querySelectorAll, pas querySelector : une bande peut porter plusieurs
+             photos empilées (cycle automatique), pas seulement la couverture. */
+          var ims = it.querySelectorAll('img');
+          for (var k = 0; k < ims.length; k++) {
+            ims[k].style.filter = on ? 'none' : 'grayscale(.35) brightness(.7)';
+          }
         }
       });
 

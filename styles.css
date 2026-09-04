@@ -1048,7 +1048,9 @@ body[data-theme="light-brass"] .bb__submit { color: #f5f0e8; }
 .intro {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 80px 48px;
+  /* Bas resserré (04/09) : la section suivante ajoute déjà 80px de marge haute, le
+     cumul sous "Découvrir l'hôtel" était disproportionné par rapport au reste. */
+  padding: 80px 48px 32px;
 }
 .intro__grid {
   display: grid;
@@ -2205,7 +2207,7 @@ body[data-season="hiver"] .call .btn--primary:hover {
   line-height: 1.6;
   color: var(--fg-dim);
 }
-.seasons__cta { margin-top: 48px; display: flex; }
+.seasons__cta { margin-top: 24px; display: flex; }
 
 /* =========================================================
    TWEAKS PANEL
@@ -2461,7 +2463,7 @@ body[data-season="hiver"] .call .btn--primary:hover {
   .call__inner { padding: 72px 20px; gap: 28px; }
 
   /* ── 8. INTRO ── */
-  .intro       { padding: 72px 20px; }
+  .intro       { padding: 72px 20px 32px; }
   .intro__grid { gap: 36px; }
   .intro__right p { font-size: 15px; max-width: 100%; }
 
@@ -3551,16 +3553,23 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
               flex-basis .95s cubic-bezier(.62,.02,.16,1);
 }
 .fx__band:first-child { flex-grow: 1; flex-basis: 0px; }
+.fx__band-photos { position: absolute; inset: 0; }
 .fx__band-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
   filter: grayscale(.35) brightness(.7);
-  transition: filter .8s;
+  transition: opacity 1s ease, filter .8s;
 }
+/* Une seule photo visible à la fois : le cycle avance en fondu, pas en découpe. */
+.fx__band-img.is-active { opacity: 1; }
 .fx__band:first-child .fx__band-img { filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fx__band-img { transition: filter .8s; }
+}
 /* Voile neutre, volontairement indépendant de la saison : la photo ne doit pas
    changer de température quand le thème bascule. */
 .fx__band-scrim {
@@ -3582,7 +3591,7 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   transition: opacity .5s;
 }
 .fx__band:first-child .fx__slat { opacity: 0; }
-.fx__slat-num, .fx__slat-size {
+.fx__slat-size {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 11px;
   color: rgba(255,255,255,.75);
@@ -3691,14 +3700,10 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* Le numéro « 1/4 » a été retiré (04/09) : un seul enfant reste (le texte), calé
+     en bas comme avant — space-between n'a plus d'effet avec un enfant unique. */
+  justify-content: flex-end;
   padding: 34px 32px 38px;
-}
-.fx__card-num {
-  font-family: 'Fraunces', serif;
-  font-size: 60px;
-  line-height: 1;
-  color: rgba(255,255,255,.92);
 }
 .fx__card-txt { display: flex; flex-direction: column; gap: 13px; }
 .fx__card-name {
@@ -3726,6 +3731,8 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   letter-spacing: 0.06em;
   color: rgba(255,255,255,.5);
 }
+/* Flèches sans cercle (04/09) : seul le chevron reste visible, la zone de clic de
+   52px est conservée pour ne pas rétrécir la cible. */
 .fx__arrow {
   position: absolute;
   top: calc(50% - 40px);
@@ -3735,17 +3742,18 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   height: 52px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--bg) 78%, transparent);
-  backdrop-filter: blur(8px);
+  background: transparent;
+  backdrop-filter: none;
   color: var(--fg);
+  opacity: .7;
   cursor: pointer;
-  transition: background .25s, transform .25s;
+  transition: opacity .25s, transform .25s;
 }
 .fx__arrow--prev { left: 8px; }
 .fx__arrow--next { right: 8px; }
-.fx__arrow:hover { background: var(--surface); }
+.fx__arrow:hover { opacity: 1; }
 .fx__arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .fx__bar--flow {
   display: grid;
@@ -3785,7 +3793,22 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   padding: 0 48px;
 }
 .exp--arc .h-display--light { color: #fff; }
-.fx--arc { margin-top: 44px; }
+.fx--arc { position: relative; margin-top: 44px; }
+/* Flèches de l'arc : recentrées sur la rangée de vues (40px de marge haute + moitié
+   des 298px de hauteur). Demande du 04/09 : le cercle disparaît, seul le chevron
+   reste visible — la zone de clic de 52px est conservée, juste sans cadre ni fond. */
+.fx__arrow--arc {
+  top: 189px;
+  transform: translateY(-50%);
+  background: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  color: #fff;
+  opacity: .7;
+}
+.fx__arrow--arc:hover { background: transparent; opacity: 1; }
+.fx__arrow--arc.fx__arrow--prev { left: 24px; }
+.fx__arrow--arc.fx__arrow--next { right: 24px; }
 .fx__stage--arc {
   position: relative;
   height: 430px;
@@ -3836,7 +3859,9 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
   max-width: 800px;
   margin: 0 auto;
   padding: 0 48px;
-  height: 230px;
+  /* La légende la plus longue mesure ~164px ; 180px lui laisse un peu d'air sans
+     ouvrir un vide sous les légendes plus courtes (04/09, l'écart texte → points). */
+  height: 180px;
 }
 .fx__cap {
   position: absolute;
@@ -3893,10 +3918,12 @@ body[data-season="hiver"]      .bp__book-btn:hover     { background: #2d88c4; co
 
 /* ── Responsive, selon le handoff ── */
 @media (max-width: 900px) {
-  /* Bandes : accordéon vertical, la lecture verticale du nom ne tient pas sur mobile */
-  .fx__stage--squeeze { flex-direction: column; height: auto; }
-  .fx__band { flex: 0 0 120px; height: 120px; }
-  .fx__band:first-child { flex: 0 0 420px; height: 420px; }
+  /* Bandes : accordéon vertical, la lecture verticale du nom ne tient pas sur mobile.
+     La hauteur de la scène doit rester définie : le moteur ouvre la bande active avec
+     flex-grow:1 et flex-basis:0, ce qui, en colonne et sur une hauteur « auto », la
+     réduisait à zéro. Trois bandes fermées à 120 px (data-slat, posé par le composant)
+     plus l'active : 780 px. */
+  .fx__stage--squeeze { flex-direction: column; height: 780px; }
   .fx__slat { width: 100%; height: 120px; flex-direction: row; padding: 0 22px; }
   .fx__slat-name { writing-mode: horizontal-tb; transform: none; font-size: 17px; }
   .fx__open { width: 100%; padding: 0 24px 26px; }
