@@ -800,10 +800,49 @@ function openBooking(lang = 'fr', trip = null) {
     return;
   }
 
-  /* Relais temporaire : demande de séjour par e-mail, en attendant le moteur. */
+  /* Relais temporaire : demande de séjour par e-mail, en attendant le moteur.
+     04/09 : un `location.href = 'mailto:...'` posé par script ne donne AUCUN retour
+     visible si le navigateur n'a pas de messagerie par défaut — le clic semblait
+     ne rien faire. On ouvre maintenant un panneau qui reste à l'écran, avec un
+     vrai lien <a href="mailto:..."> (un clic direct sur un lien est géré plus
+     fiablement par le système qu'une navigation posée en JS) et l'adresse en clair
+     à copier si aucune messagerie n'est configurée. */
   const subject = en ? 'Booking request — The White Valley' : 'Demande de réservation — The White Valley';
   const body = trip ? en ? `Check-in: ${trip.checkIn}\nCheck-out: ${trip.checkOut}\nAdults: ${trip.adults}\nChildren: ${trip.children}\n\n` : `Arrivée : ${trip.checkIn}\nDépart : ${trip.checkOut}\nAdultes : ${trip.adults}\nEnfants : ${trip.children}\n\n` : '';
-  window.location.href = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const mailto = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  showBookingRelay(en, mailto);
+}
+
+/* Panneau de relais — DOM géré à la main, sans dépendance, sur le même principe que
+   carousel-engine.js. Un seul panneau à la fois (id fixe) : un second clic remplace
+   le précédent plutôt que d'en empiler un nouveau. */
+function showBookingRelay(en, mailto) {
+  const ancien = document.getElementById('twv-relay');
+  if (ancien) ancien.remove();
+  const wrap = document.createElement('div');
+  wrap.id = 'twv-relay';
+  wrap.className = 'twv-relay';
+  wrap.innerHTML = `
+    <div class="twv-relay__box" role="dialog" aria-label="${en ? 'Booking' : 'Réservation'}">
+      <button type="button" class="twv-relay__close" aria-label="${en ? 'Close' : 'Fermer'}">✕</button>
+      <p class="twv-relay__eyebrow">THE WHITE VALLEY</p>
+      <h2 class="twv-relay__title">${en ? 'Booking engine not connected yet' : "Le moteur de réservation n'est pas encore branché"}</h2>
+      <p class="twv-relay__txt">${en ? 'Write to us directly and we will get back to you with availability and rates.' : 'Écrivez-nous directement, nous revenons vers vous avec les disponibilités et les tarifs.'}</p>
+      <a class="twv-relay__link" href="${mailto}">${BOOKING_EMAIL}</a>
+      <p class="twv-relay__hint">${en ? "No mail app open? Copy the address above." : "Pas de messagerie qui s'ouvre ? Copiez l'adresse ci-dessus."}</p>
+    </div>`;
+  document.body.appendChild(wrap);
+  const fermer = () => wrap.remove();
+  wrap.querySelector('.twv-relay__close').addEventListener('click', fermer);
+  wrap.addEventListener('click', e => {
+    if (e.target === wrap) fermer();
+  });
+  document.addEventListener('keydown', function esc(e) {
+    if (e.key === 'Escape') {
+      fermer();
+      document.removeEventListener('keydown', esc);
+    }
+  });
 }
 
 /* ── Photos ── Générées depuis assets/photos/ (deux tailles : -800 et -1600).

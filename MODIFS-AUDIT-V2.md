@@ -331,3 +331,17 @@ Vérifié en navigateur : 5, 6, 5 et 5 photos par bande (soit toutes celles rete
 ### Espace resserré sous « Découvrir l'hôtel » (4 septembre)
 
 La marge basse de la section `.intro` (80px) s'ajoutait à la marge haute de la section suivante (80px), soit 160px de vide sous le lien. Ramenée à 32px (desktop et mobile). Vérifié : 32px du bas du lien au bas de la section.
+
+---
+
+## 10. Réservation : le clic ne donnait aucun retour visible (4 septembre)
+
+**Signalé par l'utilisateur** : les boutons « Vérifier disponibilité » et « Réserver » (Nav, Hero, Rooms, Saisons, Dernier appel — tous appellent `openBooking()`) ne semblaient rien faire au clic.
+
+**Cause** : `BOOKING_ENGINE_URL` reste vide (le client n'a toujours pas fourni l'URL du moteur — audit 28/08, point 23), donc `openBooking()` bascule sur `window.location.href = 'mailto:...'`. Posée par script, cette navigation ne produit **aucun effet visible** si le navigateur n'a pas de messagerie par défaut configurée — ce qui est le cas typique d'un poste de test. Ce n'était pas un bug de logique : la fonction s'exécutait bien, mais sans retour perceptible.
+
+**Correctif** : `openBooking()` ouvre désormais un panneau qui reste à l'écran (`showBookingRelay`, DOM géré à la main, sans dépendance) — un vrai `<a href="mailto:...">` (un clic direct sur un lien est mieux géré par le système qu'une navigation posée en JS) et l'adresse en clair pour copier si aucune messagerie ne s'ouvre. Fermeture par la croix, un clic hors panneau, ou Échap.
+
+Vérifié en navigateur : le panneau s'ouvre pour les deux boutons testés (barre de réservation et nav), affiche le bon lien mailto, se ferme et se rouvre sans laisser de doublon.
+
+**Ça ne remplace pas le vrai moteur.** Tant que `BOOKING_ENGINE_URL` reste vide, ce panneau est la meilleure réponse honnête possible — il faut l'URL HotelRunner (ou autre) de The White Valley pour rebrancher la réservation en direct.
